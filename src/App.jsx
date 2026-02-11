@@ -1,13 +1,17 @@
-import "./App.css";
+import { Routes, Route } from "react-router";
+import PageShell from "./components/layout/PageShell";
+//import Home from "./pages/Home";
+import Resume from "./pages/Resume";
+// other pages tba
 
-function App() {
+export default function App() {
   return (
-    <>
-      <header>
-        <h1>Hello, World!</h1>
-      </header>
-    </>
+    <PageShell>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/resume" element={<Resume />} />
+        {/* other routes tba */}
+      </Routes>
+    </PageShell>
   );
 }
-
-export default App;
