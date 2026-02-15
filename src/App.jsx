@@ -8,7 +8,6 @@ export default function App() {
   return (
     <PageShell>
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/resume" element={<Resume />} />
         {/* other routes tba */}
       </Routes>

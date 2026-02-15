@@ -19,7 +19,7 @@ export default function Footer() {
         </div>
 
         <p className="text-sm text-zinc-500">{site.footer.note}</p>
-        <p className="text-xs text-zinc-400">Last updated: {site.footer.lastUpdated}</p>
+        <p className="text-xs text-zinc-400">Last updated: {site.footer.lastUpdated}</p> {/* change to auto */ }
       </div>
     </footer>
   );
