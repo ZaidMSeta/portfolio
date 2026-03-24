@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router";
-import PageShell from "./components/layout/PageShell";
+import PageShell from "./app/components/layout/PageShell";
 //import Home from "./pages/Home";
-import Resume from "./pages/Resume";
+import Resume from "./app/pages/Resume";
 // other pages tba
 
 export default function App() {
