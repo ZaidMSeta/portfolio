@@ -9,12 +9,12 @@ export default function Home() {
     <div className="space-y-24">
       <Hero />
 
-      <section className="space-y-20">
+      <div className="space-y-20">
         <FeaturedProjects />
         <ExperienceSnapshot />
         <BentoGrid />
         <ConnectSection />
-      </section>
+      </div>
     </div>
   );
 }

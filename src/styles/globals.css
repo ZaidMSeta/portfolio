@@ -37,3 +37,11 @@ img {
   display: block;
   max-width: 100%;
 }
+
+.card {
+    @apply rounded-xl border border-white/10 bg-white/5 p-5;
+  }
+
+section {
+  scroll-margin-top: 100px;
+}
