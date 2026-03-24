@@ -67,3 +67,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.card {
+    @apply border border-border rounded-xl p-5 bg-card;
+  }
