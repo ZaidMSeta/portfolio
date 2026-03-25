@@ -47,7 +47,7 @@ export function ExperienceSnapshot() {
         {featuredExperience.map((role) => (
           <article
             key={role.id}
-            className="rounded-xl border border-border bg-card p-5 transition hover:border-white/20"
+            className="rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-white/20"
           >
             <div className="mb-4 flex items-start justify-between gap-4">
               <div className="flex items-start gap-3">
