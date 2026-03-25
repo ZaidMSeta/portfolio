@@ -2,35 +2,28 @@ import { Link } from "react-router";
 
 export function Hero() {
   return (
-    <section className="space-y-6">
-      <div className="space-y-4 max-w-3xl">
-        <p className="text-sm text-muted-foreground">Zaid Seta / portfolio</p>
-
-        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+    <section className="pt-6">
+      <div className="max-w-3xl space-y-6">
+        <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
           Zaid Seta
         </h1>
 
-        <p className="text-lg text-foreground/90 sm:text-xl">
-          Computer Science student building practical full-stack apps and useful tools.
+        <p className="max-w-2xl text-base leading-8 text-white/65 sm:text-lg">
+          Computer Science student and aspiring software engineer. I build
+          thoughtful tools and clean interfaces that solve real problems.
         </p>
 
-        <p className="max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
-          I’m a Computer Science student at McMaster University with an interest in
-          full-stack development, product-focused software, and building tools that
-          solve real problems.
-        </p>
-
-        <div className="flex flex-wrap items-center gap-3 pt-2">
+        <div className="flex flex-wrap items-center gap-3 pt-1">
           <Link
             to="/projects"
-            className="rounded-lg border border-border px-4 py-2 text-sm transition hover:border-white/20 hover:text-foreground"
+            className="rounded-lg border border-white/15 bg-white/5 px-4 py-2.5 text-sm text-white transition hover:border-white/25 hover:bg-white/[0.08]"
           >
             View Projects
           </Link>
 
           <Link
             to="/resume"
-            className="rounded-lg border border-border px-4 py-2 text-sm transition hover:border-white/20 hover:text-foreground"
+            className="rounded-lg border border-white/10 px-4 py-2.5 text-sm text-white/75 transition hover:border-white/20 hover:text-white"
           >
             Resume
           </Link>

@@ -7,6 +7,9 @@ import {
   Link2,
 } from "lucide-react";
 
+const tileClassName =
+  "rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-white/20 hover:bg-white/[0.07]";
+
 function GitHubActivity() {
   const commits = [
     "feat: added project detail layout",
@@ -16,7 +19,7 @@ function GitHubActivity() {
   ];
 
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 p-5 md:col-span-2 md:row-span-2">
+    <div className={`${tileClassName} md:col-span-2 md:row-span-2`}>
       <div className="mb-4 flex items-center gap-2">
         <GitCommit size={14} className="text-teal-300" />
         <h3 className="text-sm font-medium text-white">Recent GitHub Activity</h3>
@@ -40,7 +43,7 @@ function ClickMeTile() {
   return (
     <button
       onClick={() => setCount((c) => c + 1)}
-      className="rounded-xl border border-white/10 bg-white/5 p-5 text-left transition hover:border-white/20 hover:bg-white/[0.07]"
+      className={`${tileClassName} text-left`}
     >
       <MousePointerClick size={14} className="mb-3 text-teal-300" />
       <p className="mb-1 text-3xl font-semibold text-white">{count}</p>
@@ -51,8 +54,8 @@ function ClickMeTile() {
 
 function LocationTile() {
   return (
-    <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5">
-      <div className="h-28 bg-[radial-gradient(circle_at_center,_rgba(45,212,191,0.18),_transparent_55%)]" />
+    <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 transition hover:border-white/20 hover:bg-white/[0.07]">
+      <div className="h-28 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.18),transparent_55%)]" />
       <div className="p-5">
         <div className="mb-3 flex items-center gap-2">
           <MapPin size={14} className="text-teal-300" />
@@ -73,7 +76,7 @@ function GuestbookPreview() {
   ];
 
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 p-5 md:col-span-2">
+    <div className={`${tileClassName} md:col-span-2`}>
       <div className="mb-4 flex items-center gap-2">
         <MessageSquare size={14} className="text-teal-300" />
         <h3 className="text-sm font-medium text-white">Guestbook</h3>
@@ -104,7 +107,7 @@ function WebringTile() {
   return (
     <a
       href="#"
-      className="rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-white/20 hover:bg-white/[0.07]"
+      className={tileClassName}
     >
       <Link2 size={14} className="mb-3 text-teal-300" />
       <p className="font-medium text-white">McMaster</p>
@@ -116,9 +119,7 @@ function WebringTile() {
 export function BentoGrid() {
   return (
     <section className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-white">Extras</h2>
-      </div>
+      <h2 className="text-xl font-semibold text-white">Extras</h2>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
         <GitHubActivity />
