@@ -3,6 +3,7 @@ import PageShell from "./components/layout/PageShell";
 import Home from "./pages/Home";
 //import About from "./pages/About";
 import Projects from "./pages/Projects";
+import ProjectDetail from "./pages/ProjectDetail";
 //import Experience from "./pages/Experience";
 import Resume from "./pages/Resume";
 //import Contact from "./pages/Contact";
@@ -17,6 +18,7 @@ export default function App() {
         { /* <Route path="/experience" element={<Experience />} /> */}
         <Route path="/resume" element={<Resume />} />
         { /* <Route path="/contact" element={<Contact />} /> */}
+        <Route path="/projects/:slug" element={<ProjectDetail />} />
       </Routes>
     </PageShell>
   );
