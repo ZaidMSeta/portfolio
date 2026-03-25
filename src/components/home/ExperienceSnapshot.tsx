@@ -33,11 +33,11 @@ export function ExperienceSnapshot() {
   return (
     <section>
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Experience</h2>
+        <h2 className="text-xl font-semibold text-white">Experience</h2>
 
         <Link
           to="/experience"
-          className="text-sm text-muted-foreground transition hover:text-foreground"
+          className="text-sm text-white/60 transition hover:text-white"
         >
           See all experience →
         </Link>
@@ -54,24 +54,28 @@ export function ExperienceSnapshot() {
                 <img
                   src={role.logo}
                   alt={`${role.company} logo`}
-                  className="h-10 w-10 rounded-lg border border-border object-contain bg-white p-1"
+                  className="h-10 w-10 rounded-lg border border-white/10 bg-white p-1 object-contain"
                 />
 
                 <div>
-                  <h3 className="text-base font-semibold">{role.title}</h3>
-                  <p className="text-sm text-muted-foreground">{role.company}</p>
+                  <h3 className="text-base font-semibold text-white">
+                    {role.title}
+                  </h3>
+                  <p className="text-sm text-white/60">{role.company}</p>
                 </div>
               </div>
 
-              <div className="text-right text-xs text-muted-foreground">
+              <div className="text-right text-xs text-white/50">
                 <p>{formatYM(role.start)}</p>
-                <p>— {role.end === "Present" ? "Present" : formatYM(role.end)}</p>
+                <p>
+                  — {role.end === "Present" ? "Present" : formatYM(role.end)}
+                </p>
               </div>
             </div>
 
-            <p className="mb-3 text-sm text-muted-foreground">{role.location}</p>
+            <p className="mb-3 text-sm text-white/50">{role.location}</p>
 
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm leading-6 text-white/60">
               {role.description[0]}
             </p>
           </article>
