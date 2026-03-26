@@ -1,6 +1,8 @@
 import { Link, useParams } from "react-router";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
 import { projects } from "../data/projects";
+import { getTechColour } from "../lib/utils/techColour";
+
 
 export default function ProjectDetail() {
   const { slug } = useParams();
@@ -50,7 +52,31 @@ export default function ProjectDetail() {
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+          <span className="text-white/45">{project.date}</span>
+          <span className="text-teal-300">{project.status}</span>
+
+          <div className="flex flex-wrap gap-2">
+            {project.stack.map((tech) => {
+              const color = getTechColour(tech);
+
+              return (
+                <span
+                  key={tech}
+                  className="rounded-md px-2 py-0.5 text-[11px]"
+                  style={{
+                    backgroundColor: color.bg,
+                    color: color.text,
+                  }}
+                >
+                  {tech}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-3 pt-1">
           {project.repoUrl ? (
             <a
               href={project.repoUrl}
@@ -87,24 +113,24 @@ export default function ProjectDetail() {
         </div>
       </section>
 
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.8fr_1fr]">
-        <div className="space-y-6">
-          <section className="rounded-xl border border-white/10 bg-white/5 p-6">
-            <h2 className="mb-4 text-xl font-semibold text-white">What It Is</h2>
+      <section className="rounded-xl border border-white/10 bg-white/5 p-6">
+        <div className="space-y-10">
+          <div>
+            <h2 className="mb-4 text-2xl font-semibold text-white">What It Is</h2>
             <p className="text-sm leading-7 text-white/65 sm:text-base">
               {project.whatItIs}
             </p>
-          </section>
+          </div>
 
-          <section className="rounded-xl border border-white/10 bg-white/5 p-6">
-            <h2 className="mb-4 text-xl font-semibold text-white">Why I Built It</h2>
+          <div>
+            <h2 className="mb-4 text-2xl font-semibold text-white">Why I Built It</h2>
             <p className="text-sm leading-7 text-white/65 sm:text-base">
               {project.whyBuilt}
             </p>
-          </section>
+          </div>
 
-          <section className="rounded-xl border border-white/10 bg-white/5 p-6">
-            <h2 className="mb-4 text-xl font-semibold text-white">Key Features</h2>
+          <div>
+            <h2 className="mb-4 text-2xl font-semibold text-white">Key Features</h2>
             <ul className="space-y-3">
               {project.features.map((feature) => (
                 <li
@@ -116,49 +142,16 @@ export default function ProjectDetail() {
                 </li>
               ))}
             </ul>
-          </section>
+          </div>
 
-          <section className="rounded-xl border border-white/10 bg-white/5 p-6">
-            <h2 className="mb-4 text-xl font-semibold text-white">Reflection</h2>
+          <div>
+            <h2 className="mb-4 text-2xl font-semibold text-white">Reflection</h2>
             <p className="text-sm leading-7 text-white/65 sm:text-base">
               {project.reflection}
             </p>
-          </section>
+          </div>
         </div>
-
-        <div className="space-y-6">
-          <section className="rounded-xl border border-white/10 bg-white/5 p-6">
-            <h2 className="mb-4 text-lg font-semibold text-white">Project Info</h2>
-
-            <div className="space-y-4 text-sm">
-              <div>
-                <p className="mb-1 text-white/40">Status</p>
-                <p className="text-white/80">{project.status}</p>
-              </div>
-
-              <div>
-                <p className="mb-1 text-white/40">Date</p>
-                <p className="text-white/80">{project.date}</p>
-              </div>
-            </div>
-          </section>
-
-          <section className="rounded-xl border border-white/10 bg-white/5 p-6">
-            <h2 className="mb-4 text-lg font-semibold text-white">Tech Stack</h2>
-
-            <div className="flex flex-wrap gap-2">
-              {project.stack.map((tech) => (
-                <span
-                  key={tech}
-                  className="rounded-md border border-white/10 px-2 py-1 text-xs text-white/60"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </section>
-        </div>
-      </div>
+      </section>
     </div>
   );
 }
