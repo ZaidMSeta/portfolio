@@ -6,6 +6,8 @@ export type GitHubActivityCommit = {
   url: string;
   repoName: string;
   date: string;
+  additions: number;
+  deletions: number;
 };
 
 type GitHubEvent = {
@@ -28,6 +30,10 @@ type GitHubCommitResponse = {
     author?: {
       date?: string;
     };
+  };
+  stats?: {
+    additions?: number;
+    deletions?: number;
   };
 };
 
@@ -61,6 +67,8 @@ async function fetchCommitDetails(
     url: data.html_url,
     repoName,
     date: data.commit.author?.date || "",
+    additions: data.stats?.additions ?? 0,
+    deletions: data.stats?.deletions ?? 0,
   };
 }
 
