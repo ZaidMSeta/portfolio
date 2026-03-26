@@ -10,7 +10,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-5 text-sm text-white/55">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-white/55">
             <a
               href="mailto:zaid.seta@mcmaster.ca"
               className="transition hover:text-white"
