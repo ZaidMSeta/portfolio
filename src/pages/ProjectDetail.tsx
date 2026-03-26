@@ -30,8 +30,8 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="space-y-12">
-      <div className="space-y-5">
+    <div className="space-y-14">
+      <section className="space-y-5">
         <Link
           to="/projects"
           className="inline-flex items-center gap-2 text-sm text-white/60 transition hover:text-white"
@@ -75,10 +75,10 @@ export default function ProjectDetail() {
             </a>
           ) : null}
         </div>
-      </div>
+      </section>
 
       <section className="overflow-hidden rounded-xl border border-white/10 bg-white/5">
-        <div className="aspect-[16/9] bg-white/5">
+        <div className="aspect-[16/8] bg-white/5">
           <img
             src={project.image}
             alt={project.title}
@@ -87,8 +87,8 @@ export default function ProjectDetail() {
         </div>
       </section>
 
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
-        <div className="xl:col-span-2 space-y-6">
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.8fr_1fr]">
+        <div className="space-y-6">
           <section className="rounded-xl border border-white/10 bg-white/5 p-6">
             <h2 className="mb-4 text-xl font-semibold text-white">What It Is</h2>
             <p className="text-sm leading-7 text-white/65 sm:text-base">
@@ -131,11 +131,6 @@ export default function ProjectDetail() {
             <h2 className="mb-4 text-lg font-semibold text-white">Project Info</h2>
 
             <div className="space-y-4 text-sm">
-              <div>
-                <p className="mb-1 text-white/40">Type</p>
-                <p className="text-white/80">{project.type}</p>
-              </div>
-
               <div>
                 <p className="mb-1 text-white/40">Status</p>
                 <p className="text-white/80">{project.status}</p>
