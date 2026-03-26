@@ -1,11 +1,12 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
 :root {
-  font-family: Inter, system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.92);
-  background-color: #0b1220;
+  background-color: #0f1115;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -20,7 +21,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: #0b1220;
+  background: #0f1115;
   color: rgba(255, 255, 255, 0.92);
 }
 
@@ -37,10 +38,6 @@ img {
   display: block;
   max-width: 100%;
 }
-
-.card {
-    @apply rounded-xl border border-white/10 bg-white/5 p-5;
-  }
 
 section {
   scroll-margin-top: 100px;

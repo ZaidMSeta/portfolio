@@ -6,10 +6,10 @@ import { ConnectSection } from "../components/home/ConnectCTA";
 
 export default function Home() {
   return (
-    <div className="space-y-24">
+    <div className="space-y-20 lg:space-y-24">
       <Hero />
 
-      <div className="space-y-20">
+      <div className="space-y-16 lg:space-y-20">
         <FeaturedProjects />
         <ExperienceSnapshot />
         <BentoGrid />
