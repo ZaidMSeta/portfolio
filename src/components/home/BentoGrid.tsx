@@ -92,8 +92,7 @@ function LocationTile() {
       <div className="relative h-full min-h-[320px] w-full overflow-hidden">
         <iframe
           title="Hamilton, Ontario"
-          src="https://www.openstreetmap.org/export/embed.html?bbox=-79.98%2C43.20%2C-79.74%2C43.32&layer=mapnik&marker=43.2557%2C-79.8711"
-          className="h-full w-full border-0 grayscale"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-79.932%2C43.225%2C-79.815%2C43.295&layer=mapnik&marker=43.2557%2C-79.8711"          className="h-full w-full border-0 grayscale"
           loading="lazy"
         />
 
