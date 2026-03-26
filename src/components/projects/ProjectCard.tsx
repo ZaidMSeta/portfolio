@@ -1,10 +1,6 @@
 import { Link } from "react-router";
 import type { Project } from "../../data/projects";
 
-type ProjectCardProps = {
-  project: Project;
-};
-
 const techColors: Record<string, { bg: string; text: string }> = {
   React: { bg: "rgba(97, 218, 251, 0.10)", text: "#61dafb" },
   TypeScript: { bg: "rgba(49, 120, 198, 0.14)", text: "#5b9bd5" },
@@ -17,6 +13,10 @@ const techColors: Record<string, { bg: string; text: string }> = {
   PostgreSQL: { bg: "rgba(70, 130, 180, 0.12)", text: "#6ea8d6" },
   Playwright: { bg: "rgba(168, 85, 247, 0.10)", text: "#a78bfa" },
   Go: { bg: "rgba(0, 173, 216, 0.12)", text: "#66c7e8" },
+};
+
+type ProjectCardProps = {
+  project: Project;
 };
 
 export function ProjectCard({ project }: ProjectCardProps) {
@@ -35,13 +35,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
       <div className="flex flex-1 flex-col p-5">
         <div className="mb-2 flex items-start justify-between gap-3">
-          <h3 className="text-base font-semibold text-white">
-            {project.title}
-          </h3>
-
-          <span className="shrink-0 text-xs text-white/50">
-            {project.type}
-          </span>
+          <h3 className="text-base font-semibold text-white">{project.title}</h3>
+          <span className="shrink-0 text-xs text-white/50">{project.date}</span>
         </div>
 
         <p className="mb-4 text-sm leading-6 text-white/60">
@@ -71,7 +66,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         <div className="flex items-center justify-between border-t border-white/10 pt-3">
-          <span className="text-xs text-white/50">{project.date}</span>
+          <span className="text-xs text-white/50">Details →</span>
           <span className="text-xs text-teal-300">{project.status}</span>
         </div>
       </div>
