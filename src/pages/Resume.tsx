@@ -9,10 +9,6 @@ export default function Resume() {
         <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
           Resume
         </h1>
-
-        <p className="max-w-3xl text-sm leading-7 text-white/65 sm:text-base">
-          View or download my resume below.
-        </p>
       </section>
 
       <section className="rounded-xl border border-white/10 bg-white/5 p-5 sm:p-6">
@@ -20,7 +16,7 @@ export default function Resume() {
           <div aria-hidden />
 
           <h2 className="justify-self-center text-xl font-semibold text-white">
-            Resume
+            IDK what to put here
           </h2>
 
           <a
