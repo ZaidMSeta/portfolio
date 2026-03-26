@@ -31,13 +31,17 @@ export function ChessCard() {
 
       <div className="mb-5 grid grid-cols-2 gap-3">
         <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
-          <p className="mb-1 text-xs text-white/45">White</p>
-          <p className="text-sm text-white">Queen’s Gambit</p>
+          <p className="mb-1 text-xs text-white/45">Openings as White</p>
+          <p className="text-sm text-white">Vienna Gambit</p>
+          <p className="text-sm text-white">Vienna Game</p>
+
         </div>
 
         <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
-          <p className="mb-1 text-xs text-white/45">Black</p>
+          <p className="mb-1 text-xs text-white/45">Openings as Black</p>
           <p className="text-sm text-white">Caro-Kann</p>
+          <p className="text-sm text-white">King's Indian</p>
+
         </div>
       </div>
 
