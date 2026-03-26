@@ -31,7 +31,7 @@ export default function Header() {
           {pageLabel ? <span className="ml-1 text-white/45">{pageLabel}</span> : null}
         </NavLink>
 
-        <nav className="flex items-center gap-5 text-sm">
+        <nav className="flex flex-wrap items-center justify-end gap-x-5 gap-y-2 text-sm">
           {navItems.map((item) => (
             <NavLink
               key={item.to}
