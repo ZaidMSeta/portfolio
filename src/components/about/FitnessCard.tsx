@@ -1,22 +1,46 @@
 import { Dumbbell } from "lucide-react";
 
+const split = [
+  { day: "Mon", label: "Push" },
+  { day: "Tue", label: "Pull" },
+  { day: "Wed", label: "Legs" },
+  { day: "Thu", label: "Push" },
+  { day: "Fri", label: "Pull" },
+  { day: "Sat", label: "Legs" },
+];
+
 export function FitnessCard() {
   return (
     <article className="rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-white/20">
-      <div className="mb-4 flex items-center gap-2">
+      <div className="mb-5 flex items-center gap-2">
         <Dumbbell size={14} className="text-teal-300" />
         <h3 className="text-sm font-medium text-white">Fitness</h3>
       </div>
 
-      <div className="space-y-3">
-        <div>
-          <p className="text-2xl font-semibold text-white">4</p>
-          <p className="text-sm text-white/60">Sessions this week</p>
-        </div>
+      <div className="mb-5 rounded-lg border border-white/10 bg-white/[0.03] p-4">
+        <p className="mb-3 text-sm text-white/70">Current split</p>
 
-        <div className="space-y-2 text-sm text-white/65">
-          <p>Current focus: consistency and strength</p>
-          <p>Training style: gym + conditioning</p>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {split.map((item) => (
+            <div
+              key={`${item.day}-${item.label}`}
+              className="rounded-md border border-white/10 bg-white/[0.03] p-3"
+            >
+              <p className="text-xs text-white/45">{item.day}</p>
+              <p className="text-sm text-white">{item.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
+        <p className="mb-2 text-xs text-white/45">Sample push day</p>
+        <div className="space-y-1 text-sm text-white/65">
+          <p>Bench Press</p>
+          <p>Incline DB Press</p>
+          <p>Shoulder Press</p>
+          <p>Lateral Raises</p>
+          <p>Tricep Pushdowns</p>
         </div>
       </div>
     </article>

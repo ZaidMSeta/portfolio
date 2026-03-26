@@ -1,10 +1,9 @@
-import { useState } from "react";
 import {
   MapPin,
   GitCommit,
   MessageSquare,
-  MousePointerClick,
   Link2,
+  Sparkles,
 } from "lucide-react";
 
 const tileClassName =
@@ -37,32 +36,51 @@ function GitHubActivity() {
   );
 }
 
-function ClickMeTile() {
-  const [count, setCount] = useState(0);
+function CurrentFocusTile() {
+  const items = [
+    "Shipping portfolio",
+    "Building stronger full-stack projects",
+    "Summer internship search",
+  ];
 
   return (
-    <button
-      onClick={() => setCount((c) => c + 1)}
-      className={`${tileClassName} text-left`}
-    >
-      <MousePointerClick size={14} className="mb-3 text-teal-300" />
-      <p className="mb-1 text-3xl font-semibold text-white">{count}</p>
-      <p className="text-sm text-white/60">clicks — go ahead</p>
-    </button>
+    <div className={tileClassName}>
+      <div className="mb-4 flex items-center gap-2">
+        <Sparkles size={14} className="text-teal-300" />
+        <h3 className="text-sm font-medium text-white">Current Focus</h3>
+      </div>
+
+      <div className="space-y-3">
+        {items.map((item) => (
+          <div key={item} className="flex items-start gap-3">
+            <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300/70" />
+            <p className="text-sm text-white/65">{item}</p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
 function LocationTile() {
   return (
-    <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 transition hover:border-white/20 hover:bg-white/[0.07]">
-      <div className="h-28 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.18),transparent_55%)]" />
-      <div className="p-5">
-        <div className="mb-3 flex items-center gap-2">
-          <MapPin size={14} className="text-teal-300" />
-          <h3 className="text-sm font-medium text-white">Location</h3>
+    <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 transition hover:border-white/20 hover:bg-white/[0.07] md:col-span-2">
+      <div className="relative h-56 w-full overflow-hidden">
+        <iframe
+          title="Hamilton, Ontario"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-79.98%2C43.20%2C-79.74%2C43.32&layer=mapnik&marker=43.2557%2C-79.8711"
+          className="h-full w-full border-0 grayscale"
+          loading="lazy"
+        />
+
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0f1115] via-[#0f1115]/70 to-transparent p-4">
+          <div className="flex items-center gap-2">
+            <MapPin size={14} className="text-teal-300" />
+            <h3 className="text-sm font-medium text-white">Location</h3>
+          </div>
+          <p className="mt-1 text-sm text-white/75">Hamilton, ON</p>
+          <p className="text-xs text-white/45">Ontario, Canada</p>
         </div>
-        <p className="font-medium text-white">Hamilton, ON</p>
-        <p className="text-sm text-white/60">Canada</p>
       </div>
     </div>
   );
@@ -105,10 +123,7 @@ function GuestbookPreview() {
 
 function WebringTile() {
   return (
-    <a
-      href="#"
-      className={tileClassName}
-    >
+    <a href="#" className={tileClassName}>
       <Link2 size={14} className="mb-3 text-teal-300" />
       <p className="font-medium text-white">McMaster</p>
       <p className="text-sm text-white/60">Webring ↗</p>
@@ -123,7 +138,7 @@ export function BentoGrid() {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
         <GitHubActivity />
-        <ClickMeTile />
+        <CurrentFocusTile />
         <LocationTile />
         <GuestbookPreview />
         <WebringTile />
