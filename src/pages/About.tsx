@@ -30,9 +30,7 @@ export default function About() {
 
         <div className="rounded-xl border border-white/10 bg-white/5 p-6">
           <div className="space-y-5">
-            <div>
-              <h2 className="text-2xl font-semibold text-white">Hi, I’m Zaid.</h2>
-            </div>
+            <h2 className="text-2xl font-semibold text-white">Hi, I’m Zaid.</h2>
 
             <div className="space-y-4 text-sm leading-7 text-white/65 sm:text-base">
               <p>
@@ -67,34 +65,6 @@ export default function About() {
           <FitnessCard />
           <BooksCard />
           <WatchlistCard />
-        </div>
-      </section>
-
-      <section className="rounded-xl border border-white/10 bg-white/5 p-6">
-        <div className="max-w-4xl space-y-4">
-          <h2 className="text-2xl font-semibold text-white">More About Me</h2>
-
-          <div className="space-y-4 text-sm leading-7 text-white/65 sm:text-base">
-            <p>
-              I’m especially drawn to projects where I can combine problem
-              solving with building something polished and usable. I like
-              thinking through how people will actually interact with software,
-              not just whether it technically works.
-            </p>
-
-            <p>
-              Outside of coding, I enjoy chess, fitness, and keeping up with
-              books, movies, and shows that give me something new to think
-              about. Those interests usually end up influencing how I approach
-              discipline, creativity, and long-term improvement.
-            </p>
-
-            <p>
-              Right now, I’m focused on continuing to grow as a developer,
-              shipping stronger projects, and finding opportunities where I can
-              contribute to real product and engineering work.
-            </p>
-          </div>
         </div>
       </section>
     </div>

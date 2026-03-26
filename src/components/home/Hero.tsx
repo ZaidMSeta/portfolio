@@ -1,3 +1,4 @@
+import { Github, Linkedin, ArrowRight } from "lucide-react";
 import { Link } from "react-router";
 
 export function Hero() {
@@ -13,19 +14,37 @@ export function Hero() {
           thoughtful tools and clean interfaces that solve real problems.
         </p>
 
-        <div className="flex flex-wrap items-center gap-3 pt-1">
-          <Link
-            to="/projects"
-            className="rounded-lg border border-white/15 bg-white/5 px-4 py-2.5 text-sm text-white transition hover:border-white/25 hover:bg-white/[0.08]"
+        <div className="flex flex-wrap items-center gap-4 pt-1 text-sm text-white/60">
+          <a
+            href="https://github.com/ZaidMSeta"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 transition hover:text-white"
           >
-            View Projects
-          </Link>
+            <Github size={18} />
+            GitHub
+          </a>
+
+          <span className="text-white/20">|</span>
+
+          <a
+            href="https://www.linkedin.com"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 transition hover:text-white"
+          >
+            <Linkedin size={18} />
+            LinkedIn
+          </a>
+
+          <span className="text-white/20">|</span>
 
           <Link
-            to="/resume"
-            className="rounded-lg border border-white/10 px-4 py-2.5 text-sm text-white/75 transition hover:border-white/20 hover:text-white"
+            to="/about"
+            className="inline-flex items-center gap-2 transition hover:text-white"
           >
-            Resume
+            More about me
+            <ArrowRight size={18} />
           </Link>
         </div>
       </div>
