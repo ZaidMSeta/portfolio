@@ -1,19 +1,6 @@
 import { Link } from "react-router";
 import type { Project } from "../../data/projects";
-
-const techColors: Record<string, { bg: string; text: string }> = {
-  React: { bg: "rgba(97, 218, 251, 0.10)", text: "#61dafb" },
-  TypeScript: { bg: "rgba(49, 120, 198, 0.14)", text: "#5b9bd5" },
-  "Node.js": { bg: "rgba(104, 159, 56, 0.12)", text: "#7cb342" },
-  Python: { bg: "rgba(55, 118, 171, 0.14)", text: "#5b9bd5" },
-  SQLite: { bg: "rgba(0, 150, 214, 0.10)", text: "#4eaed6" },
-  Tailwind: { bg: "rgba(56, 189, 248, 0.10)", text: "#38bdf8" },
-  SwiftUI: { bg: "rgba(240, 120, 120, 0.12)", text: "#ff8f8f" },
-  FastAPI: { bg: "rgba(92, 175, 144, 0.12)", text: "#5caf90" },
-  PostgreSQL: { bg: "rgba(70, 130, 180, 0.12)", text: "#6ea8d6" },
-  Playwright: { bg: "rgba(168, 85, 247, 0.10)", text: "#a78bfa" },
-  Go: { bg: "rgba(0, 173, 216, 0.12)", text: "#66c7e8" },
-};
+import { getTechColour } from "../../lib/utils/techColour";
 
 type ProjectCardProps = {
   project: Project;
@@ -45,10 +32,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
         <div className="mt-auto mb-4 flex flex-wrap gap-1.5">
           {project.stack.map((tech) => {
-            const color = techColors[tech] || {
-              bg: "rgba(255,255,255,0.06)",
-              text: "#9ca3af",
-            };
+            const color = getTechColour(tech);
 
             return (
               <span
