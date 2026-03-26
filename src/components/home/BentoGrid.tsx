@@ -84,18 +84,26 @@ function GitHubActivity() {
         {!loading &&
           !error &&
           commits.map((commit) => (
-            <div key={commit.id} className="flex items-start gap-3">
-              <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300/70" />
-              <div>
-                <a
-                  href={commit.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="line-clamp-2 text-sm leading-6 text-white/65 transition hover:text-white"
-                >
-                  {commit.message}
-                </a>
-                <p className="mt-1 text-xs text-white/40">{commit.repoName}</p>
+            <div key={commit.id} className="flex items-start justify-between gap-4">
+              <div className="flex min-w-0 items-start gap-3">
+                <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300/70" />
+                <div className="min-w-0">
+                  <a
+                    href={commit.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="line-clamp-2 text-sm leading-6 text-white/65 transition hover:text-white"
+                  >
+                    {commit.message}
+                  </a>
+                  <p className="mt-1 text-xs text-white/40">{commit.repoName}</p>
+                </div>
+              </div>
+
+              <div className="mt-0.5 flex shrink-0 items-center text-xs font-medium">
+                <span className="text-green-400">+{commit.additions}</span>
+                <span className="px-1 text-white/25">/</span>
+                <span className="text-red-400">-{commit.deletions}</span>
               </div>
             </div>
           ))}
