@@ -16,6 +16,7 @@ export type ChessLastGame = {
 
 export type ChessCardData = {
     rapidRating: number | null;
+    peakRating: number | null;
     lastGame: ChessLastGame | null;
     ratingHistory: ChessRatingPoint[];
 };
@@ -165,7 +166,8 @@ export async function fetchChessCardData(): Promise<ChessCardData> {
 
     const lastGame = extractLastRapidGame(games);
 
-    const ratingHistory = [...FILE_RATING_HISTORY]; 
+    const ratingHistory = [...FILE_RATING_HISTORY];
+
     if (
         rapidRating !== null &&
         (ratingHistory.length === 0 ||
@@ -175,8 +177,14 @@ export async function fetchChessCardData(): Promise<ChessCardData> {
         ratingHistory.push({ date: today, rating: rapidRating });
     }
 
+    const peakRating =
+        ratingHistory.length > 0
+            ? Math.max(...ratingHistory.map((point) => point.rating))
+            : rapidRating;
+
     return {
         rapidRating,
+        peakRating,
         lastGame,
         ratingHistory,
     };

@@ -5,7 +5,7 @@ import process from "node:process";
 const CHESS_USERNAME = "zaidseta";
 const OUTPUT_PATH = path.resolve("src/data/chessRatingHistory.json");
 const LOOKBACK_YEARS = 2;
-const STEP_DAYS = 14;
+const STEP_DAYS = 7;
 
 function toDateOnlyString(date) {
   return date.toISOString().slice(0, 10);
@@ -63,7 +63,7 @@ async function getGamesFromArchive(url) {
   return Array.isArray(data.games) ? data.games : [];
 }
 
-function buildBiweeklySeries(games) {
+function buildHistorySeries(games) {
   const cutoff = startOfDay(subtractYears(new Date(), LOOKBACK_YEARS));
 
   const rapidGames = games
@@ -87,48 +87,42 @@ function buildBiweeklySeries(games) {
   }
 
   const series = [];
-  let cursor = startOfDay(cutoff);
-  const endDate = startOfDay(new Date());
+  let lastIncludedDate = null;
+  let lastIncludedRating = null;
 
-  while (cursor <= endDate) {
-    let latestAtOrBefore = null;
+  for (const game of rapidGames) {
+    const gameDay = startOfDay(game.date);
 
-    for (const game of rapidGames) {
-      if (startOfDay(game.date) <= cursor) {
-        latestAtOrBefore = game;
-      } else {
-        break;
-      }
+    const enoughTimePassed =
+      !lastIncludedDate ||
+      (gameDay - lastIncludedDate) / (1000 * 60 * 60 * 24) >= STEP_DAYS;
+
+    const ratingChangedEnough =
+      lastIncludedRating === null || Math.abs(game.rating - lastIncludedRating) >= 50;
+
+    if (enoughTimePassed || ratingChangedEnough) {
+      series.push({
+        date: toDateOnlyString(gameDay),
+        rating: game.rating,
+      });
+      lastIncludedDate = gameDay;
+      lastIncludedRating = game.rating;
     }
-
-    if (latestAtOrBefore) {
-      const lastPoint = series[series.length - 1];
-      if (!lastPoint || lastPoint.rating !== latestAtOrBefore.rating) {
-        series.push({
-          date: toDateOnlyString(cursor),
-          rating: latestAtOrBefore.rating,
-        });
-      }
-    }
-
-    cursor = addDays(cursor, STEP_DAYS);
   }
 
-  const newestGame = rapidGames[rapidGames.length - 1];
-  if (newestGame) {
-    const lastSeriesPoint = series[series.length - 1];
-    const newestDate = toDateOnlyString(startOfDay(newestGame.date));
+  const latestGame = rapidGames[rapidGames.length - 1];
+  const latestPoint = {
+    date: toDateOnlyString(startOfDay(latestGame.date)),
+    rating: latestGame.rating,
+  };
 
-    if (
-      !lastSeriesPoint ||
-      lastSeriesPoint.date !== newestDate ||
-      lastSeriesPoint.rating !== newestGame.rating
-    ) {
-      series.push({
-        date: newestDate,
-        rating: newestGame.rating,
-      });
-    }
+  const lastSeriesPoint = series[series.length - 1];
+  if (
+    !lastSeriesPoint ||
+    lastSeriesPoint.date !== latestPoint.date ||
+    lastSeriesPoint.rating !== latestPoint.rating
+  ) {
+    series.push(latestPoint);
   }
 
   return series;
@@ -160,7 +154,7 @@ async function main() {
     allGames.push(...games);
   }
 
-  const series = buildBiweeklySeries(allGames);
+  const series = buildHistorySeries(allGames);
 
   await fs.writeFile(OUTPUT_PATH, JSON.stringify(series, null, 2), "utf8");
 
