@@ -76,11 +76,11 @@ export function ChessCard() {
     <article className="rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-white/20">
       <div className="mb-5 flex items-center justify-between">
         <div className="flex items-center gap-2">
-        <ChessKnight size={14} className="text-teal-300" />
+          <ChessKnight size={14} className="text-teal-300" />
           <h3 className="text-sm font-medium text-white">Chess</h3>
         </div>
         <span className="text-xs text-white/50">
-          Current Elo: {loading ? "..." : data?.rapidRating ?? "N/A"}
+          Peak Elo: {loading ? "..." : data?.peakRating ?? "N/A"}
         </span>
       </div>
 
@@ -88,7 +88,7 @@ export function ChessCard() {
         <div className="mb-3 flex items-center justify-between">
           <p className="text-sm text-white/70">Rating over time</p>
           <p className="text-xs text-white/45">
-            {chartData.length ? `${chartData.length} points` : ""}
+            Current Elo: {loading ? "..." : data?.rapidRating ?? "N/A"}
           </p>
         </div>
 
