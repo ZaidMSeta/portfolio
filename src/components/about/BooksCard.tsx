@@ -2,19 +2,19 @@ import { BookOpen } from "lucide-react";
 
 const books = [
   {
-    title: "Atomic Habits",
-    author: "James Clear",
-    cover: "/about/books/atomic-habits.jpg",
+    title: "TBA",
+    author: "TBA",
+    cover: "TBA",
   },
   {
-    title: "Deep Work",
-    author: "Cal Newport",
-    cover: "/about/books/deep-work.jpg",
+    title: "TBA",
+    author: "TBA",
+    cover: "TBA",
   },
   {
-    title: "The Psychology of Money",
-    author: "Morgan Housel",
-    cover: "/about/books/psychology-of-money.jpg",
+    title: "TBA",
+    author: "TBA",
+    cover: "TBA",
   },
 ];
 
