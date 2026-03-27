@@ -14,7 +14,7 @@ const links = [
   {
     icon: Linkedin,
     label: "LinkedIn",
-    href: "https://www.linkedin.com",
+    href: "https://www.linkedin.com/in/zaidseta",
   },
 ];
 

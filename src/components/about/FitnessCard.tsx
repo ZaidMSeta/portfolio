@@ -7,6 +7,8 @@ const split = [
   { day: "Thu", label: "Push" },
   { day: "Fri", label: "Pull" },
   { day: "Sat", label: "Legs" },
+  { day: "gi", label: "Legs" },
+
 ];
 
 export function FitnessCard() {
@@ -17,10 +19,10 @@ export function FitnessCard() {
         <h3 className="text-sm font-medium text-white">Fitness</h3>
       </div>
 
-      <div className="mb-5 rounded-lg border border-white/10 bg-white/[0.03] p-4">
+      {/*<div className="mb-5 rounded-lg border border-white/10 bg-white/[0.03] p-4">
         <p className="mb-3 text-sm text-white/70">Current split</p>
 
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-7">
           {split.map((item) => (
             <div
               key={`${item.day}-${item.label}`}
@@ -31,16 +33,12 @@ export function FitnessCard() {
             </div>
           ))}
         </div>
-      </div>
+          </div>*/}
 
       <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
-        <p className="mb-2 text-xs text-white/45">Sample push day</p>
         <div className="space-y-1 text-sm text-white/65">
-          <p>Bench Press</p>
-          <p>Incline DB Press</p>
-          <p>Shoulder Press</p>
-          <p>Lateral Raises</p>
-          <p>Tricep Pushdowns</p>
+          <p>TBA</p>
+
         </div>
       </div>
     </article>

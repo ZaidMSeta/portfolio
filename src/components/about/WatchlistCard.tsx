@@ -2,19 +2,19 @@ import { Clapperboard } from "lucide-react";
 
 const watched = [
   {
-    title: "Interstellar",
-    meta: "Film",
-    poster: "/about/watch/interstellar.jpg",
+    title: "TBA",
+    meta: "TBA",
+    poster: "TBA",
   },
   {
-    title: "Breaking Bad",
-    meta: "Series",
-    poster: "/about/watch/breaking-bad.jpg",
+    title: "TBA",
+    meta: "TBA",
+    poster: "TBA",
   },
   {
-    title: "Dune: Part Two",
-    meta: "Film",
-    poster: "/about/watch/dune-part-two.jpg",
+    title: "TBA",
+    meta: "TBA",
+    poster: "TBA",
   },
 ];
 

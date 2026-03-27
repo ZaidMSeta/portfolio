@@ -28,7 +28,7 @@ export function Hero() {
           <span className="text-white/20">|</span>
 
           <a
-            href="https://www.linkedin.com"
+            href="https://www.linkedin.com/in/zaidseta"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 transition hover:text-white"

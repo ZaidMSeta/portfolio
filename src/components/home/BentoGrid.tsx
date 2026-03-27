@@ -186,7 +186,7 @@ function ConnectTile() {
   const links = [
     { icon: Mail, label: "Email", href: "mailto:zaid.seta@mcmaster.ca" },
     { icon: Github, label: "GitHub", href: "https://github.com/ZaidMSeta" },
-    { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com" },
+    { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/zaidseta" },
   ];
 
   return (
