@@ -1,0 +1,141 @@
+{
+  "username": "zaidseta",
+  "currentRead": {
+    "id": 13653396,
+    "status_id": 2,
+    "rating": null,
+    "updated_at": "2026-03-27T22:05:57.983707+00:00",
+    "book": {
+      "id": 428023,
+      "title": "Atomic habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones",
+      "slug": "atomic-habits",
+      "image": {
+        "url": "https://assets.hardcover.app/edition/12605395/b42cef3682e39a6bad722790e48ee64bdf8bd7fb.jpeg"
+      },
+      "contributions": [
+        {
+          "author": {
+            "name": "James Clear"
+          }
+        }
+      ]
+    },
+    "user_book_reads": [
+      {
+        "started_at": "2026-03-27",
+        "finished_at": null
+      }
+    ]
+  },
+  "lastFinished": {
+    "id": 13653395,
+    "status_id": 3,
+    "rating": null,
+    "updated_at": "2026-03-27T22:05:42.744898+00:00",
+    "book": {
+      "id": 158268,
+      "title": "Ender's Game",
+      "slug": "enders-game",
+      "image": {
+        "url": "https://assets.hardcover.app/external_data/60441176/4430587892e367395499f249b810cea57f9a4028.jpeg"
+      },
+      "contributions": [
+        {
+          "author": {
+            "name": "Orson Scott Card"
+          }
+        }
+      ]
+    },
+    "user_book_reads": [
+      {
+        "started_at": null,
+        "finished_at": null
+      }
+    ]
+  },
+  "recentBooks": [
+    {
+      "id": 13653396,
+      "status_id": 2,
+      "rating": null,
+      "updated_at": "2026-03-27T22:05:57.983707+00:00",
+      "book": {
+        "id": 428023,
+        "title": "Atomic habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones",
+        "slug": "atomic-habits",
+        "image": {
+          "url": "https://assets.hardcover.app/edition/12605395/b42cef3682e39a6bad722790e48ee64bdf8bd7fb.jpeg"
+        },
+        "contributions": [
+          {
+            "author": {
+              "name": "James Clear"
+            }
+          }
+        ]
+      },
+      "user_book_reads": [
+        {
+          "started_at": "2026-03-27",
+          "finished_at": null
+        }
+      ]
+    },
+    {
+      "id": 13653395,
+      "status_id": 3,
+      "rating": null,
+      "updated_at": "2026-03-27T22:05:42.744898+00:00",
+      "book": {
+        "id": 158268,
+        "title": "Ender's Game",
+        "slug": "enders-game",
+        "image": {
+          "url": "https://assets.hardcover.app/external_data/60441176/4430587892e367395499f249b810cea57f9a4028.jpeg"
+        },
+        "contributions": [
+          {
+            "author": {
+              "name": "Orson Scott Card"
+            }
+          }
+        ]
+      },
+      "user_book_reads": [
+        {
+          "started_at": null,
+          "finished_at": null
+        }
+      ]
+    },
+    {
+      "id": 13653372,
+      "status_id": 3,
+      "rating": null,
+      "updated_at": "2026-03-27T22:05:29.384381+00:00",
+      "book": {
+        "id": 464476,
+        "title": "The Rooster Bar",
+        "slug": "the-rooster-bar-a-novel-2017",
+        "image": {
+          "url": "https://assets.hardcover.app/edition/30382145/4d225391e7a1ba8c52df332acf1cab92809bcd0e.jpeg"
+        },
+        "contributions": [
+          {
+            "author": {
+              "name": "John Grisham"
+            }
+          }
+        ]
+      },
+      "user_book_reads": [
+        {
+          "started_at": null,
+          "finished_at": null
+        }
+      ]
+    }
+  ],
+  "fetchedAt": "2026-03-27T22:24:07.441Z"
+}
