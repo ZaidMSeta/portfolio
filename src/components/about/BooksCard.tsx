@@ -4,7 +4,7 @@ import {
   getHardcoverData,
   getPrimaryAuthor,
   type HardcoverBook,
-} from "../../lib/utils/hardCover";
+} from "../../lib/utils/hardcover";
 
 function BookCover({ book }: { book: HardcoverBook | null }) {
   const imageUrl = book?.book?.image?.url;
@@ -62,8 +62,7 @@ export function BooksCard() {
                 {getPrimaryAuthor(data.currentRead)}
               </p>
               <p className="mt-2 text-xs text-white/45">
-                Started{" "}
-                {data.currentRead.user_book_reads?.[0]?.started_at || "recently"}
+                Started {data.currentRead.user_book_reads?.[0]?.started_at || "recently"}
               </p>
             </div>
           </div>
@@ -72,7 +71,7 @@ export function BooksCard() {
         )}
       </div>
 
-      <div className="mb-5 rounded-lg border border-white/10 bg-white/[0.03] p-4">
+      <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
         <p className="mb-3 text-xs text-white/45">Last Finished</p>
 
         {data.lastFinished ? (
@@ -85,38 +84,12 @@ export function BooksCard() {
               <p className="mt-1 text-sm text-white/60">
                 {getPrimaryAuthor(data.lastFinished)}
               </p>
-              <p className="mt-2 text-xs text-white/45">
-                Finished recently
-              </p>
+              <p className="mt-2 text-xs text-white/45">Finished recently</p>
             </div>
           </div>
         ) : (
           <p className="text-sm text-white/60">No finished books yet.</p>
         )}
-      </div>
-
-      <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
-        <p className="mb-3 text-xs text-white/45">Recent Books</p>
-
-        <div className="space-y-3">
-          {data.recentBooks.length > 0 ? (
-            data.recentBooks.slice(0, 3).map((book) => (
-              <div key={book.id} className="flex items-start gap-3">
-                <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300/70" />
-                <div className="min-w-0">
-                  <p className="line-clamp-1 text-sm text-white">
-                    {book.book.title}
-                  </p>
-                  <p className="text-xs text-white/45">
-                    {getPrimaryAuthor(book)}
-                  </p>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p className="text-sm text-white/60">No recent books yet.</p>
-          )}
-        </div>
       </div>
     </article>
   );

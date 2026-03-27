@@ -57,20 +57,16 @@ async function main() {
       currentRead: user_books(
         where: { user_id: { _eq: $userId }, status_id: { _eq: 2 } }
         order_by: [{ updated_at: desc }]
-        limit: 5
+        limit: 1
       ) {
         id
-        status_id
-        rating
         updated_at
         book {
-          id
           title
-          slug
           image {
             url
           }
-          contributions(limit: 3) {
+          contributions(limit: 1) {
             author {
               name
             }
@@ -78,63 +74,26 @@ async function main() {
         }
         user_book_reads(limit: 1, order_by: { started_at: desc_nulls_last }) {
           started_at
-          finished_at
         }
       }
 
-      finished: user_books(
+      lastFinished: user_books(
         where: { user_id: { _eq: $userId }, status_id: { _eq: 3 } }
         order_by: [{ updated_at: desc }]
-        limit: 5
+        limit: 1
       ) {
         id
-        status_id
-        rating
         updated_at
         book {
-          id
           title
-          slug
           image {
             url
           }
-          contributions(limit: 3) {
+          contributions(limit: 1) {
             author {
               name
             }
           }
-        }
-        user_book_reads(limit: 1, order_by: { started_at: desc_nulls_last }) {
-          started_at
-          finished_at
-        }
-      }
-
-      recentBooks: user_books(
-        where: { user_id: { _eq: $userId } }
-        order_by: [{ updated_at: desc }]
-        limit: 5
-      ) {
-        id
-        status_id
-        rating
-        updated_at
-        book {
-          id
-          title
-          slug
-          image {
-            url
-          }
-          contributions(limit: 3) {
-            author {
-              name
-            }
-          }
-        }
-        user_book_reads(limit: 1, order_by: { started_at: desc_nulls_last }) {
-          started_at
-          finished_at
         }
       }
     }
@@ -145,8 +104,7 @@ async function main() {
   const normalized = {
     username: me.username ?? null,
     currentRead: booksJson.data?.currentRead?.[0] ?? null,
-    lastFinished: booksJson.data?.finished?.[0] ?? null,
-    recentBooks: booksJson.data?.recentBooks ?? [],
+    lastFinished: booksJson.data?.lastFinished?.[0] ?? null,
     fetchedAt: new Date().toISOString(),
   };
 
