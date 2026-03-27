@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   MapPin,
   GitCommit,
@@ -9,17 +10,48 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import { fetchLatestCommits, type GitHubActivityCommit } from "../../lib/utils/githubActivity";
 
 const tileClassName =
   "rounded-xl border border-white/8 bg-white/5 p-5 transition hover:border-white/15 hover:bg-white/[0.07]";
 
 function GitHubActivity() {
-  const commits = [
-    "feat: added project detail layout",
-    "refactor: cleaned up featured projects",
-    "fix: improved mobile spacing",
-    "chore: updated portfolio structure",
-  ];
+  const [commits, setCommits] = useState<GitHubActivityCommit[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let ignore = false;
+
+    async function loadCommits() {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const data = await fetchLatestCommits();
+
+        if (!ignore) {
+          setCommits(data);
+        }
+      } catch (err) {
+        console.error("GitHub activity error:", err);
+
+        if (!ignore) {
+          setError(err instanceof Error ? err.message : "Unknown error");
+        }
+      } finally {
+        if (!ignore) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadCommits();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   return (
     <div className={`${tileClassName} md:col-span-2`}>
@@ -29,12 +61,52 @@ function GitHubActivity() {
       </div>
 
       <div className="space-y-3">
-        {commits.map((commit, index) => (
-          <div key={index} className="flex items-start gap-3">
-            <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300/70" />
-            <p className="text-sm leading-6 text-white/65">{commit}</p>
-          </div>
-        ))}
+        {loading &&
+          Array.from({ length: 4 }).map((_, index) => (
+            <div key={index} className="flex items-start gap-3">
+              <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300/40" />
+              <div className="h-4 w-full animate-pulse rounded bg-white/8" />
+            </div>
+          ))}
+
+        {!loading && error && (
+          <p className="text-sm leading-6 text-white/55">
+            Couldn’t load recent commits right now.
+          </p>
+        )}
+
+        {!loading && !error && commits.length === 0 && (
+          <p className="text-sm leading-6 text-white/55">
+            No recent commits found.
+          </p>
+        )}
+
+        {!loading &&
+          !error &&
+          commits.map((commit) => (
+            <div key={commit.id} className="flex items-start justify-between gap-4">
+              <div className="flex min-w-0 items-start gap-3">
+                <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300/70" />
+                <div className="min-w-0">
+                  <a
+                    href={commit.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="line-clamp-2 text-sm leading-6 text-white/65 transition hover:text-white"
+                  >
+                    {commit.message}
+                  </a>
+                  <p className="mt-1 text-xs text-white/40">{commit.repoName}</p>
+                </div>
+              </div>
+
+              <div className="mt-0.5 flex shrink-0 items-center text-xs font-medium">
+                <span className="text-green-400">+{commit.additions}</span>
+                <span className="px-1 text-white/25">/</span>
+                <span className="text-red-400">-{commit.deletions}</span>
+              </div>
+            </div>
+          ))}
       </div>
     </div>
   );
@@ -92,7 +164,8 @@ function LocationTile() {
       <div className="relative h-full min-h-[320px] w-full overflow-hidden">
         <iframe
           title="Hamilton, Ontario"
-          src="https://www.openstreetmap.org/export/embed.html?bbox=-79.932%2C43.225%2C-79.815%2C43.295&layer=mapnik&marker=43.2557%2C-79.8711"          className="h-full w-full border-0 grayscale"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-79.932%2C43.225%2C-79.815%2C43.295&layer=mapnik&marker=43.2557%2C-79.8711"
+          className="h-full w-full border-0 grayscale"
           loading="lazy"
         />
 
