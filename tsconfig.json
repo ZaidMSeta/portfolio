@@ -16,5 +16,5 @@
 
     "strict": false
   },
-  "include": ["src"]
+  "include": ["src", "scripts/generateChessRatingHistory.mjs"]
 }
