@@ -1,31 +1,128 @@
-import { Trophy } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import {
+  Area,
+  AreaChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import { fetchChessCardData, type ChessCardData } from "../../lib/utils/chessActivity";
+import { ChessKnight } from "lucide-react";
+
+function formatChartDate(value: string) {
+  const date = new Date(`${value}T00:00:00`);
+  return date.toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+  });
+}
+
+function CustomTooltip({
+  active,
+  payload,
+  label,
+}: {
+  active?: boolean;
+  payload?: Array<{ value: number }>;
+  label?: string;
+}) {
+  if (!active || !payload || !payload.length || !label) return null;
+
+  return (
+    <div className="rounded-lg border border-white/10 bg-[#11151c]/95 px-3 py-2 shadow-lg backdrop-blur">
+      <p className="text-xs text-white/45">{formatChartDate(label)}</p>
+      <p className="mt-1 text-sm text-white">
+        Elo: <span className="text-teal-300">{payload[0].value}</span>
+      </p>
+    </div>
+  );
+}
 
 export function ChessCard() {
+  const [data, setData] = useState<ChessCardData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    let ignore = false;
+
+    async function load() {
+      try {
+        setLoading(true);
+        setError(false);
+        const result = await fetchChessCardData();
+        if (!ignore) setData(result);
+      } catch (err) {
+        console.error(err);
+        if (!ignore) setError(true);
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    }
+
+    load();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
+  const chartData = useMemo(() => {
+    return data?.ratingHistory ?? [];
+  }, [data]);
+
   return (
     <article className="rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-white/20">
       <div className="mb-5 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Trophy size={14} className="text-teal-300" />
+          <ChessKnight size={14} className="text-teal-300" />
           <h3 className="text-sm font-medium text-white">Chess</h3>
         </div>
-        <span className="text-xs text-white/50">Rapid: 1450</span>
+        <span className="text-xs text-white/50">
+          Peak Elo: {loading ? "..." : data?.peakRating ?? "N/A"}
+        </span>
       </div>
 
       <div className="mb-5 rounded-lg border border-white/10 bg-white/[0.03] p-4">
         <div className="mb-3 flex items-center justify-between">
           <p className="text-sm text-white/70">Rating over time</p>
-          <p className="text-xs text-white/45">Since account creation</p>
+          <p className="text-xs text-white/45">
+            Current Elo: {loading ? "..." : data?.rapidRating ?? "N/A"}
+          </p>
         </div>
 
-        <div className="h-32 rounded-md bg-[linear-gradient(to_top,rgba(255,255,255,0.02),rgba(255,255,255,0.01))] relative overflow-hidden">
-          <svg viewBox="0 0 300 100" className="h-full w-full">
-            <polyline
-              fill="none"
-              stroke="rgba(126,231,193,0.85)"
-              strokeWidth="2"
-              points="0,78 30,72 60,74 90,66 120,60 150,64 180,52 210,44 240,46 270,36 300,28"
-            />
-          </svg>
+        <div className="h-32 min-w-0 overflow-hidden rounded-md bg-[linear-gradient(to_top,rgba(255,255,255,0.02),rgba(255,255,255,0.01))]">
+          {loading ? (
+            <div className="h-full w-full animate-pulse bg-white/5" />
+          ) : (
+            <ResponsiveContainer width="100%" height={128}>
+              <AreaChart data={chartData} margin={{ top: 10, right: 6, left: -24, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="chessEloFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="rgba(126,231,193,0.22)" />
+                    <stop offset="100%" stopColor="rgba(126,231,193,0.02)" />
+                  </linearGradient>
+                </defs>
+
+                <XAxis dataKey="date" hide />
+                <YAxis hide domain={["dataMin - 25", "dataMax + 25"]} />
+                <Tooltip
+                  content={<CustomTooltip />}
+                  cursor={{ stroke: "rgba(255,255,255,0.12)", strokeWidth: 1 }}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="rating"
+                  stroke="rgba(126,231,193,0.85)"
+                  strokeWidth={2}
+                  fill="url(#chessEloFill)"
+                  dot={{ r: 2, strokeWidth: 0, fill: "rgba(126,231,193,0.85)" }}
+                  activeDot={{ r: 4, strokeWidth: 0, fill: "rgba(126,231,193,1)" }}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          )}
         </div>
       </div>
 
@@ -34,21 +131,41 @@ export function ChessCard() {
           <p className="mb-1 text-xs text-white/45">Openings as White</p>
           <p className="text-sm text-white">Vienna Gambit</p>
           <p className="text-sm text-white">Vienna Game</p>
-
         </div>
 
         <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
           <p className="mb-1 text-xs text-white/45">Openings as Black</p>
           <p className="text-sm text-white">Caro-Kann</p>
-          <p className="text-sm text-white">King's Indian</p>
-
+          <p className="text-sm text-white">King&apos;s Indian</p>
         </div>
       </div>
 
       <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
         <p className="mb-1 text-xs text-white/45">Last Game</p>
-        <p className="text-sm text-white">Won vs. chessfan92</p>
-        <p className="text-xs text-white/50">Rapid · 1 day ago</p>
+
+        {loading && <p className="text-sm text-white/60">Loading...</p>}
+
+        {!loading && error && (
+          <p className="text-sm text-white/60">Couldn’t load chess data.</p>
+        )}
+
+        {!loading && !error && data?.lastGame && (
+          <>
+            <p className="text-sm text-white">
+              {data.lastGame.resultText} vs. {data.lastGame.opponent}
+            </p>
+            <p className="text-xs text-white/50">
+              {data.lastGame.timeClass} · {data.lastGame.endTimeLabel}
+              {data.lastGame.ratingDelta !== null
+                ? ` · ${data.lastGame.ratingDelta > 0 ? "+" : ""}${data.lastGame.ratingDelta}`
+                : ""}
+            </p>
+          </>
+        )}
+
+        {!loading && !error && !data?.lastGame && (
+          <p className="text-sm text-white/60">No recent rapid game found.</p>
+        )}
       </div>
     </article>
   );
