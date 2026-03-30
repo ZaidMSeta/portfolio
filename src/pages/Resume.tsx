@@ -16,7 +16,7 @@ export default function Resume() {
           <div aria-hidden />
 
           <h2 className="justify-self-center text-xl font-semibold text-white">
-            IDK what to put here
+            Zaid Seta — Resume
           </h2>
 
           <a
