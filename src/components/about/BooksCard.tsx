@@ -4,7 +4,7 @@ import {
   getHardcoverData,
   getPrimaryAuthor,
   type HardcoverBook,
-} from "../../lib/utils/hardcover";
+} from "../../lib/utils/hardCover";
 
 function BookCover({ book }: { book: HardcoverBook | null }) {
   const imageUrl = book?.book?.image?.url;
