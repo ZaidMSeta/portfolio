@@ -5,6 +5,7 @@ const navItems = [
   { label: "Projects", to: "/projects" },
   { label: "Experience", to: "/experience" },
   { label: "Resume", to: "/resume" },
+  { label: "Contact", to: "/contact" },
 ];
 
 function getPageLabel(pathname: string) {
@@ -13,6 +14,7 @@ function getPageLabel(pathname: string) {
   if (pathname.startsWith("/projects")) return "/projects";
   if (pathname.startsWith("/experience")) return "/experience";
   if (pathname.startsWith("/resume")) return "/resume";
+  if (pathname.startsWith("/contact")) return "/contact";
   return "";
 }
 
