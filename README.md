@@ -1,16 +1,60 @@
-# React + Vite
+# Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio site built with React, TypeScript, and Tailwind CSS.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 19** + **TypeScript**
+- **React Router 7** for client-side routing
+- **Tailwind CSS 4** for styling
+- **Recharts** for data visualization
+- **Vite** as build tool
 
-## React Compiler
+## Pages
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Home** — hero, featured projects, experience snapshot, and a bento grid with live GitHub activity
+- **About** — bio and interest cards (chess stats, current read, etc.)
+- **Projects** — full project grid with individual detail pages
+- **Experience** — work history
+- **Resume** — embedded PDF viewer with download
 
-## Expanding the ESLint configuration
+## Live Integrations
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Chess.com API** — real-time Elo rating and game history
+- **GitHub API** — recent commits and contribution stats
+- **Hardcover** — current and last finished book (fetched via script, see below)
+
+## Getting Started
+
+1. Clone the repo and install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. Copy `.env.example` to `.env` and fill in your values:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Fetch Hardcover reading data (requires `HARDCOVER_API_TOKEN` in `.env`):
+
+   ```bash
+   npm run fetch:hardcover
+   ```
+
+4. Start the dev server:
+
+   ```bash
+   npm run dev
+   ```
+
+## Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start local dev server |
+| `npm run build` | Production build |
+| `npm run preview` | Preview production build locally |
+| `npm run fetch:hardcover` | Fetch reading data from Hardcover API |
