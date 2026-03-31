@@ -13,7 +13,7 @@ export default function About() {
 
         <p className="max-w-3xl text-sm leading-7 text-white/65 sm:text-base">
           A bit more about me, what I enjoy building, and the interests that
-          shape how I think about software.
+          shape how I think.
         </p>
       </section>
 
@@ -34,23 +34,20 @@ export default function About() {
 
             <div className="space-y-4 text-sm leading-7 text-white/65 sm:text-base">
               <p>
-                I’m a Computer Science student at McMaster University with a
-                strong interest in full-stack development, product-focused
-                software, and building tools that feel genuinely useful.
+                I’m a Computer Science student at McMaster University with a strong interest in 
+                full-stack development, product-focused software, and building tools that are genuinely useful.
               </p>
 
               <p>
-                I enjoy working on projects that sit at the intersection of
-                practical functionality and thoughtful design — things that solve
-                real problems, improve workflows, or make information easier to
-                understand and use.
+                Working on the app at Morphace, along with the tools I’ve built for students, 
+                has pushed me to think more carefully about how software should function, 
+                feel, and fit into real people’s workflows.
               </p>
 
               <p>
-                Lately, I’ve been spending a lot of time building student tools,
-                contributing to team-based product work, and improving how I
-                approach frontend structure, usability, and implementation
-                detail.
+                Lately, I’ve been spending a lot of time building tools for fellow students, 
+                contributing to team-based product work, and getting better at structure, 
+                usability, and implementation details.
               </p>
             </div>
           </div>

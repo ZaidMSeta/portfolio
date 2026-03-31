@@ -43,7 +43,7 @@ export function BooksCard() {
       <div className="mb-5 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <BookOpen size={14} className="text-teal-300" />
-          <h3 className="text-sm font-medium text-white">Reading</h3>
+          <h3 className="text-sm font-medium text-white">Recently Read</h3>
         </div>
         <span className="text-xs text-white/50">Hardcover</span>
       </div>
