@@ -59,7 +59,7 @@ export const experiences: Experience[] = [
     id: "store-associate-1",
     title: "Store Associate",
     company: "Krazy Binz",
-    logo: "/logos/krazy-binz.jpg",
+    logo: "/logos/krazy-binz.png",
     location: "Hamilton, ON",
     start: "2022-11",
     end: "2023-06",
