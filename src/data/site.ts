@@ -1,6 +1,7 @@
 export const site = {
     name: "Zaid Seta",
     tagline: "CS student. Software developer.",
+
     location: "Hamilton, ON",
     email: "zaidmseta@gmail.com",
   
