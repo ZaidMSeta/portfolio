@@ -12,6 +12,12 @@ const split = [
   { day: "Sun", label: "Rest" },
 ];
 
+const goals = [
+  "Currently bulking",
+  "Improve consistency on leg days",
+  "Increase compound lift numbers",
+];
+
 export function FitnessCard() {
   const today = DAYS[new Date().getDay()];
 
@@ -32,7 +38,7 @@ export function FitnessCard() {
               return (
                 <div
                   key={item.day}
-                  className={`flex flex-col items-center gap-1 rounded-md border py-2 transition ${
+                  className={`flex flex-col items-center gap-1.5 rounded-md border py-3 transition ${
                     isToday
                       ? "border-teal-300/40 bg-teal-300/10"
                       : "border-white/10 bg-white/[0.03]"
@@ -50,8 +56,16 @@ export function FitnessCard() {
           </div>
         </div>
 
-        <div className="flex flex-1 rounded-lg border border-white/10 bg-white/[0.03] p-4">
-          <p className="self-end text-xs text-white/25 italic">more coming soon</p>
+        <div className="flex flex-1 flex-col justify-center rounded-lg border border-white/10 bg-white/[0.03] p-4">
+          <p className="mb-3 text-xs text-white/45">Current goals</p>
+          <div className="space-y-2">
+            {goals.map((goal) => (
+              <div key={goal} className="flex items-start gap-2.5">
+                <div className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300/60" />
+                <p className="text-sm text-white/65">{goal}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </article>
