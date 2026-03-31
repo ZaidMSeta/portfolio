@@ -24,7 +24,7 @@ export const projects: Project[] = [
     id: "mactrack",
     slug: "mactrack",
     title: "MacTrack",
-    hook: "A course planning platform for McMaster students.",
+    hook: "A full-stack course planning platform for McMaster students, with degree planning, seat tracking, and professor reviews.",
     description:
       "MacTrack is a full-stack web app for browsing courses, planning degree progress, and tracking useful academic information in one place.",
     stack: ["React", "TypeScript", "Go", "SQLite"],
@@ -49,36 +49,6 @@ export const projects: Project[] = [
     ],
     reflection:
       "MacTrack has been a strong experience in building a practical full-stack product with real user-facing value. It pushed me to think more carefully about structure, usability, and how to design around real workflows rather than just isolated features.",
-  },
-  {
-    id: "morphace",
-    slug: "morphace",
-    title: "Morphace",
-    hook: "A skincare-focused app with insights, readings, and progress tracking.",
-    description:
-      "Morphace is a team-based project involving frontend UI work and backend/API contributions for a user-facing skincare product.",
-    stack: ["SwiftUI", "FastAPI", "Python", "PostgreSQL"],
-    image: "/projects/morphace.png",
-    repoUrl: "",
-    liveUrl: "",
-    status: "Ongoing",
-    date: "2026",
-    type: "Team",
-    featured: true,
-    summary:
-      "A team-based skincare product focused on user readings, insights, and progress tracking.",
-    whatItIs:
-      "Morphace is a collaborative product project centered on helping users engage with skincare-related insights and health-oriented data through a more polished, user-friendly experience.",
-    whyBuilt:
-      "This project gave me the opportunity to contribute to a more product-oriented application, where the focus was not just technical functionality but also user experience, structure, and how features fit into a larger product vision.",
-    features: [
-      "User-facing skincare insights and reading history",
-      "Frontend UI work in SwiftUI",
-      "Backend/API support for product functionality",
-      "Team-based collaboration across design and implementation",
-    ],
-    reflection:
-      "Morphace has been valuable because it feels closer to real product development than a purely solo side project. It helped me build experience contributing within an existing team and balancing technical work with product thinking.",
   },
   {
     id: "empty-room-viewer",
