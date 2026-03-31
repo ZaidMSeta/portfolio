@@ -1,5 +1,7 @@
 import { Dumbbell } from "lucide-react";
 
+const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
 const split = [
   { day: "Mon", label: "Push" },
   { day: "Tue", label: "Pull" },
@@ -7,38 +9,49 @@ const split = [
   { day: "Thu", label: "Push" },
   { day: "Fri", label: "Pull" },
   { day: "Sat", label: "Legs" },
-  { day: "gi", label: "Legs" },
-
+  { day: "Sun", label: "Rest" },
 ];
 
 export function FitnessCard() {
+  const today = DAYS[new Date().getDay()];
+
   return (
-    <article className="rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-white/20">
+    <article className="flex flex-col rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-white/20">
       <div className="mb-5 flex items-center gap-2">
         <Dumbbell size={14} className="text-teal-300" />
         <h3 className="text-sm font-medium text-white">Fitness</h3>
       </div>
 
-      {/*<div className="mb-5 rounded-lg border border-white/10 bg-white/[0.03] p-4">
-        <p className="mb-3 text-sm text-white/70">Current split</p>
+      <div className="flex flex-1 flex-col gap-3">
+        <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
+          <p className="mb-3 text-xs text-white/45">Current split</p>
 
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-7">
-          {split.map((item) => (
-            <div
-              key={`${item.day}-${item.label}`}
-              className="rounded-md border border-white/10 bg-white/[0.03] p-3"
-            >
-              <p className="text-xs text-white/45">{item.day}</p>
-              <p className="text-sm text-white">{item.label}</p>
-            </div>
-          ))}
+          <div className="grid grid-cols-7 gap-1.5">
+            {split.map((item) => {
+              const isToday = item.day === today;
+              return (
+                <div
+                  key={item.day}
+                  className={`flex flex-col items-center gap-1 rounded-md border py-2 transition ${
+                    isToday
+                      ? "border-teal-300/40 bg-teal-300/10"
+                      : "border-white/10 bg-white/[0.03]"
+                  }`}
+                >
+                  <p className={`text-[10px] ${isToday ? "text-teal-300/70" : "text-white/40"}`}>
+                    {item.day}
+                  </p>
+                  <p className={`text-[11px] font-medium ${isToday ? "text-teal-300" : "text-white"}`}>
+                    {item.label}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
         </div>
-          </div>*/}
 
-      <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
-        <div className="space-y-1 text-sm text-white/65">
-          <p>TBA</p>
-
+        <div className="flex flex-1 rounded-lg border border-white/10 bg-white/[0.03] p-4">
+          <p className="self-end text-xs text-white/25 italic">more coming soon</p>
         </div>
       </div>
     </article>
