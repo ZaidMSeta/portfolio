@@ -61,10 +61,10 @@ export default function About() {
         <h2 className="text-2xl font-semibold text-white">Interests</h2>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <ChessCard />
-          <FitnessCard />
           <BooksCard />
+          <FitnessCard />
           <WatchlistCard />
+          <ChessCard />
         </div>
       </section>
     </div>
