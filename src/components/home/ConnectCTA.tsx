@@ -4,7 +4,7 @@ const links = [
   {
     icon: Mail,
     label: "Email",
-    href: "mailto:zaid.seta@mcmaster.ca",
+    href: "mailto:zaidmseta@gmail.com",
   },
   {
     icon: Github,
