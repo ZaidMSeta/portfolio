@@ -10,7 +10,7 @@ export function Hero() {
         </h1>
 
         <p className="max-w-2xl text-base leading-8 text-white/65 sm:text-lg">
-          Computer Science student and aspiring software engineer. I build
+          Computer Science student @ McMaster University and aspiring software engineer. I build
           thoughtful tools and clean interfaces that solve real problems.
         </p>
 
