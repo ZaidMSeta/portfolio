@@ -7,8 +7,7 @@ const split = [
   { day: "Thu", label: "Push" },
   { day: "Fri", label: "Pull" },
   { day: "Sat", label: "Legs" },
-  { day: "gi", label: "Legs" },
-
+  { day: "Sun", label: "Rest" },
 ];
 
 export function FitnessCard() {
@@ -19,26 +18,19 @@ export function FitnessCard() {
         <h3 className="text-sm font-medium text-white">Fitness</h3>
       </div>
 
-      {/*<div className="mb-5 rounded-lg border border-white/10 bg-white/[0.03] p-4">
-        <p className="mb-3 text-sm text-white/70">Current split</p>
+      <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
+        <p className="mb-3 text-xs text-white/45">Current split</p>
 
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-7">
+        <div className="grid grid-cols-7 gap-1.5">
           {split.map((item) => (
             <div
-              key={`${item.day}-${item.label}`}
-              className="rounded-md border border-white/10 bg-white/[0.03] p-3"
+              key={item.day}
+              className="flex flex-col items-center gap-1 rounded-md border border-white/10 bg-white/[0.03] py-2"
             >
-              <p className="text-xs text-white/45">{item.day}</p>
-              <p className="text-sm text-white">{item.label}</p>
+              <p className="text-[10px] text-white/40">{item.day}</p>
+              <p className="text-[11px] font-medium text-white">{item.label}</p>
             </div>
           ))}
-        </div>
-          </div>*/}
-
-      <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
-        <div className="space-y-1 text-sm text-white/65">
-          <p>TBA</p>
-
         </div>
       </div>
     </article>
