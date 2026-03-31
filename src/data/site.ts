@@ -10,7 +10,6 @@ export const site = {
       { label: "Projects", to: "/projects" },
       { label: "Experience", to: "/experience" },
       { label: "Resume", to: "/resume" },
-      { label: "Contact", to: "/contact" },
     ],
   
     socials: [
