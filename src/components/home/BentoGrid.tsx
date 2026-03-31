@@ -114,9 +114,9 @@ function GitHubActivity() {
 
 function CurrentFocusTile() {
   const items = [
-    "Shipping portfolio",
+    "Improving MacTrack and contributing to Morphace",
     "Building stronger full-stack projects",
-    "Summer internship search",
+    "Summer/Fall internship search",
   ];
 
   return (
