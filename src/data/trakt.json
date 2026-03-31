@@ -1,0 +1,26 @@
+{
+  "items": [
+    {
+      "title": "Oppenheimer",
+      "year": 2023,
+      "type": "movie",
+      "posterUrl": "https://image.tmdb.org/t/p/w200/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
+      "watchedAt": "2026-03-27T22:01:00.000Z"
+    },
+    {
+      "title": "Peaky Blinders: The Immortal Man",
+      "year": 2026,
+      "type": "movie",
+      "posterUrl": "https://image.tmdb.org/t/p/w200/gRMalasZEzsZi4w2VFuYusfSfqf.jpg",
+      "watchedAt": "2026-03-27T22:01:00.000Z"
+    },
+    {
+      "title": "Project Hail Mary",
+      "year": 2026,
+      "type": "movie",
+      "posterUrl": "https://image.tmdb.org/t/p/w200/yihdXomYb5kTeSivtFndMy5iDmf.jpg",
+      "watchedAt": "2026-03-20T00:00:00.000Z"
+    }
+  ],
+  "fetchedAt": "2026-03-31T20:04:18.334Z"
+}
