@@ -19,7 +19,7 @@ export default function About() {
 
       <section className="grid grid-cols-1 gap-6 xl:grid-cols-[1.1fr_1.4fr]">
         <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5">
-          <div className="aspect-[4/5] bg-white/5">
+          <div className="aspect-[3/2] md:aspect-[4/5] bg-white/5">
             <img
               src="/about/profile-placeholder.jpg"
               alt="Zaid Seta"
