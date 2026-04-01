@@ -10,9 +10,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link
       to={`/projects/${project.slug}`}
-      className="group flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white/5 transition hover:border-white/20"
+      className="group flex flex-col overflow-hidden rounded-xl border border-fg/10 bg-fg/5 transition hover:border-fg/20"
     >
-      <div className="aspect-16/10 overflow-hidden bg-white/5">
+      <div className="aspect-16/10 overflow-hidden bg-fg/5">
         <img
           src={project.image}
           alt={project.title}
@@ -22,11 +22,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
       <div className="flex flex-1 flex-col p-5">
         <div className="mb-2 flex items-start justify-between gap-3">
-          <h3 className="text-base font-semibold text-white">{project.title}</h3>
-          <span className="shrink-0 text-xs text-white/50">{project.date}</span>
+          <h3 className="text-base font-semibold text-fg">{project.title}</h3>
+          <span className="shrink-0 text-xs text-fg/50">{project.date}</span>
         </div>
 
-        <p className="mb-4 text-sm leading-6 text-white/60">
+        <p className="mb-4 text-sm leading-6 text-fg/60">
           {project.description}
         </p>
 
@@ -49,9 +49,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
           })}
         </div>
 
-        <div className="flex items-center justify-between border-t border-white/10 pt-3">
-          <span className="text-xs text-white/50">Details →</span>
-          <span className="text-xs text-teal-300">{project.status}</span>
+        <div className="flex items-center justify-between border-t border-fg/10 pt-3">
+          <span className="text-xs text-fg/50">Details →</span>
+          <span className="text-xs text-accent">{project.status}</span>
         </div>
       </div>
     </Link>
