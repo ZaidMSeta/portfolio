@@ -40,12 +40,9 @@ export function BooksCard() {
 
   return (
     <article className="min-w-0 rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-white/20">
-      <div className="mb-5 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <BookOpen size={14} className="text-teal-300" />
-          <h3 className="text-sm font-medium text-white">Recently Read</h3>
-        </div>
-        <span className="text-xs text-white/50">Hardcover</span>
+      <div className="mb-5 flex items-center gap-2">
+        <BookOpen size={14} className="text-teal-300" />
+        <h3 className="text-sm font-medium text-white">Recently Read</h3>
       </div>
 
       <div className="mb-5 rounded-lg border border-white/10 bg-white/[0.03] p-4">
