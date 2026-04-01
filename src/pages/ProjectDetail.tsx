@@ -90,7 +90,7 @@ export default function ProjectDetail() {
 
   return (
     <div className="space-y-10">
-      <section className="space-y-4">
+      <section className="space-y-8">
         <Link
           to="/projects"
           className="inline-flex items-center gap-2 text-sm text-white/60 transition hover:text-white"
@@ -111,9 +111,37 @@ export default function ProjectDetail() {
 
       <ImageCarousel images={images} title={project.title} />
 
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
-        <span className="text-white/45">{project.date}</span>
-        <span className="text-teal-300">{project.status}</span>
+      <div className="space-y-3">
+        <div className="flex items-center justify-between gap-4 text-sm">
+          <div className="flex items-center gap-3">
+            <span className="text-white/45">{project.date}</span>
+            <span className="text-teal-300">{project.status}</span>
+          </div>
+          <div className="flex items-center gap-3">
+            {project.repoUrl ? (
+              <a
+                href={project.repoUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-white/50 transition hover:text-white"
+                aria-label="View code on GitHub"
+              >
+                <Github size={15} />
+              </a>
+            ) : null}
+            {project.liveUrl ? (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-white/50 transition hover:text-white"
+                aria-label="View live demo"
+              >
+                <ExternalLink size={15} />
+              </a>
+            ) : null}
+          </div>
+        </div>
 
         <div className="flex flex-wrap gap-2">
           {project.stack.map((tech) => {
@@ -130,34 +158,6 @@ export default function ProjectDetail() {
           })}
         </div>
       </div>
-
-      {(project.repoUrl || project.liveUrl) && (
-        <div className="flex flex-wrap items-center gap-3">
-          {project.repoUrl ? (
-            <a
-              href={project.repoUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/75 transition hover:border-white/20 hover:text-white"
-            >
-              <Github size={14} />
-              View Code
-            </a>
-          ) : null}
-
-          {project.liveUrl ? (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/75 transition hover:border-white/20 hover:text-white"
-            >
-              <ExternalLink size={14} />
-              Live Demo
-            </a>
-          ) : null}
-        </div>
-      )}
 
       <section className="rounded-xl border border-white/10 bg-white/5 p-5">
         <div className="space-y-8">
