@@ -20,12 +20,13 @@ function Breadcrumb({ pathname }: { pathname: string }) {
     <>
       {segments.map((segment, i) => {
         const to = "/" + segments.slice(0, i + 1).join("/");
+        const isLast = i === segments.length - 1;
         return (
           <Link
             key={to}
             to={to}
             onClick={scrollToTop}
-            className="shrink-0 text-white/45 transition hover:text-white/70"
+            className={`shrink-0 transition ${isLast ? "text-teal-300 hover:text-teal-200" : "text-white/45 hover:text-white/70"}`}
           >
             /{segment}
           </Link>
