@@ -1,4 +1,6 @@
 import { Link, NavLink, useLocation } from "react-router";
+import { Sun, Moon } from "lucide-react";
+import { useTheme } from "../../hooks/useTheme";
 
 const navItems = [
   { label: "About", to: "/about" },
@@ -26,7 +28,7 @@ function Breadcrumb({ pathname }: { pathname: string }) {
             key={to}
             to={to}
             onClick={scrollToTop}
-            className={`shrink-0 transition ${isLast ? "text-teal-300 hover:text-teal-200" : "text-white/45 hover:text-white/70"}`}
+            className={`shrink-0 transition ${isLast ? "text-accent hover:text-accent/80" : "text-fg/45 hover:text-fg/70"}`}
           >
             /{segment}
           </Link>
@@ -38,15 +40,16 @@ function Breadcrumb({ pathname }: { pathname: string }) {
 
 export default function Header() {
   const location = useLocation();
+  const { theme, toggle } = useTheme();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/8 bg-[#0f1115]/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-fg/8 bg-bg/80 backdrop-blur-md">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex min-w-0 shrink-0 items-center text-sm font-medium tracking-tight">
           <Link
             to="/"
             onClick={scrollToTop}
-            className="shrink-0 text-white transition hover:text-white/80"
+            className="shrink-0 text-fg transition hover:text-fg/80"
           >
             Zaid Seta
           </Link>
@@ -59,12 +62,20 @@ export default function Header() {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                isActive ? "text-teal-300" : "text-white/60 transition hover:text-white"
+                isActive ? "text-accent" : "text-fg/60 transition hover:text-fg"
               }
             >
               {item.label}
             </NavLink>
           ))}
+
+          <button
+            onClick={toggle}
+            aria-label="Toggle theme"
+            className="rounded-md p-1 text-fg/50 transition hover:text-fg"
+          >
+            {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+          </button>
         </nav>
       </div>
     </header>

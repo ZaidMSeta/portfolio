@@ -30,10 +30,10 @@ function CustomTooltip({
   if (!active || !payload || !payload.length || !label) return null;
 
   return (
-    <div className="rounded-lg border border-white/10 bg-[#11151c]/95 px-3 py-2 shadow-lg backdrop-blur">
-      <p className="text-xs text-white/45">{formatChartDate(label)}</p>
-      <p className="mt-1 text-sm text-white">
-        Elo: <span className="text-teal-300">{payload[0].value}</span>
+    <div className="rounded-lg border border-fg/10 bg-bg/95 px-3 py-2 shadow-lg backdrop-blur">
+      <p className="text-xs text-fg/45">{formatChartDate(label)}</p>
+      <p className="mt-1 text-sm text-fg">
+        Elo: <span className="text-accent">{payload[0].value}</span>
       </p>
     </div>
   );
@@ -73,35 +73,35 @@ export function ChessCard() {
   }, [data]);
 
   return (
-    <article className="rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-white/20">
+    <article className="rounded-xl border border-fg/10 bg-fg/5 p-5 transition hover:border-fg/20">
       <div className="mb-5 flex items-center gap-2">
-        <ChessKnight size={14} className="text-teal-300" />
-        <h3 className="text-sm font-medium text-white">Chess</h3>
+        <ChessKnight size={14} className="text-accent" />
+        <h3 className="text-sm font-medium text-fg">Chess</h3>
       </div>
 
-      <div className="mb-5 rounded-lg border border-white/10 bg-white/[0.03] p-4">
+      <div className="mb-5 rounded-lg border border-fg/10 bg-fg/[0.03] p-4">
         <div className="mb-3 flex items-center justify-between">
-          <p className="text-sm text-white/70">Rating over time</p>
+          <p className="text-sm text-fg/70">Rating over time</p>
           <div className="text-right">
-            <p className="text-xs text-white/45">
+            <p className="text-xs text-fg/45">
               Peak: {loading ? "..." : data?.peakRating ?? "N/A"}
             </p>
-            <p className="text-xs text-white/45">
+            <p className="text-xs text-fg/45">
               Current: {loading ? "..." : data?.rapidRating ?? "N/A"}
             </p>
           </div>
         </div>
 
-        <div className="h-32 min-w-0 overflow-hidden rounded-md bg-[linear-gradient(to_top,rgba(255,255,255,0.02),rgba(255,255,255,0.01))]">
+        <div className="h-32 min-w-0 overflow-hidden rounded-md bg-fg/[0.02]">
           {loading ? (
-            <div className="h-full w-full animate-pulse bg-white/5" />
+            <div className="h-full w-full animate-pulse bg-fg/5" />
           ) : (
             <ResponsiveContainer width="100%" height={128}>
               <AreaChart data={chartData} margin={{ top: 10, right: 6, left: -24, bottom: 0 }}>
                 <defs>
                   <linearGradient id="chessEloFill" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="rgba(126,231,193,0.22)" />
-                    <stop offset="100%" stopColor="rgba(126,231,193,0.02)" />
+                    <stop offset="0%" stopColor="var(--chart-fill-from)" />
+                    <stop offset="100%" stopColor="var(--chart-fill-to)" />
                   </linearGradient>
                 </defs>
 
@@ -109,16 +109,16 @@ export function ChessCard() {
                 <YAxis hide domain={["dataMin - 25", "dataMax + 25"]} />
                 <Tooltip
                   content={<CustomTooltip />}
-                  cursor={{ stroke: "rgba(255,255,255,0.12)", strokeWidth: 1 }}
+                  cursor={{ stroke: "var(--chart-cursor)", strokeWidth: 1 }}
                 />
                 <Area
                   type="monotone"
                   dataKey="rating"
-                  stroke="rgba(126,231,193,0.85)"
+                  stroke="var(--chart-stroke)"
                   strokeWidth={2}
                   fill="url(#chessEloFill)"
-                  dot={{ r: 2, strokeWidth: 0, fill: "rgba(126,231,193,0.85)" }}
-                  activeDot={{ r: 4, strokeWidth: 0, fill: "rgba(126,231,193,1)" }}
+                  dot={{ r: 2, strokeWidth: 0, fill: "var(--chart-stroke)" }}
+                  activeDot={{ r: 4, strokeWidth: 0, fill: "var(--color-accent)" }}
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -127,34 +127,34 @@ export function ChessCard() {
       </div>
 
       <div className="mb-5 grid grid-cols-2 gap-3">
-        <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
-          <p className="mb-1 text-xs text-white/45">Openings as White</p>
-          <p className="text-sm text-white">Vienna Gambit</p>
-          <p className="text-sm text-white">Vienna Game</p>
+        <div className="rounded-lg border border-fg/10 bg-fg/[0.03] p-3">
+          <p className="mb-1 text-xs text-fg/45">Openings as White</p>
+          <p className="text-sm text-fg">Vienna Gambit</p>
+          <p className="text-sm text-fg">Vienna Game</p>
         </div>
 
-        <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
-          <p className="mb-1 text-xs text-white/45">Openings as Black</p>
-          <p className="text-sm text-white">Caro-Kann</p>
-          <p className="text-sm text-white">King&apos;s Indian</p>
+        <div className="rounded-lg border border-fg/10 bg-fg/[0.03] p-3">
+          <p className="mb-1 text-xs text-fg/45">Openings as Black</p>
+          <p className="text-sm text-fg">Caro-Kann</p>
+          <p className="text-sm text-fg">King&apos;s Indian</p>
         </div>
       </div>
 
-      <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
-        <p className="mb-1 text-xs text-white/45">Last Game</p>
+      <div className="rounded-lg border border-fg/10 bg-fg/[0.03] p-3">
+        <p className="mb-1 text-xs text-fg/45">Last Game</p>
 
-        {loading && <p className="text-sm text-white/60">Loading...</p>}
+        {loading && <p className="text-sm text-fg/60">Loading...</p>}
 
         {!loading && error && (
-          <p className="text-sm text-white/60">Couldn’t load chess data.</p>
+          <p className="text-sm text-fg/60">Couldn't load chess data.</p>
         )}
 
         {!loading && !error && data?.lastGame && (
           <>
-            <p className="text-sm text-white">
+            <p className="text-sm text-fg">
               {data.lastGame.resultText} vs. {data.lastGame.opponent}
             </p>
-            <p className="text-xs text-white/50">
+            <p className="text-xs text-fg/50">
               {data.lastGame.timeClass} · {data.lastGame.endTimeLabel}
               {data.lastGame.ratingDelta !== null
                 ? ` · ${data.lastGame.ratingDelta > 0 ? "+" : ""}${data.lastGame.ratingDelta}`
@@ -164,7 +164,7 @@ export function ChessCard() {
         )}
 
         {!loading && !error && !data?.lastGame && (
-          <p className="text-sm text-white/60">No recent rapid game found.</p>
+          <p className="text-sm text-fg/60">No recent rapid game found.</p>
         )}
       </div>
     </article>
