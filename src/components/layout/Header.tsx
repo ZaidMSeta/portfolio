@@ -59,7 +59,7 @@ export default function Header() {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                isActive ? "text-white" : "text-white/60 transition hover:text-white"
+                isActive ? "text-teal-300" : "text-white/60 transition hover:text-white"
               }
             >
               {item.label}
