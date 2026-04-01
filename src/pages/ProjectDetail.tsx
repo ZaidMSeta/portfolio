@@ -9,8 +9,8 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
 
   if (images.length === 1) {
     return (
-      <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5">
-        <div className="aspect-[16/9] bg-white/5">
+      <div className="overflow-hidden rounded-xl border border-fg/10 bg-fg/5">
+        <div className="aspect-[16/9] bg-fg/5">
           <img src={images[0]} alt={title} className="h-full w-full object-cover" />
         </div>
       </div>
@@ -18,8 +18,8 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5">
-      <div className="relative aspect-[16/9] bg-white/5">
+    <div className="overflow-hidden rounded-xl border border-fg/10 bg-fg/5">
+      <div className="relative aspect-[16/9] bg-fg/5">
         <img
           src={images[index]}
           alt={`${title} screenshot ${index + 1}`}
@@ -48,7 +48,7 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
               key={i}
               onClick={() => setIndex(i)}
               className={`h-1.5 rounded-full transition-all ${
-                i === index ? "w-4 bg-teal-300" : "w-1.5 bg-white/40 hover:bg-white/60"
+                i === index ? "w-4 bg-accent" : "w-1.5 bg-white/40 hover:bg-white/60"
               }`}
               aria-label={`Go to image ${i + 1}`}
             />
@@ -67,17 +67,17 @@ export default function ProjectDetail() {
     return (
       <div className="space-y-6">
         <div className="space-y-3">
-          <h1 className="text-4xl font-semibold tracking-tight text-white">
+          <h1 className="text-4xl font-semibold tracking-tight text-fg">
             Project Not Found
           </h1>
-          <p className="text-sm leading-7 text-white/65 sm:text-base">
+          <p className="text-sm leading-7 text-fg/65 sm:text-base">
             The project you're looking for doesn't exist.
           </p>
         </div>
 
         <Link
           to="/projects"
-          className="inline-flex items-center gap-2 text-sm text-white/60 transition hover:text-white"
+          className="inline-flex items-center gap-2 text-sm text-fg/60 transition hover:text-fg"
         >
           <ArrowLeft size={14} />
           Back to Projects
@@ -93,17 +93,17 @@ export default function ProjectDetail() {
       <section className="space-y-8">
         <Link
           to="/projects"
-          className="inline-flex items-center gap-2 text-sm text-white/60 transition hover:text-white"
+          className="inline-flex items-center gap-2 text-sm text-fg/60 transition hover:text-fg"
         >
           <ArrowLeft size={14} />
           Back to Projects
         </Link>
 
         <div className="space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          <h1 className="text-3xl font-semibold tracking-tight text-fg sm:text-4xl">
             {project.title}
           </h1>
-          <p className="max-w-2xl text-sm leading-7 text-white/65 sm:text-base">
+          <p className="max-w-2xl text-sm leading-7 text-fg/65 sm:text-base">
             {project.summary}
           </p>
         </div>
@@ -114,8 +114,8 @@ export default function ProjectDetail() {
       <div className="space-y-3">
         <div className="flex items-center justify-between gap-4 text-sm">
           <div className="flex items-center gap-3">
-            <span className="text-white/45">{project.date}</span>
-            <span className="text-teal-300">{project.status}</span>
+            <span className="text-fg/45">{project.date}</span>
+            <span className="text-accent">{project.status}</span>
           </div>
           <div className="flex items-center gap-3">
             {project.repoUrl ? (
@@ -123,7 +123,7 @@ export default function ProjectDetail() {
                 href={project.repoUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="text-white/50 transition hover:text-white"
+                className="text-fg/50 transition hover:text-fg"
                 aria-label="View code on GitHub"
               >
                 <Github size={15} />
@@ -134,7 +134,7 @@ export default function ProjectDetail() {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="text-white/50 transition hover:text-white"
+                className="text-fg/50 transition hover:text-fg"
                 aria-label="View live demo"
               >
                 <ExternalLink size={15} />
@@ -159,27 +159,27 @@ export default function ProjectDetail() {
         </div>
       </div>
 
-      <section className="rounded-xl border border-white/10 bg-white/5 p-5">
+      <section className="rounded-xl border border-fg/10 bg-fg/5 p-5">
         <div className="space-y-8">
           <div>
-            <h2 className="mb-3 text-xl font-semibold text-white">What It Is</h2>
-            <p className="text-sm leading-7 text-white/65 sm:text-base">{project.whatItIs}</p>
+            <h2 className="mb-3 text-xl font-semibold text-fg">What It Is</h2>
+            <p className="text-sm leading-7 text-fg/65 sm:text-base">{project.whatItIs}</p>
           </div>
 
           <div>
-            <h2 className="mb-3 text-xl font-semibold text-white">Why I Built It</h2>
-            <p className="text-sm leading-7 text-white/65 sm:text-base">{project.whyBuilt}</p>
+            <h2 className="mb-3 text-xl font-semibold text-fg">Why I Built It</h2>
+            <p className="text-sm leading-7 text-fg/65 sm:text-base">{project.whyBuilt}</p>
           </div>
 
           <div>
-            <h2 className="mb-3 text-xl font-semibold text-white">Key Features</h2>
+            <h2 className="mb-3 text-xl font-semibold text-fg">Key Features</h2>
             <ul className="space-y-2">
               {project.features.map((feature) => (
                 <li
                   key={feature}
-                  className="flex items-start gap-3 text-sm leading-7 text-white/65 sm:text-base"
+                  className="flex items-start gap-3 text-sm leading-7 text-fg/65 sm:text-base"
                 >
-                  <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300" />
+                  <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                   <span>{feature}</span>
                 </li>
               ))}
@@ -187,8 +187,8 @@ export default function ProjectDetail() {
           </div>
 
           <div>
-            <h2 className="mb-3 text-xl font-semibold text-white">Reflection</h2>
-            <p className="text-sm leading-7 text-white/65 sm:text-base">{project.reflection}</p>
+            <h2 className="mb-3 text-xl font-semibold text-fg">Reflection</h2>
+            <p className="text-sm leading-7 text-fg/65 sm:text-base">{project.reflection}</p>
           </div>
         </div>
       </section>

@@ -2,35 +2,64 @@
 
 @import "tailwindcss";
 
-:root {
-  font-family: "IBM Plex Mono", monospace;
-  line-height: 1.5;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.92);
-  background-color: #0f1115;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Register theme colors — dark is default, .light overrides below */
+@theme {
+  --color-bg: #0f1115;
+  --color-fg: #ffffff;
+  --color-accent: #5eead4;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/* Light mode overrides — outside @layer so they beat Tailwind's @layer theme */
+.light {
+  --color-bg: #f8fafc;
+  --color-fg: #0f172a;
+  --color-accent: #0d9488;
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background: #0f1115;
-  color: rgba(255, 255, 255, 0.92);
-}
-
-#root {
-  min-height: 100vh;
+  --chart-fill-from: rgba(13, 148, 136, 0.2);
+  --chart-fill-to: rgba(13, 148, 136, 0.02);
+  --chart-stroke: rgba(13, 148, 136, 0.85);
+  --chart-cursor: rgba(0, 0, 0, 0.12);
+  --badge-opacity: 0.14;
+  --badge-sat: 65%;
+  --badge-lit: 30%;
 }
 
 @layer base {
+  :root {
+    font-family: "IBM Plex Mono", monospace;
+    line-height: 1.5;
+    font-weight: 400;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    --chart-fill-from: rgba(126, 231, 193, 0.22);
+    --chart-fill-to: rgba(126, 231, 193, 0.02);
+    --chart-stroke: rgba(126, 231, 193, 0.85);
+    --chart-cursor: rgba(255, 255, 255, 0.12);
+    --badge-opacity: 0.12;
+    --badge-sat: 70%;
+    --badge-lit: 72%;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-bg);
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    background: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
   a {
     text-decoration: none;
     color: inherit;
