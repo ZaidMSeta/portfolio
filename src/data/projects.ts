@@ -6,6 +6,7 @@ export type Project = {
   description: string;
   stack: string[];
   image: string;
+  images?: string[];
   repoUrl?: string;
   liveUrl?: string;
   status: "Complete" | "Ongoing";
