@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { ExternalLink, Github } from "lucide-react";
 import { projects } from "../../data/projects";
 import { getTechColour } from "../../lib/utils/techColour";
@@ -6,6 +6,7 @@ import { getTechColour } from "../../lib/utils/techColour";
 
 export function FeaturedProjects() {
   const featuredProjects = projects.filter((project) => project.featured);
+  const navigate = useNavigate();
 
   return (
     <section>
@@ -21,7 +22,8 @@ export function FeaturedProjects() {
         {featuredProjects.map((project, index) => (
           <article
             key={project.id}
-            className={`group flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white/5 transition hover:border-white/20 ${index >= 2 ? "hidden lg:flex" : ""
+            onClick={() => navigate(`/projects/${project.slug}`)}
+            className={`group flex cursor-pointer flex-col overflow-hidden rounded-xl border border-white/10 bg-white/5 transition hover:border-white/20 ${index >= 2 ? "hidden lg:flex" : ""
               }`}
           >
             <div className="aspect-16/10 overflow-hidden bg-white/5">
@@ -66,6 +68,7 @@ export function FeaturedProjects() {
                       href={project.repoUrl}
                       target="_blank"
                       rel="noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-1 text-white/60 transition hover:text-white"
                     >
                       <Github size={12} />
@@ -78,6 +81,7 @@ export function FeaturedProjects() {
                       href={project.liveUrl}
                       target="_blank"
                       rel="noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-1 text-white/60 transition hover:text-white"
                     >
                       <ExternalLink size={12} />
@@ -86,12 +90,7 @@ export function FeaturedProjects() {
                   ) : null}
                 </div>
 
-                <Link
-                  to={`/projects/${project.slug}`}
-                  className="text-xs text-white/60 transition hover:text-white"
-                >
-                  Details →
-                </Link>
+                <span className="text-xs text-white/40">Details →</span>
               </div>
             </div>
           </article>
