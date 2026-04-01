@@ -74,22 +74,22 @@ export function ChessCard() {
 
   return (
     <article className="rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-white/20">
-      <div className="mb-5 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <ChessKnight size={14} className="text-teal-300" />
-          <h3 className="text-sm font-medium text-white">Chess</h3>
-        </div>
-        <span className="text-xs text-white/50">
-          Peak Elo: {loading ? "..." : data?.peakRating ?? "N/A"}
-        </span>
+      <div className="mb-5 flex items-center gap-2">
+        <ChessKnight size={14} className="text-teal-300" />
+        <h3 className="text-sm font-medium text-white">Chess</h3>
       </div>
 
       <div className="mb-5 rounded-lg border border-white/10 bg-white/[0.03] p-4">
         <div className="mb-3 flex items-center justify-between">
           <p className="text-sm text-white/70">Rating over time</p>
-          <p className="text-xs text-white/45">
-            Current Elo: {loading ? "..." : data?.rapidRating ?? "N/A"}
-          </p>
+          <div className="text-right">
+            <p className="text-xs text-white/45">
+              Peak: {loading ? "..." : data?.peakRating ?? "N/A"}
+            </p>
+            <p className="text-xs text-white/45">
+              Current: {loading ? "..." : data?.rapidRating ?? "N/A"}
+            </p>
+          </div>
         </div>
 
         <div className="h-32 min-w-0 overflow-hidden rounded-md bg-[linear-gradient(to_top,rgba(255,255,255,0.02),rgba(255,255,255,0.01))]">
