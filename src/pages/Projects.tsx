@@ -5,12 +5,12 @@ export default function Projects() {
   return (
     <div className="space-y-14">
       <section className="space-y-4">
-        <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+        <h1 className="text-4xl font-semibold tracking-tight text-fg sm:text-5xl">
           Projects
         </h1>
 
-        <p className="max-w-3xl text-sm leading-7 text-white/65 sm:text-base">
-          A collection of projects, tools, and experiments I’ve worked on across
+        <p className="max-w-3xl text-sm leading-7 text-fg/65 sm:text-base">
+          A collection of projects, tools, and experiments I've worked on across
           full-stack development, product-focused software, and practical student tools.
         </p>
       </section>
