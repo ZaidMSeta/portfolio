@@ -7,18 +7,8 @@ function formatYM(ym: string) {
 
   const [year, month] = ym.split("-");
   const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
   ];
 
   const index = Number(month) - 1;
@@ -33,11 +23,11 @@ export function ExperienceSnapshot() {
   return (
     <section>
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-white">Experience</h2>
+        <h2 className="text-xl font-semibold text-fg">Experience</h2>
 
         <Link
           to="/experience"
-          className="text-sm text-white/60 transition hover:text-white"
+          className="text-sm text-fg/60 transition hover:text-fg"
         >
           See all experience →
         </Link>
@@ -47,25 +37,25 @@ export function ExperienceSnapshot() {
         {featuredExperience.map((role) => (
           <article
             key={role.id}
-            className="rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-white/20"
+            className="rounded-xl border border-fg/10 bg-fg/5 p-5 transition hover:border-fg/20"
           >
             <div className="mb-4 flex items-start justify-between gap-4">
               <div className="flex items-start gap-3">
                 <img
                   src={role.logo}
                   alt={`${role.company} logo`}
-                  className="h-10 w-10 rounded-lg border border-white/10 bg-white p-1 object-contain"
+                  className="h-10 w-10 rounded-lg border border-fg/10 bg-white p-1 object-contain"
                 />
 
                 <div>
-                  <h3 className="text-base font-semibold text-white">
+                  <h3 className="text-base font-semibold text-fg">
                     {role.title}
                   </h3>
-                  <p className="text-sm text-white/60">{role.company}</p>
+                  <p className="text-sm text-fg/60">{role.company}</p>
                 </div>
               </div>
 
-              <div className="text-right text-xs text-white/50">
+              <div className="text-right text-xs text-fg/50">
                 <p>{formatYM(role.start)}</p>
                 <p>
                   — {role.end === "Present" ? "Present" : formatYM(role.end)}
@@ -73,9 +63,9 @@ export function ExperienceSnapshot() {
               </div>
             </div>
 
-            <p className="mb-3 text-sm text-white/50">{role.location}</p>
+            <p className="mb-3 text-sm text-fg/50">{role.location}</p>
 
-            <p className="text-sm leading-6 text-white/60">
+            <p className="text-sm leading-6 text-fg/60">
               {role.description[0]}
             </p>
           </article>
