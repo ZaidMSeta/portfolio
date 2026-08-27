@@ -18,7 +18,25 @@ export default function Footer() {
               </a>
             </div>
 
-            <p className="mt-3 text-xs text-fg/30">© 2026 Zaid Seta</p>
+            <p className="mt-3 max-w-md text-xs leading-6 text-fg/45">
+              Building tools that people actually end up using, mostly for students,
+              small clubs, and local businesses around Hamilton.
+            </p>
+
+            <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-fg/30">
+              <span>© 2026 Zaid Seta</span>
+              <span className="text-fg/20">•</span>
+              <span>Built with React + Tailwind</span>
+              <span className="text-fg/20">•</span>
+              <a
+                href={`https://github.com/ZaidMSeta/portfolio/commit/${__COMMIT_SHA__}`}
+                target="_blank"
+                rel="noreferrer"
+                className="font-mono transition hover:text-fg/60"
+              >
+                {__COMMIT_SHA__}
+              </a>
+            </p>
           </div>
 
           <div className="flex items-center gap-3">

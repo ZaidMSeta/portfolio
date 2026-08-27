@@ -51,7 +51,7 @@ export default function Header() {
             onClick={scrollToTop}
             className="shrink-0 text-fg transition hover:text-fg/80"
           >
-            Zaid Seta
+            zaid<span className="text-accent">.</span>seta
           </Link>
           <Breadcrumb pathname={location.pathname} />
         </div>

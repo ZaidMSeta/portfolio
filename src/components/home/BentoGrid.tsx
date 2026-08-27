@@ -2,18 +2,17 @@ import { useEffect, useState } from "react";
 import {
   MapPin,
   GitCommit,
-  Link2,
+  Layers,
   Sparkles,
   Mail,
   Github,
   Linkedin,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 import { fetchLatestCommits, type GitHubActivityCommit } from "../../lib/utils/githubActivity";
+import { getTechColour } from "../../lib/utils/techColour";
 
 const tileClassName =
-  "rounded-xl border border-fg/8 bg-fg/5 p-5 transition hover:border-fg/15 hover:bg-fg/[0.07]";
+  "rounded-xl border border-fg/10 bg-fg/5 p-5 transition hover:border-fg/15 hover:bg-fg/[0.07]";
 
 function GitHubActivity() {
   const [commits, setCommits] = useState<GitHubActivityCommit[]>([]);
@@ -114,9 +113,9 @@ function GitHubActivity() {
 
 function CurrentFocusTile() {
   const items = [
-    "Improving MacTrack and contributing to Morphace",
-    "Building stronger full-stack projects",
-    "Summer/Fall internship search",
+    "Shipping the Ressam Gardens site through client review",
+    "Migrating MacTrack's dashboard and degree planner into a single view",
+    "Looking for a Winter 2027 co-op",
   ];
 
   return (
@@ -138,29 +137,47 @@ function CurrentFocusTile() {
   );
 }
 
-function WebringTile() {
+function StackTile() {
+  const stack = [
+    "TypeScript",
+    "React",
+    "Python",
+    "Go",
+    "FastAPI",
+    "PostgreSQL",
+    "Tailwind",
+    "Playwright",
+  ];
+
   return (
-    <a
-      href="#"
-      className={`${tileClassName} flex flex-col items-center justify-center text-center`}
-    >
-      <div className="mb-4 flex items-center gap-4 text-fg/35">
-        <ChevronLeft size={18} />
-        <div className="flex h-14 w-14 items-center justify-center rounded-full border border-fg/10 bg-fg/[0.03]">
-          <Link2 size={18} className="text-accent" />
-        </div>
-        <ChevronRight size={18} />
+    <div className={tileClassName}>
+      <div className="mb-4 flex items-center gap-2">
+        <Layers size={14} className="text-accent" />
+        <h3 className="text-sm font-medium text-fg">Stack</h3>
       </div>
 
-      <p className="font-medium text-fg">McMaster Webring</p>
-      <p className="mt-1 text-sm text-fg/55">Browse other McMaster sites</p>
-    </a>
+      <div className="flex flex-wrap gap-1.5">
+        {stack.map((tech) => {
+          const colour = getTechColour(tech);
+
+          return (
+            <span
+              key={tech}
+              className="rounded-md px-2 py-0.5 text-[11px]"
+              style={{ backgroundColor: colour.bg, color: colour.text }}
+            >
+              {tech}
+            </span>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
 function LocationTile() {
   return (
-    <div className="overflow-hidden rounded-xl border border-fg/8 bg-fg/5 transition hover:border-fg/15 hover:bg-fg/[0.07] md:col-span-2 md:row-span-2">
+    <div className="overflow-hidden rounded-xl border border-fg/10 bg-fg/5 transition hover:border-fg/15 hover:bg-fg/[0.07] md:col-span-2 md:row-span-2">
       <div className="relative h-full min-h-[320px] w-full overflow-hidden">
         <iframe
           title="Hamilton, Ontario"
@@ -222,7 +239,7 @@ export function BentoGrid() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:[grid-template-rows:auto_auto_auto]">
         <GitHubActivity />
         <CurrentFocusTile />
-        <WebringTile />
+        <StackTile />
         <LocationTile />
         <ConnectTile />
       </div>

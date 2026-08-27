@@ -6,6 +6,7 @@ import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
 import Experience from "./pages/Experience";
 import Resume from "./pages/Resume";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/experience" element={<Experience />} />
         <Route path="/resume" element={<Resume />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </PageShell>
   );

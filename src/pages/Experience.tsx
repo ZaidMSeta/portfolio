@@ -41,6 +41,9 @@ export default function Experience() {
                 <img
                   src={role.logo}
                   alt={`${role.company} logo`}
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
                   className="h-12 w-12 rounded-lg border border-fg/10 bg-white p-1 object-contain"
                 />
 

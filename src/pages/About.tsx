@@ -24,20 +24,24 @@ export default function About() {
 
             <div className="space-y-4 text-sm leading-7 text-fg/65 sm:text-base">
               <p>
-                I'm a Computer Science student at McMaster University with a strong interest in
-                full-stack development, product-focused software, and building tools that are genuinely useful.
+                I'm a Computer Science student at McMaster University, interested in
+                full-stack development and in building tools that people actually keep using
+                once the novelty wears off.
               </p>
 
               <p>
-                Working on the app at Morphace, along with the tools I've built for students,
-                has pushed me to think more carefully about how software should function,
-                feel, and fit into real people's workflows.
+                Most of what I've built has come out of watching someone do something tedious
+                by hand. A course planner because degree planning is scattered across five
+                places. A scheduling automation for a local soccer club because 400 events were
+                being entered one at a time. An event tool for a nonprofit because the same
+                poster was being retyped into four platforms.
               </p>
 
               <p>
-                Lately, I've been spending a lot of time building tools for fellow students,
-                contributing to team-based product work, and getting better at structure,
-                usability, and implementation details.
+                Lately I've been doing more client work, which has turned out to be its own
+                skill. Translating vague feedback into scoped work, and shipping something
+                through fifteen rounds of review without losing the thread, is harder than
+                the code usually is.
               </p>
             </div>
           </div>

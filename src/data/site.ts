@@ -21,7 +21,7 @@ export const site = {
   
     footer: {
       note: "Built with React + Tailwind",
-      lastUpdated: "2026-02-10",
+      lastUpdated: __BUILD_DATE__,
     },
   
     resume: {
