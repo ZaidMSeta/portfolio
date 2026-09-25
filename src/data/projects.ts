@@ -30,7 +30,7 @@ export const projects: Project[] = [
       "A student-focused web app for browsing courses, planning degree progress, and tracking useful academic information in one place.",
     stack: ["React", "TypeScript", "Go", "Python", "PostgreSQL", "AWS Lambda"],
     image: "/projects/mactrack.png",
-    repoUrl: "https://github.com/hasan-ston/mactrack",
+    repoUrl: "",
     liveUrl: "https://mac-track.com",
     metrics: [
       { value: "200+", label: "students using it" },

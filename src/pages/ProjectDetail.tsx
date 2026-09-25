@@ -184,6 +184,7 @@ function CaseStudyBody({ study }: { study: CaseStudy }) {
         <ul className="space-y-6">
           {study.contributions.map((item) => (
             <li key={item.title} className="border-l-2 border-accent/40 pl-5">
+              {item.when && <p className="font-mono text-xs text-accent/80">{item.when}</p>}
               <h3 className="font-display text-lg text-fg">{item.title}</h3>
               <p className="mt-1.5 text-base leading-7 text-fg/65">{item.body}</p>
             </li>
@@ -193,6 +194,11 @@ function CaseStudyBody({ study }: { study: CaseStudy }) {
       <Section title="Decisions worth noting">
         <CardList items={study.decisions} />
       </Section>
+      {study.story && (
+        <Section title={study.story.title}>
+          <Prose paragraphs={study.story.paragraphs} />
+        </Section>
+      )}
       <Section title="Reflection">
         <Prose paragraphs={study.reflection} />
       </Section>
