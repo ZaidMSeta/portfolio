@@ -7,8 +7,10 @@ export type CaseStudy = {
   stats: { value: string; label: string }[];
   problem: string[];
   flow: { title: string; detail: string; tech: string }[];
-  contributions: { title: string; body: string }[];
+  contributions: { when?: string; title: string; body: string }[];
   decisions: { title: string; body: string }[];
+  // Optional narrative section, e.g. an incident or a hard call
+  story?: { title: string; paragraphs: string[] };
   reflection: string[];
 };
 
@@ -20,7 +22,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       { value: "200+", label: "students using it" },
       { value: "~1s", label: "between seat checks" },
       { value: "112", label: "commits from me" },
-      { value: "46", label: "PRs I merged" },
+      { value: "35+", label: "PRs I authored" },
     ],
     problem: [
       "Popular McMaster courses fill up in minutes, and seats that open later go to whoever happens to refresh at the right moment. Planning a degree meant cross-referencing the academic calendar, prerequisite chains, and a spreadsheet.",
@@ -55,24 +57,39 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     contributions: [
       {
-        title: "Merged the dashboard into the degree planner",
-        body: "Moved grades, requirements, year advancement, and stats into the planner one PR at a time while both views stayed live, then cut over and redirected /dashboard. A strangler-fig migration rather than a big-bang rewrite.",
+        when: "Feb – Mar",
+        title: "Planner filters and early schema work",
+        body: "Extended the original schema and built the course filters on the degree planner's add-course dialog, so students could narrow the catalog down to what fits their plan.",
       },
       {
-        title: "Built the shared plan model it ran on",
-        body: "Split the planner into components and added shared plan types and a usePlan hook with optimistic updates, so the dashboard features had one place to land.",
+        when: "Mar",
+        title: "Seat alerts that only fire when a seat opens",
+        body: "Changed the scraper to notify only on a transition into open, not on every status change, which stopped duplicate alerts for waitlist and status churn.",
       },
       {
-        title: "Made alerts fire only when it matters",
-        body: "Changed notifications to trigger only on a closed-to-open transition, so students stopped getting pinged for waitlist and status churn.",
+        when: "Mar – Apr",
+        title: "Accounts, profiles, and data fixes",
+        body: "Fixed the signup and login flows, improved program search at signup, made Google sign-in work in dark mode and on resize, and added profile editing. Wrote a safe data migration for a split engineering course and fixed parsing for zero-unit courses.",
       },
       {
-        title: "Hardened the API",
-        body: "Rejected CR/LF in email headers to close a header-injection path, made the internal notify secret check constant-time, revoked sessions on password reset and Google account claims, and moved transcript uploads to temp files.",
+        when: "Apr",
+        title: "Keeping Mosaic sessions alive",
+        body: "Built the pulse endpoint that decrypts a stored session and checks it against Mosaic, plus a 10-minute heartbeat that runs from anywhere in the app and re-checks when the tab comes back into focus.",
       },
       {
-        title: "Kept dependencies patched",
-        body: "Worked through Dependabot updates across npm, Go modules, and pip, and patched advisories by hand where the bot couldn't.",
+        when: "Apr – Sep",
+        title: "Security hardening",
+        body: "Rejected CR/LF in email headers to close a header-injection path, moved transcript uploads to temp files, revoked sessions on password reset and Google account claims, made the internal notify secret check constant-time, and patched dependency advisories across npm, Go, and pip.",
+      },
+      {
+        when: "Jul – Sep",
+        title: "Rebuilt the planner and retired the dashboard",
+        body: "Added shared plan types and a usePlan hook with optimistic updates, split the planner into about 15 components, then moved grades and GPA, degree requirements, year advancement, and stats over from the dashboard one PR at a time before redirecting /dashboard. A strangler-fig migration rather than a big-bang rewrite.",
+      },
+      {
+        when: "Sep",
+        title: "A focused bug sweep",
+        body: "Shipped seven small PRs in a day covering planner conflicts and imports, summer terms, drag and drop, ICS export, course and professor pages, and auth edge cases.",
       },
     ],
     decisions: [
@@ -93,9 +110,18 @@ export const caseStudies: Record<string, CaseStudy> = {
         body: "Unchanged rows aren't rewritten on every poll. Those writes were a large share of the team's Supabase egress.",
       },
     ],
+    story: {
+      title: "When auto-enroll had to come down",
+      paragraphs: [
+        "In April the team shipped auto-enroll: students connected their Mosaic account, and when a watched seat opened, the scraper went through the enrollment flow for them. Passwords were used once to create a session and then discarded, and session cookies were encrypted at rest with AES-256-GCM. My part was keeping those sessions alive.",
+        "The feature got attention on r/McMaster, and with it fair questions about a student tool holding university credentials. We contacted McMaster's Digital Trust and Governance team ourselves, took auto-enroll down, purged the stored session data, and made seat alerts free and unlimited for everyone.",
+        "I shipped the public post-mortem and a site-wide banner linking to it, so anyone who had connected their account could see exactly what we'd stored and what happened to it.",
+        "The lesson I took from it: secure isn't the same as appropriate. Encryption answered how we stored credentials. It didn't answer whether we should have been holding them at all.",
+      ],
+    },
     reflection: [
       "MacTrack is where I learned to change a live product without breaking it for the people using it. Moving the planner over one feature at a time was slower than a rewrite, but students always had a working version while it happened.",
-      "It also taught me to work in a codebase I didn't write most of. The scraper and API were mostly my teammates' work, and my best contributions came from understanding them well enough to change them safely.",
+      "It also taught me how to work inside a shared codebase with a small team: reading what's there before changing it, splitting work into PRs that are easy to review, and keeping main deployable.",
     ],
   },
 };
