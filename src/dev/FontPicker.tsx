@@ -18,89 +18,86 @@ const google = (families: string) =>
 const fontshare = (families: string) =>
   `https://api.fontshare.com/v2/css?${families}&display=swap`;
 
+const BODY = {
+  sans: '"Hanken Grotesk", sans-serif',
+  mono: '"IBM Plex Mono", monospace',
+};
+
+// Headings vary; body and labels stay on the current Hanken Grotesk + Plex Mono
 const PAIRINGS: Pairing[] = [
   {
-    id: "instrument",
-    label: "Instrument Serif + Sans",
-    note: "B from the first sheet",
-    display: '"Instrument Serif", serif',
-    sans: '"Instrument Sans", sans-serif',
-    mono: '"IBM Plex Mono", monospace',
-    displayWeight: 400,
-    stylesheets: [google("family=Instrument+Serif&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500")],
-  },
-  {
-    id: "bricolage",
-    label: "Bricolage Grotesque",
-    note: "A from the first sheet",
-    display: '"Bricolage Grotesque", sans-serif',
-    sans: '"Bricolage Grotesque", sans-serif',
-    mono: '"IBM Plex Mono", monospace',
+    id: "gambetta",
+    label: "Gambetta",
+    note: "Elegant serif, slightly calligraphic",
+    display: '"Gambetta", serif',
+    ...BODY,
     displayWeight: 600,
-    stylesheets: [google("family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500")],
+    stylesheets: [fontshare("f[]=gambetta@600")],
   },
   {
-    id: "space",
-    label: "Space Grotesk + Space Mono",
-    note: "D, with its matching mono",
-    display: '"Space Grotesk", sans-serif',
-    sans: '"Space Grotesk", sans-serif',
-    mono: '"Space Mono", monospace',
+    id: "erode",
+    label: "Erode",
+    note: "Sturdy modern serif with chunky wedges",
+    display: '"Erode", serif',
+    ...BODY,
     displayWeight: 600,
-    stylesheets: [google("family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono")],
+    stylesheets: [fontshare("f[]=erode@600")],
   },
   {
-    id: "bricolage-instrument",
-    label: "Bricolage + Instrument Sans",
-    note: "A's headings, calmer body text",
-    display: '"Bricolage Grotesque", sans-serif',
-    sans: '"Instrument Sans", sans-serif',
-    mono: '"IBM Plex Mono", monospace',
-    displayWeight: 600,
-    stylesheets: [google("family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500")],
+    id: "boska",
+    label: "Boska",
+    note: "High-contrast serif, sharp and refined",
+    display: '"Boska", serif',
+    ...BODY,
+    displayWeight: 500,
+    stylesheets: [fontshare("f[]=boska@500")],
   },
   {
-    id: "familjen",
-    label: "Familjen Grotesk",
-    note: "Quirky grotesk, rarely used",
-    display: '"Familjen Grotesk", sans-serif',
-    sans: '"Familjen Grotesk", sans-serif',
-    mono: '"IBM Plex Mono", monospace',
-    displayWeight: 600,
-    stylesheets: [google("family=Familjen+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500")],
-  },
-  {
-    id: "zodiak",
-    label: "Zodiak + Switzer",
-    note: "Sharp serif headings, neutral body",
-    display: '"Zodiak", serif',
-    sans: '"Switzer", sans-serif',
-    mono: '"IBM Plex Mono", monospace',
+    id: "cabinet",
+    label: "Cabinet Grotesk",
+    note: "Bold, punchy grotesk with tight curves",
+    display: '"Cabinet Grotesk", sans-serif',
+    ...BODY,
     displayWeight: 700,
-    stylesheets: [fontshare("f[]=zodiak@700"), fontshare("f[]=switzer@400,500,600"), google("family=IBM+Plex+Mono:wght@400;500")],
+    stylesheets: [fontshare("f[]=cabinet-grotesk@700")],
   },
   {
-    id: "redhat",
-    label: "Red Hat Display + Text + Mono",
-    note: "One matched family, clean and cohesive",
-    display: '"Red Hat Display", sans-serif',
-    sans: '"Red Hat Text", sans-serif',
-    mono: '"Red Hat Mono", monospace',
+    id: "chillax",
+    label: "Chillax",
+    note: "Rounded and friendly, a bit playful",
+    display: '"Chillax", sans-serif',
+    ...BODY,
     displayWeight: 600,
-    stylesheets: [google("family=Red+Hat+Display:wght@500;600;700&family=Red+Hat+Text:wght@400;500;600&family=Red+Hat+Mono:wght@400;500")],
+    stylesheets: [fontshare("f[]=chillax@600")],
   },
   {
-    id: "current",
-    label: "Hedvig + Hanken (current)",
-    note: "For comparison",
-    display: '"Hedvig Letters Serif", serif',
-    sans: '"Hanken Grotesk", sans-serif',
-    mono: '"IBM Plex Mono", monospace',
-    displayWeight: 400,
-    stylesheets: [],
+    id: "unbounded",
+    label: "Unbounded",
+    note: "Wide and techy, strong presence",
+    display: '"Unbounded", sans-serif',
+    ...BODY,
+    displayWeight: 600,
+    stylesheets: [google("family=Unbounded:wght@500;600")],
+  },
+  {
+    id: "epilogue",
+    label: "Epilogue",
+    note: "Grotesk with subtle quirks, confident",
+    display: '"Epilogue", sans-serif',
+    ...BODY,
+    displayWeight: 700,
+    stylesheets: [google("family=Epilogue:wght@600;700")],
+  },
+  {
+    id: "martian",
+    label: "Martian Mono",
+    note: "Wide mono headings, technical but not terminal",
+    display: '"Martian Mono", monospace',
+    ...BODY,
+    displayWeight: 500,
+    stylesheets: [google("family=Martian+Mono:wght@400;500")],
   },
 ];
-
 function apply(pairing: Pairing) {
   for (const href of pairing.stylesheets) {
     if (!document.querySelector(`link[href="${href}"]`)) {
@@ -134,9 +131,9 @@ export function FontPicker() {
   const [enabled] = useState(isEnabled);
   const [activeId, setActiveId] = useState(() => {
     try {
-      return sessionStorage.getItem("font-trial-id") ?? "instrument";
+      return sessionStorage.getItem("font-trial-id") ?? "gambetta";
     } catch {
-      return "instrument";
+      return "gambetta";
     }
   });
   const [open, setOpen] = useState(true);
@@ -160,7 +157,7 @@ export function FontPicker() {
         onClick={() => setOpen((o) => !o)}
         className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-semibold"
       >
-        Font trial
+        Heading font trial
         <span className="text-xs font-normal text-fg/50">{open ? "hide" : "show"}</span>
       </button>
       {open && (
