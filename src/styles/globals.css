@@ -1,38 +1,60 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
 
 @import "tailwindcss";
 
 /* Register theme colors — dark is default, .light overrides below */
 @theme {
+  --font-display: "Cabinet Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
   --color-bg: #0f1115;
   --color-fg: #ffffff;
   --color-accent: #5eead4;
+  --color-surface: rgb(255 255 255 / 0.05);
 }
 
 /* Light mode overrides — outside @layer so they beat Tailwind's @layer theme */
 .light {
-  --color-bg: #f8fafc;
+  --color-bg: #f4f5f7;
   --color-fg: #0f172a;
-  --color-accent: #0d9488;
+  /* teal-700: teal-600 is under 4.5:1 on white for small text */
+  --color-accent: #0f766e;
+  --color-surface: #ffffff;
+  --card-shadow: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px -6px rgb(15 23 42 / 0.08);
 
-  --chart-fill-from: rgba(13, 148, 136, 0.2);
-  --chart-fill-to: rgba(13, 148, 136, 0.02);
-  --chart-stroke: rgba(13, 148, 136, 0.85);
+  --chart-fill-from: rgba(15, 118, 110, 0.18);
+  --chart-fill-to: rgba(15, 118, 110, 0.02);
+  --chart-stroke: rgba(15, 118, 110, 0.85);
   --chart-cursor: rgba(0, 0, 0, 0.12);
   --badge-opacity: 0.14;
   --badge-sat: 65%;
   --badge-lit: 30%;
 }
 
+/* Top-level cards: translucent on dark, white with a soft shadow on light */
+@utility card {
+  background-color: var(--color-surface);
+  box-shadow: var(--card-shadow, none);
+}
+
+/* Unlayered so it wins over the font-display family utility's default weight */
+.font-display {
+  font-weight: var(--display-weight, 400);
+}
+
 @layer base {
   :root {
-    font-family: "IBM Plex Mono", monospace;
+    font-family: var(--font-sans);
     line-height: 1.5;
     font-weight: 400;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    --display-weight: 700;
 
     --chart-fill-from: rgba(126, 231, 193, 0.22);
     --chart-fill-to: rgba(126, 231, 193, 0.02);
@@ -72,5 +94,12 @@
 
   section {
     scroll-margin-top: 100px;
+  }
+
+  /* Page and section headings use the display face */
+  h1,
+  h2 {
+    font-family: var(--font-display);
+    font-weight: var(--display-weight, 400);
   }
 }

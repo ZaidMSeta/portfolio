@@ -56,7 +56,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-fg/8 bg-bg/80 backdrop-blur-md">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
-        <div className="flex min-w-0 items-center text-sm font-medium tracking-tight">
+        <div className="flex min-w-0 items-center font-mono text-sm font-medium tracking-tight">
           <Link
             to="/"
             onClick={scrollToTop}
@@ -67,7 +67,7 @@ export default function Header() {
           <Breadcrumb pathname={location.pathname} />
         </div>
 
-        <nav className="hidden items-center gap-5 text-sm sm:flex">
+        <nav className="hidden items-center gap-6 text-sm sm:flex">
           {site.nav.map((item) => (
             <NavLink
               key={item.to}

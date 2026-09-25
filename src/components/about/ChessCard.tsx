@@ -79,7 +79,7 @@ export function ChessCard() {
   }, [data]);
 
   return (
-    <article className="rounded-xl border border-fg/10 bg-fg/5 p-5 transition hover:border-fg/20">
+    <article className="rounded-xl border border-fg/10 card p-5 transition hover:border-fg/20">
       <div className="mb-5 flex items-center gap-2">
         <ChessKnight size={14} className="text-accent" />
         <h3 className="text-sm font-medium text-fg">Chess</h3>
