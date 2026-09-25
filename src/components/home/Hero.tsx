@@ -68,7 +68,7 @@ export function Hero() {
           {site.status}
         </p>
 
-        <h1 className="mt-6 text-5xl font-semibold tracking-tighter text-fg sm:text-6xl lg:text-7xl">
+        <h1 className="mt-6 text-5xl tracking-tight text-fg sm:text-6xl lg:text-7xl">
           Zaid Seta
         </h1>
 

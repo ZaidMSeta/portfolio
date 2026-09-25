@@ -70,7 +70,7 @@ export default function ProjectDetail() {
     return (
       <div className="space-y-6">
         <div className="space-y-3">
-          <h1 className="text-4xl font-semibold tracking-tight text-fg">
+          <h1 className="text-4xl tracking-tight text-fg">
             Project Not Found
           </h1>
           <p className="text-sm leading-7 text-fg/65 sm:text-base">
@@ -103,7 +103,7 @@ export default function ProjectDetail() {
         </Link>
 
         <div className="space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight text-fg sm:text-4xl">
+          <h1 className="text-3xl tracking-tight text-fg sm:text-4xl">
             {project.title}
           </h1>
           <p className="max-w-2xl text-sm leading-7 text-fg/65 sm:text-base">
@@ -152,17 +152,17 @@ export default function ProjectDetail() {
       <section className="rounded-xl border border-fg/10 card p-5">
         <div className="space-y-8">
           <div>
-            <h2 className="mb-3 text-xl font-semibold text-fg">What It Is</h2>
+            <h2 className="mb-3 text-xl text-fg">What It Is</h2>
             <p className="text-sm leading-7 text-fg/65 sm:text-base">{project.whatItIs}</p>
           </div>
 
           <div>
-            <h2 className="mb-3 text-xl font-semibold text-fg">Why I Built It</h2>
+            <h2 className="mb-3 text-xl text-fg">Why I Built It</h2>
             <p className="text-sm leading-7 text-fg/65 sm:text-base">{project.whyBuilt}</p>
           </div>
 
           <div>
-            <h2 className="mb-3 text-xl font-semibold text-fg">Key Features</h2>
+            <h2 className="mb-3 text-xl text-fg">Key Features</h2>
             <ul className="space-y-2">
               {project.features.map((feature) => (
                 <li
@@ -177,7 +177,7 @@ export default function ProjectDetail() {
           </div>
 
           <div>
-            <h2 className="mb-3 text-xl font-semibold text-fg">Reflection</h2>
+            <h2 className="mb-3 text-xl text-fg">Reflection</h2>
             <p className="text-sm leading-7 text-fg/65 sm:text-base">{project.reflection}</p>
           </div>
         </div>

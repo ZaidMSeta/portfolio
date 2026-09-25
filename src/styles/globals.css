@@ -1,10 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
 
 @import "tailwindcss";
 
 /* Register theme colors — dark is default, .light overrides below */
 @theme {
-  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Hedvig Letters Serif", ui-serif, Georgia, serif;
+  --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
   --color-bg: #0f1115;
@@ -85,5 +86,12 @@
 
   section {
     scroll-margin-top: 100px;
+  }
+
+  /* Hedvig ships a single weight; page and section headings use it by default */
+  h1,
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
   }
 }
