@@ -1,21 +1,7 @@
 import { Link } from "react-router";
+import { CompanyLogo } from "../CompanyLogo";
+import { formatYM } from "../../lib/utils/formatDate";
 import { experiences } from "../../data/experience";
-
-function formatYM(ym: string) {
-  if (!ym) return "";
-  if (ym === "Present") return "Present";
-
-  const [year, month] = ym.split("-");
-  const monthNames = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-  ];
-
-  const index = Number(month) - 1;
-  const monthLabel = monthNames[index] ?? month;
-
-  return `${monthLabel} ${year}`;
-}
 
 export function ExperienceSnapshot() {
   const featuredExperience = experiences.filter((role) => role.showOnHome);
@@ -41,11 +27,7 @@ export function ExperienceSnapshot() {
           >
             <div className="mb-4 flex items-start justify-between gap-4">
               <div className="flex items-start gap-3">
-                <img
-                  src={role.logo}
-                  alt={`${role.company} logo`}
-                  className="h-10 w-10 rounded-lg border border-fg/10 bg-white p-1 object-contain"
-                />
+                <CompanyLogo src={role.logo} company={role.company} className="h-10 w-10" />
 
                 <div>
                   <h3 className="text-base font-semibold text-fg">

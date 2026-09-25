@@ -1,22 +1,10 @@
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
+import { CompanyLogo } from "../components/CompanyLogo";
+import { formatYM } from "../lib/utils/formatDate";
 import { experiences } from "../data/experience";
 
-function formatYM(ym: string) {
-  if (!ym) return "";
-  if (ym === "Present") return "Present";
-
-  const [year, month] = ym.split("-");
-  const monthNames = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-  ];
-
-  const index = Number(month) - 1;
-  const monthLabel = monthNames[index] ?? month;
-
-  return `${monthLabel} ${year}`;
-}
-
 export default function Experience() {
+  useDocumentTitle("Experience");
   return (
     <div className="space-y-12">
       <section className="space-y-4">
@@ -38,11 +26,7 @@ export default function Experience() {
           >
             <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
               <div className="flex items-start gap-4">
-                <img
-                  src={role.logo}
-                  alt={`${role.company} logo`}
-                  className="h-12 w-12 rounded-lg border border-fg/10 bg-white p-1 object-contain"
-                />
+                <CompanyLogo src={role.logo} company={role.company} className="h-12 w-12" />
 
                 <div className="space-y-1">
                   <h2 className="text-xl font-semibold text-fg">

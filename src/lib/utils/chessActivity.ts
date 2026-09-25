@@ -26,6 +26,9 @@ type ChessStatsResponse = {
         last?: {
             rating?: number;
         };
+        best?: {
+            rating?: number;
+        };
     };
 };
 
@@ -119,7 +122,7 @@ function extractLastRapidGame(games: ChessGame[]): ChessLastGame | null {
     };
 }
 
-async function fetchStats(): Promise<number | null> {
+async function fetchStats(): Promise<{ current: number | null; best: number | null }> {
     const res = await fetch(
         `https://api.chess.com/pub/player/${encodeURIComponent(CHESS_USERNAME)}/stats`
     );
@@ -129,7 +132,10 @@ async function fetchStats(): Promise<number | null> {
     }
 
     const data: ChessStatsResponse = await res.json();
-    return data.chess_rapid?.last?.rating ?? null;
+    return {
+        current: data.chess_rapid?.last?.rating ?? null,
+        best: data.chess_rapid?.best?.rating ?? null,
+    };
 }
 
 async function fetchLatestArchiveGames(): Promise<ChessGame[]> {
@@ -159,11 +165,12 @@ async function fetchLatestArchiveGames(): Promise<ChessGame[]> {
 const FILE_RATING_HISTORY: ChessRatingPoint[] = ratingHistoryData as ChessRatingPoint[];
 
 export async function fetchChessCardData(): Promise<ChessCardData> {
-    const [rapidRating, games] = await Promise.all([
+    const [stats, games] = await Promise.all([
         fetchStats(),
         fetchLatestArchiveGames(),
     ]);
 
+    const rapidRating = stats.current;
     const lastGame = extractLastRapidGame(games);
 
     const ratingHistory = [...FILE_RATING_HISTORY];
@@ -177,10 +184,12 @@ export async function fetchChessCardData(): Promise<ChessCardData> {
         ratingHistory.push({ date: today, rating: rapidRating });
     }
 
+    // Chess.com's all-time best, falling back to the sampled history
     const peakRating =
-        ratingHistory.length > 0
+        stats.best ??
+        (ratingHistory.length > 0
             ? Math.max(...ratingHistory.map((point) => point.rating))
-            : rapidRating;
+            : rapidRating);
 
     return {
         rapidRating,

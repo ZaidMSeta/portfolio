@@ -110,6 +110,14 @@ function buildHistorySeries(games) {
     }
   }
 
+  // Sampling can skip over a short spike, so always keep the peak game
+  const peakGame = rapidGames.reduce((best, game) => (game.rating > best.rating ? game : best));
+  const peakPoint = { date: toDateOnlyString(startOfDay(peakGame.date)), rating: peakGame.rating };
+  if (!series.some((point) => point.date === peakPoint.date && point.rating === peakPoint.rating)) {
+    series.push(peakPoint);
+    series.sort((a, b) => a.date.localeCompare(b.date));
+  }
+
   const latestGame = rapidGames[rapidGames.length - 1];
   const latestPoint = {
     date: toDateOnlyString(startOfDay(latestGame.date)),
