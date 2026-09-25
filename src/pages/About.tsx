@@ -1,9 +1,11 @@
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { ChessCard } from "../components/about/ChessCard";
 import { FitnessCard } from "../components/about/FitnessCard";
 import { BooksCard } from "../components/about/BooksCard";
 import { WatchlistCard } from "../components/about/WatchlistCard";
 
 export default function About() {
+  useDocumentTitle("About");
   return (
     <div className="space-y-12">
       <section className="space-y-4">

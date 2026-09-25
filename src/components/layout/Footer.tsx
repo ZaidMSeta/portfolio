@@ -1,4 +1,5 @@
 import { Github, Linkedin, Mail } from "lucide-react";
+import { site } from "../../data/site";
 
 export default function Footer() {
   return (
@@ -7,14 +8,14 @@ export default function Footer() {
         <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-              <p className="font-medium tracking-tight text-fg">Zaid Seta</p>
+              <p className="font-medium tracking-tight text-fg">{site.name}</p>
               <span className="hidden text-fg/20 md:inline">•</span>
               <a
-                href="mailto:zaidmseta@gmail.com"
+                href={site.links.email}
                 className="inline-flex items-center gap-2 text-fg/50 transition hover:text-fg"
               >
                 <Mail size={14} className="text-accent" />
-                <span>zaidmseta [at] gmail [dot] com</span>
+                <span>{site.email.replace("@", " [at] ").replace(".", " [dot] ")}</span>
               </a>
             </div>
 
@@ -24,12 +25,12 @@ export default function Footer() {
             </p>
 
             <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-fg/30">
-              <span>© 2026 Zaid Seta</span>
+              <span>© {new Date().getFullYear()} {site.name}</span>
               <span className="text-fg/20">•</span>
               <span>Built with React + Tailwind</span>
               <span className="text-fg/20">•</span>
               <a
-                href={`https://github.com/ZaidMSeta/portfolio/commit/${__COMMIT_SHA__}`}
+                href={`${site.repo}/commit/${__COMMIT_SHA__}`}
                 target="_blank"
                 rel="noreferrer"
                 className="font-mono transition hover:text-fg/60"
@@ -41,7 +42,7 @@ export default function Footer() {
 
           <div className="flex items-center gap-3">
             <a
-              href="https://github.com/ZaidMSeta"
+              href={site.links.github}
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
@@ -51,7 +52,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="https://www.linkedin.com/in/zaidseta"
+              href={site.links.linkedin}
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn"
@@ -61,7 +62,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="mailto:zaidmseta@gmail.com"
+              href={site.links.email}
               aria-label="Email"
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-fg/10 bg-fg/[0.03] text-fg/55 transition hover:border-fg/20 hover:bg-fg/[0.06] hover:text-fg"
             >
