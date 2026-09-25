@@ -23,7 +23,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
       <div className="flex flex-1 flex-col p-5">
         <div className="mb-2 flex items-start justify-between gap-3">
-          <h3 className="text-base font-semibold text-fg">{project.title}</h3>
+          <h3 className="font-display text-xl text-fg">{project.title}</h3>
           <span className="shrink-0 font-mono text-xs text-fg/50">{project.date}</span>
         </div>
 

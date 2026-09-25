@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <div className="space-y-6">
       <section className="space-y-3">
-        <h1 className="text-4xl font-semibold tracking-tight text-fg sm:text-5xl">
+        <h1 className="text-4xl tracking-tight text-fg sm:text-5xl">
           Page Not Found
         </h1>
 

@@ -9,7 +9,7 @@ export default function About() {
   return (
     <div className="space-y-12">
       <section className="space-y-4">
-        <h1 className="text-4xl font-semibold tracking-tight text-fg sm:text-5xl">
+        <h1 className="text-4xl tracking-tight text-fg sm:text-5xl">
           About
         </h1>
 
@@ -22,7 +22,7 @@ export default function About() {
       <section>
         <div className="rounded-xl border border-fg/10 card p-6">
           <div className="space-y-5">
-            <h2 className="text-2xl font-semibold text-fg">Hi, I'm Zaid.</h2>
+            <h2 className="text-2xl text-fg">Hi, I'm Zaid.</h2>
 
             <div className="space-y-4 text-sm leading-7 text-fg/65 sm:text-base">
               <p>
@@ -51,7 +51,7 @@ export default function About() {
       </section>
 
       <section className="space-y-6">
-        <h2 className="text-2xl font-semibold text-fg">Interests</h2>
+        <h2 className="text-2xl text-fg">Interests</h2>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <BooksCard />

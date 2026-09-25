@@ -26,7 +26,7 @@ function TimelineEntry({ role, isCurrent }: { role: Role; isCurrent: boolean }) 
         <div className="flex items-start gap-4">
           <CompanyLogo src={role.logo} company={role.company} className="h-11 w-11" />
           <div>
-            <h2 className="text-lg font-semibold tracking-tight text-fg">{role.title}</h2>
+            <h2 className="text-lg tracking-tight text-fg">{role.title}</h2>
             <p className="text-sm text-fg/60">
               {role.company} <span className="text-fg/30">·</span> {role.location}
             </p>
@@ -55,7 +55,7 @@ export default function Experience() {
   return (
     <div className="space-y-14">
       <section className="space-y-4">
-        <h1 className="text-4xl font-semibold tracking-tight text-fg sm:text-5xl">
+        <h1 className="text-4xl tracking-tight text-fg sm:text-5xl">
           Experience
         </h1>
 
@@ -81,7 +81,7 @@ export default function Experience() {
         <details className="group rounded-2xl border border-fg/10 card">
           <summary className="flex cursor-pointer list-none items-center justify-between px-6 py-5 [&::-webkit-details-marker]:hidden">
             <div>
-              <h2 className="text-base font-semibold text-fg">Earlier</h2>
+              <h2 className="text-base text-fg">Earlier</h2>
               <p className="text-sm text-fg/50">
                 {earlier.map((role) => role.company).join(", ")}
               </p>

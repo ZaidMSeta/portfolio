@@ -10,7 +10,7 @@ export function FeaturedProjects() {
   return (
     <section>
       <div className="mb-8 flex items-end justify-between">
-        <h2 className="text-2xl font-semibold tracking-tight text-fg">Featured projects</h2>
+        <h2 className="text-2xl tracking-tight text-fg">Featured projects</h2>
 
         <Link to="/projects" className="font-mono text-xs text-fg/50 transition hover:text-fg">
           all projects →
@@ -41,7 +41,7 @@ export function FeaturedProjects() {
                 <span className="text-accent/80">{project.status}</span>
               </p>
 
-              <h3 className="mt-3 flex items-center gap-2 text-2xl font-semibold tracking-tight text-fg">
+              <h3 className="mt-3 flex items-center gap-2 font-display text-3xl tracking-tight text-fg">
                 <Link to={`/projects/${project.slug}`} className="after:absolute after:inset-0">
                   {project.title}
                 </Link>
@@ -60,7 +60,7 @@ export function FeaturedProjects() {
                   {project.metrics.map((metric) => (
                     <div key={metric.label}>
                       <dt className="sr-only">{metric.label}</dt>
-                      <dd className="text-2xl font-semibold tracking-tight text-fg">
+                      <dd className="font-display text-3xl text-fg">
                         {metric.value}
                       </dd>
                       <dd className="font-mono text-[11px] text-fg/45">{metric.label}</dd>

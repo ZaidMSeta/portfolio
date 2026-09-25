@@ -9,7 +9,7 @@ export default function Resume() {
   return (
     <div className="space-y-10">
       <section className="space-y-4">
-        <h1 className="text-4xl font-semibold tracking-tight text-fg sm:text-5xl">
+        <h1 className="text-4xl tracking-tight text-fg sm:text-5xl">
           Resume
         </h1>
       </section>
@@ -18,7 +18,7 @@ export default function Resume() {
         <div className="grid grid-cols-3 items-center gap-3 border-b border-fg/10 pb-4">
           <div aria-hidden />
 
-          <h2 className="justify-self-center text-xl font-semibold text-fg">
+          <h2 className="justify-self-center text-xl text-fg">
             Zaid Seta — Resume
           </h2>
 
