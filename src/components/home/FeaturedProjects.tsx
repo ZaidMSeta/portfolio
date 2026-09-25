@@ -21,7 +21,7 @@ export function FeaturedProjects() {
         {featuredProjects.map((project, index) => (
           <article
             key={project.id}
-            className="group relative grid overflow-hidden rounded-2xl border border-fg/10 bg-fg/[0.03] transition hover:border-fg/20 md:grid-cols-2"
+            className="group relative grid overflow-hidden rounded-2xl border border-fg/10 card transition hover:border-fg/20 md:grid-cols-2"
           >
             <div
               className={`aspect-16/10 overflow-hidden border-fg/10 bg-fg/5 max-md:border-b md:aspect-auto md:min-h-[320px] ${

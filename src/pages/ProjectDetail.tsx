@@ -11,7 +11,7 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
 
   if (images.length === 1) {
     return (
-      <div className="overflow-hidden rounded-xl border border-fg/10 bg-fg/5">
+      <div className="overflow-hidden rounded-xl border border-fg/10 card">
         <div className="aspect-[16/9] bg-fg/5">
           <ProjectImage src={images[0]} alt={title} />
         </div>
@@ -20,7 +20,7 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border border-fg/10 bg-fg/5">
+    <div className="overflow-hidden rounded-xl border border-fg/10 card">
       <div className="relative aspect-[16/9] bg-fg/5">
         <img
           src={images[index]}
@@ -149,7 +149,7 @@ export default function ProjectDetail() {
         <TechTags stack={project.stack} />
       </div>
 
-      <section className="rounded-xl border border-fg/10 bg-fg/5 p-5">
+      <section className="rounded-xl border border-fg/10 card p-5">
         <div className="space-y-8">
           <div>
             <h2 className="mb-3 text-xl font-semibold text-fg">What It Is</h2>

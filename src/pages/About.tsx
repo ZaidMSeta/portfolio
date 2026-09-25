@@ -20,7 +20,7 @@ export default function About() {
       </section>
 
       <section>
-        <div className="rounded-xl border border-fg/10 bg-fg/5 p-6">
+        <div className="rounded-xl border border-fg/10 card p-6">
           <div className="space-y-5">
             <h2 className="text-2xl font-semibold text-fg">Hi, I'm Zaid.</h2>
 

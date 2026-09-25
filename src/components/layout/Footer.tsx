@@ -19,11 +19,6 @@ export default function Footer() {
               </a>
             </div>
 
-            <p className="mt-3 max-w-md text-xs leading-6 text-fg/45">
-              Building tools that people actually end up using, mostly for students,
-              small clubs, and local businesses around Hamilton.
-            </p>
-
             <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-fg/30">
               <span>© {new Date().getFullYear()} {site.name}</span>
               <span className="text-fg/20">•</span>
