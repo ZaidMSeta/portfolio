@@ -1,10 +1,19 @@
 const GITHUB_USERNAME = import.meta.env.VITE_GITHUB_USERNAME || "ZaidMSeta";
 
-const MAX_PER_REPO = 2;
+const MAX_PER_REPO = 3;
 
-// Merge commits, dependency bumps and rebuilds say nothing about the work itself
+// PR merges carry the PR title on the line after "Merge pull request #n from ..."
+function readableMessage(message: string) {
+  const [first, ...rest] = message.split("\n").map((line) => line.trim());
+  if (/^Merge pull request/i.test(first)) {
+    return rest.find(Boolean) ?? first;
+  }
+  return first;
+}
+
+// Dependency bumps, branch syncs and rebuilds say nothing about the work itself
 function isNoise(message: string) {
-  return /^(Merge (pull request|branch)|Bump |build: rebuild)/i.test(message);
+  return /^(Merge (branch|remote-tracking)|Bump |build: rebuild)/i.test(message);
 }
 
 export type GitHubActivityCommit = {
@@ -70,7 +79,7 @@ async function fetchCommitDetails(
 
   return {
     id: `${repoName}-${data.sha}`,
-    message: data.commit.message.split("\n")[0],
+    message: readableMessage(data.commit.message),
     url: data.html_url,
     repoName,
     date: data.commit.author?.date || "",
