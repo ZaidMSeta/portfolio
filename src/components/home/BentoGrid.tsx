@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
-import {
-  MapPin,
-  GitCommit,
-  Layers,
-  Sparkles,
-  Mail,
-  Github,
-  Linkedin,
-} from "lucide-react";
+import { Link } from "react-router";
+import { BookOpen, ChessKnight, Clapperboard, GitCommit, Layers, MapPin } from "lucide-react";
 import { fetchLatestCommits, type GitHubActivityCommit } from "../../lib/utils/githubActivity";
 import { TechTag } from "../TechTag";
 import { site } from "../../data/site";
+import { getHardcoverData, getPrimaryAuthor } from "../../lib/utils/hardCover";
+import { getTraktData } from "../../lib/utils/trakt";
+import ratingHistory from "../../data/chessRatingHistory.json";
 
 const tileClassName =
   "rounded-xl border border-fg/10 card p-5 transition hover:border-fg/20";
@@ -54,7 +50,7 @@ function GitHubActivity() {
   }, []);
 
   return (
-    <div className={`${tileClassName} md:col-span-2`}>
+    <div className={`${tileClassName} md:col-span-2 md:row-span-2`}>
       <div className="mb-4 flex items-center gap-2">
         <GitCommit size={14} className="text-accent" />
         <h3 className="text-sm font-medium text-fg">Recent GitHub Activity</h3>
@@ -101,9 +97,9 @@ function GitHubActivity() {
               </div>
 
               <div className="mt-0.5 flex shrink-0 items-center text-xs font-medium">
-                <span className="text-green-400">+{commit.additions}</span>
+                <span className="text-added">+{commit.additions}</span>
                 <span className="px-1 text-fg/25">/</span>
-                <span className="text-red-400">-{commit.deletions}</span>
+                <span className="text-removed">-{commit.deletions}</span>
               </div>
             </div>
           ))}
@@ -112,51 +108,21 @@ function GitHubActivity() {
   );
 }
 
-function CurrentFocusTile() {
-  const items = [
-    "Shipping the Ressam Gardens site through client review",
-    "Migrating MacTrack's dashboard and degree planner into a single view",
-    "Looking for a Winter 2027 co-op",
-  ];
-
+function TileHeader({ icon: Icon, title }: { icon: typeof Layers; title: string }) {
   return (
-    <div className={tileClassName}>
-      <div className="mb-4 flex items-center gap-2">
-        <Sparkles size={14} className="text-accent" />
-        <h3 className="text-sm font-medium text-fg">Current Focus</h3>
-      </div>
-
-      <div className="space-y-3">
-        {items.map((item) => (
-          <div key={item} className="flex items-start gap-3">
-            <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/70" />
-            <p className="text-sm leading-6 text-fg/65">{item}</p>
-          </div>
-        ))}
-      </div>
+    <div className="mb-4 flex items-center gap-2">
+      <Icon size={14} className="text-accent" />
+      <h3 className="text-sm font-medium text-fg">{title}</h3>
     </div>
   );
 }
 
 function StackTile() {
-  const stack = [
-    "Python",
-    "TypeScript",
-    "React",
-    "Go",
-    "FastAPI",
-    "PostgreSQL",
-    "Tailwind",
-    "Playwright",
-  ];
+  const stack = ["Python", "TypeScript", "React", "Go", "FastAPI", "PostgreSQL", "Tailwind", "Playwright"];
 
   return (
-    <div className={tileClassName}>
-      <div className="mb-4 flex items-center gap-2">
-        <Layers size={14} className="text-accent" />
-        <h3 className="text-sm font-medium text-fg">Stack</h3>
-      </div>
-
+    <div className={`${tileClassName} md:col-span-2`}>
+      <TileHeader icon={Layers} title="Stack" />
       <div className="flex flex-wrap gap-1.5">
         {stack.map((tech) => (
           <TechTag key={tech} tech={tech} />
@@ -166,59 +132,123 @@ function StackTile() {
   );
 }
 
-function LocationTile() {
-  return (
-    <div className="overflow-hidden rounded-xl border border-fg/10 card transition hover:border-fg/20 md:col-span-2 md:row-span-2">
-      <div className="relative h-full min-h-[320px] w-full overflow-hidden">
-        <iframe
-          title="Hamilton, Ontario"
-          src="https://www.openstreetmap.org/export/embed.html?bbox=-79.932%2C43.225%2C-79.815%2C43.295&layer=mapnik&marker=43.2557%2C-79.8711"
-          className="h-full w-full border-0 grayscale"
-          loading="lazy"
-        />
+function ReadingTile() {
+  const { currentRead, lastFinished } = getHardcoverData();
+  const book = currentRead ?? lastFinished;
+  if (!book) return null;
 
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-bg via-bg/75 to-transparent p-4">
-          <div className="flex items-center gap-2">
-            <MapPin size={14} className="text-accent" />
-            <h3 className="text-sm font-medium text-fg">Location</h3>
-          </div>
-          <p className="mt-1 text-sm text-fg/75">{site.location}</p>
-          <p className="text-xs text-fg/45">Ontario, Canada</p>
+  const cover = book.book.image?.url;
+
+  return (
+    <div className={tileClassName}>
+      <TileHeader icon={BookOpen} title={currentRead ? "Reading" : "Last read"} />
+      <div className="flex gap-4">
+        {cover && (
+          <img
+            src={cover}
+            alt=""
+            loading="lazy"
+            className="h-24 w-16 shrink-0 rounded-md border border-fg/10 object-cover"
+          />
+        )}
+        <div className="min-w-0">
+          <p className="line-clamp-3 text-sm font-medium text-fg">{book.book.title.split(":")[0]}</p>
+          <p className="mt-1 text-xs text-fg/50">{getPrimaryAuthor(book)}</p>
         </div>
       </div>
     </div>
   );
 }
 
-function ConnectTile() {
-  const links = [
-    { icon: Mail, label: "Email", href: site.links.email },
-    { icon: Github, label: "GitHub", href: site.links.github },
-    { icon: Linkedin, label: "LinkedIn", href: site.links.linkedin },
-  ];
+// Tiny inline sparkline; avoids pulling recharts into the home bundle
+function Sparkline({ values }: { values: number[] }) {
+  const width = 200;
+  const height = 48;
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const range = max - min || 1;
+  const points = values
+    .map((value, i) => {
+      const x = (i / (values.length - 1)) * width;
+      const y = height - ((value - min) / range) * (height - 4) - 2;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    })
+    .join(" ");
 
   return (
-    <div className={`${tileClassName} md:col-span-2 flex flex-col justify-between`}>
-      <div>
-        <h3 className="text-sm font-medium text-fg">Let's Connect</h3>
-        <p className="mt-2 max-w-md text-sm leading-6 text-fg/60">
-          Always open to opportunities, projects, and interesting conversations.
-        </p>
-      </div>
+    <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" className="h-12 w-full" aria-hidden>
+      <polyline
+        points={points}
+        fill="none"
+        stroke="var(--color-accent)"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
+      />
+    </svg>
+  );
+}
 
-      <div className="mt-5 flex flex-wrap gap-3">
-        {links.map((link) => (
-          <a
-            key={link.label}
-            href={link.href}
-            target={link.href.startsWith("http") ? "_blank" : undefined}
-            rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-            className="inline-flex items-center gap-2 rounded-lg border border-fg/10 px-3 py-2 text-sm text-fg/70 transition hover:border-fg/20 hover:text-fg"
-          >
-            <link.icon size={14} />
-            {link.label}
-          </a>
+function ChessTile() {
+  const ratings = ratingHistory.map((point) => point.rating);
+  if (ratings.length < 2) return null;
+
+  const current = ratings[ratings.length - 1];
+  const peak = Math.max(...ratings);
+
+  return (
+    <Link to="/about" className={`${tileClassName} flex flex-col`}>
+      <TileHeader icon={ChessKnight} title="Chess" />
+      <p className="font-display text-3xl text-fg">{current}</p>
+      <p className="font-mono text-[11px] text-fg/45">rapid · peak {peak}</p>
+      <div className="mt-auto pt-3">
+        <Sparkline values={ratings} />
+      </div>
+    </Link>
+  );
+}
+
+function WatchingTile() {
+  const items = getTraktData().items.slice(0, 3);
+  if (items.length === 0) return null;
+
+  return (
+    <div className={`${tileClassName} md:col-span-2`}>
+      <TileHeader icon={Clapperboard} title="Recently watched" />
+      <div className="grid grid-cols-3 gap-3">
+        {items.map((item) => (
+          <div key={`${item.title}-${item.watchedAt}`} className="min-w-0">
+            <div className="aspect-[2/3] overflow-hidden rounded-md border border-fg/10 bg-fg/5">
+              {item.posterUrl && (
+                <img src={item.posterUrl} alt="" loading="lazy" className="h-full w-full object-cover" />
+              )}
+            </div>
+            <p className="mt-2 truncate text-xs text-fg/70">{item.title}</p>
+            <p className="font-mono text-[10px] text-fg/40">
+              {item.year} · {item.type === "movie" ? "film" : "show"}
+            </p>
+          </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+function LocationTile() {
+  return (
+    <div className="relative min-h-[220px] overflow-hidden rounded-xl border border-fg/10 card md:col-span-2">
+      <iframe
+        title="Map of Hamilton, Ontario"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-79.932%2C43.225%2C-79.815%2C43.295&layer=mapnik&marker=43.2557%2C-79.8711"
+        className="map-embed absolute inset-0 h-full w-full border-0"
+        loading="lazy"
+      />
+
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-bg via-bg/80 to-transparent p-4 pt-10">
+        <div className="flex items-center gap-2">
+          <MapPin size={14} className="text-accent" />
+          <p className="text-sm font-medium text-fg">{site.location}</p>
+        </div>
       </div>
     </div>
   );
@@ -227,12 +257,20 @@ function ConnectTile() {
 export function BentoGrid() {
   return (
     <section>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:[grid-template-rows:auto_auto_auto]">
+      <div className="mb-8 flex items-end justify-between">
+        <h2 className="text-2xl tracking-tight text-fg">Lately</h2>
+        <Link to="/about" className="font-mono text-xs text-fg/50 transition hover:text-fg">
+          more about me →
+        </Link>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
         <GitHubActivity />
-        <CurrentFocusTile />
         <StackTile />
+        <ReadingTile />
+        <ChessTile />
         <LocationTile />
-        <ConnectTile />
+        <WatchingTile />
       </div>
     </section>
   );
