@@ -109,14 +109,14 @@ export const projects: Project[] = [
       "MacTrack has been one of my strongest experiences in building practical full-stack software. Built with a team of four, it pushed me to think more carefully about structure, usability, and how to design around real student workflows instead of just isolated features. I'm currently migrating the dashboard and degree planner into a single view using a strangler-fig pattern, and running Dependabot security sweeps across the Go, Python, and frontend dependencies.",
   },
   {
-    id: "empty-classroom-viewer",
-    slug: "empty-classroom-viewer",
-    title: "Empty Classroom Viewer",
+    id: "roomradar",
+    slug: "roomradar",
+    title: "RoomRadar",
     hook: "A tool for finding available classrooms on campus in real time.",
     description:
       "A student tool that scrapes timetable data and turns it into a searchable interface for finding free rooms on campus.",
     stack: ["React", "TypeScript", "Playwright", "Node.js", "GitHub Actions"],
-    image: "/projects/empty-room-viewer.png",
+    image: "/projects/roomradar.png",
     repoUrl: "",
     liveUrl: "https://mcemptyroom.vercel.app",
     status: "Complete",
@@ -125,7 +125,7 @@ export const projects: Project[] = [
     summary:
       "A campus utility for finding empty classrooms using building, day, and time-based filters.",
     whatItIs:
-      "Empty Room Viewer is a practical campus tool that processes timetable and room data into a searchable interface, helping users quickly find available classrooms.",
+      "RoomRadar is a practical campus tool that processes timetable and room data into a searchable interface, helping users quickly find available classrooms.",
     whyBuilt:
       "This project came from a simple student need: finding a place to study or work on campus without guessing which rooms might be empty. I wanted to turn timetable data into something genuinely useful day to day.",
     features: [
