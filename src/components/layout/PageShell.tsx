@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import { FontPicker } from "../../dev/FontPicker";
 
 type PageShellProps = {
   children: ReactNode;
@@ -14,6 +15,7 @@ export default function PageShell({ children }: PageShellProps) {
         {children}
       </main>
       <Footer />
+      <FontPicker />
     </div>
   );
 }

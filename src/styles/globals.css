@@ -38,6 +38,11 @@
   box-shadow: var(--card-shadow, none);
 }
 
+/* Unlayered so it wins over the font-display family utility's default weight */
+.font-display {
+  font-weight: var(--display-weight, 400);
+}
+
 @layer base {
   :root {
     font-family: var(--font-sans);
@@ -88,10 +93,10 @@
     scroll-margin-top: 100px;
   }
 
-  /* Hedvig ships a single weight; page and section headings use it by default */
+  /* Page and section headings use the display face */
   h1,
   h2 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: var(--display-weight, 400);
   }
 }
