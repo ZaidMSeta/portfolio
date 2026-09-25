@@ -15,6 +15,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
       <div className="aspect-16/10 overflow-hidden bg-fg/5">
         <img
           src={project.image}
+          onError={(e) => {
+            e.currentTarget.style.visibility = "hidden";
+          }}
           alt={project.title}
           className="h-full w-full object-cover opacity-80 transition-opacity group-hover:opacity-100"
         />

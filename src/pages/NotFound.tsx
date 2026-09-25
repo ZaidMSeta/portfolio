@@ -1,6 +1,8 @@
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { Link } from "react-router";
 
 export default function NotFound() {
+  useDocumentTitle("Not found");
   return (
     <div className="space-y-6">
       <section className="space-y-3">

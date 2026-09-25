@@ -1,7 +1,9 @@
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { projects } from "../data/projects";
 import { ProjectCard } from "../components/projects/ProjectCard";
 
 export default function Projects() {
+  useDocumentTitle("Projects");
   return (
     <div className="space-y-14">
       <section className="space-y-4">

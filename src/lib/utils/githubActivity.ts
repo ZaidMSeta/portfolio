@@ -1,5 +1,12 @@
 const GITHUB_USERNAME = import.meta.env.VITE_GITHUB_USERNAME || "ZaidMSeta";
 
+const MAX_PER_REPO = 2;
+
+// Merge commits, dependency bumps and rebuilds say nothing about the work itself
+function isNoise(message: string) {
+  return /^(Merge (pull request|branch)|Bump |build: rebuild)/i.test(message);
+}
+
 export type GitHubActivityCommit = {
   id: string;
   message: string;
@@ -63,7 +70,7 @@ async function fetchCommitDetails(
 
   return {
     id: `${repoName}-${data.sha}`,
-    message: data.commit.message,
+    message: data.commit.message.split("\n")[0],
     url: data.html_url,
     repoName,
     date: data.commit.author?.date || "",
@@ -88,6 +95,7 @@ export async function fetchLatestCommits(): Promise<GitHubActivityCommit[]> {
 
   const events: GitHubEvent[] = await res.json();
 
+  // Look past the latest few pushes so there's room to drop noise below
   const pushEvents = events
     .filter(
       (event) =>
@@ -95,7 +103,7 @@ export async function fetchLatestCommits(): Promise<GitHubActivityCommit[]> {
         typeof event.repo?.name === "string" &&
         typeof event.payload?.head === "string"
     )
-    .slice(0, 4);
+    .slice(0, 10);
 
   const commits = await Promise.all(
     pushEvents.map((event) =>
@@ -103,8 +111,16 @@ export async function fetchLatestCommits(): Promise<GitHubActivityCommit[]> {
     )
   );
 
+  const perRepo = new Map<string, number>();
+
   return commits
     .filter((commit): commit is GitHubActivityCommit => commit !== null)
+    .filter((commit) => !isNoise(commit.message))
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .filter((commit) => {
+      const count = perRepo.get(commit.repoName) ?? 0;
+      perRepo.set(commit.repoName, count + 1);
+      return count < MAX_PER_REPO;
+    })
     .slice(0, 4);
 }

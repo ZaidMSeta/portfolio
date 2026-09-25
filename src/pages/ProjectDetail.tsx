@@ -1,3 +1,4 @@
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { useState } from "react";
 import { Link, useParams } from "react-router";
 import { ArrowLeft, ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
@@ -62,6 +63,7 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
 export default function ProjectDetail() {
   const { slug } = useParams();
   const project = projects.find((item) => item.slug === slug);
+  useDocumentTitle(project?.title ?? "Project not found");
 
   if (!project) {
     return (
