@@ -10,12 +10,18 @@ import {
 import { fetchChessCardData, type ChessCardData } from "../../lib/utils/chessActivity";
 import { ChessKnight } from "lucide-react";
 
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+// "2026-07-02" -> "Jul 2 '26"
 function formatChartDate(value: string) {
-  const date = new Date(`${value}T00:00:00`);
-  return date.toLocaleDateString(undefined, {
-    month: "short",
-    day: "numeric",
-  });
+  const [year, month, day] = value.split("-");
+  return `${MONTHS[Number(month) - 1]} ${Number(day)} '${year.slice(2)}`;
+}
+
+// "2026-07-02" -> "Jul '26"
+function formatAxisDate(value: string) {
+  const [year, month] = value.split("-");
+  return `${MONTHS[Number(month) - 1]} '${year.slice(2)}`;
 }
 
 function CustomTooltip({
@@ -92,12 +98,12 @@ export function ChessCard() {
           </div>
         </div>
 
-        <div className="h-32 min-w-0 overflow-hidden rounded-md bg-fg/[0.02]">
+        <div className="h-36 min-w-0 overflow-hidden rounded-md bg-fg/[0.02] text-fg">
           {loading ? (
             <div className="h-full w-full animate-pulse bg-fg/5" />
           ) : (
-            <ResponsiveContainer width="100%" height={128}>
-              <AreaChart data={chartData} margin={{ top: 10, right: 6, left: -24, bottom: 0 }}>
+            <ResponsiveContainer width="100%" height={144}>
+              <AreaChart data={chartData} margin={{ top: 10, right: 12, left: 12, bottom: 0 }}>
                 <defs>
                   <linearGradient id="chessEloFill" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="var(--chart-fill-from)" />
@@ -105,7 +111,15 @@ export function ChessCard() {
                   </linearGradient>
                 </defs>
 
-                <XAxis dataKey="date" hide />
+                <XAxis
+                  dataKey="date"
+                  tickFormatter={formatAxisDate}
+                  tick={{ fontSize: 10, fill: "currentColor", opacity: 0.4 }}
+                  tickLine={false}
+                  axisLine={false}
+                  interval="preserveStartEnd"
+                  minTickGap={40}
+                />
                 <YAxis hide domain={["dataMin - 25", "dataMax + 25"]} />
                 <Tooltip
                   content={<CustomTooltip />}
