@@ -59,18 +59,18 @@ export const projects: Project[] = [
     id: "roomradar",
     slug: "roomradar",
     title: "RoomRadar",
-    hook: "Scrapes McMaster's timetable on a schedule and turns it into a live, filterable view of which classrooms are free right now.",
+    hook: "Scrapes McMaster's full timetable each term and flips it into a live view of which of 354 classrooms are free right now.",
     description:
       "A student tool that scrapes timetable data and turns it into a searchable interface for finding free rooms on campus.",
-    stack: ["React", "TypeScript", "Playwright", "Node.js", "GitHub Actions"],
+    stack: ["TypeScript", "Playwright", "React", "Vite", "Node.js"],
     image: "/projects/roomradar.png",
-    repoUrl: "",
-    liveUrl: "https://mcemptyroom.vercel.app",
-    status: "Complete",
+    repoUrl: "https://github.com/ZaidMSeta/mcmaster-room-schedule-scraper",
+    liveUrl: "https://macroomradar.vercel.app",
+    status: "Ongoing",
     date: "2026",
     featured: true,
     summary:
-      "A campus utility for finding empty classrooms using building, day, and time-based filters.",
+      "A campus tool that turns McMaster's course timetable into a room-by-room view of what's free now, later, or for a stretch of time.",
     whatItIs:
       "RoomRadar is a practical campus tool that processes timetable and room data into a searchable interface, helping users quickly find available classrooms.",
     whyBuilt:
@@ -78,7 +78,7 @@ export const projects: Project[] = [
     features: [
       "Automated Playwright script that scrapes university timetable data and transforms raw XML into room-centric availability JSON",
       "Normalized large timetable datasets into a queryable format supporting real-time filtering by building, day, and time",
-      "Scheduled as a GitHub Actions cron job so room data refreshes without manual runs",
+      "Resumable, read-only scrape that refreshes the whole term in one run",
       "A simple interface focused on speed and usability",
     ],
     reflection:
@@ -136,7 +136,7 @@ export const projects: Project[] = [
     features: [
       "Poster upload with structured event extraction via the Google Gemini API",
       "Platform-specific caption generation",
-      "Human approval step before anything publishes",
+      "Every extracted field and caption is reviewed and editable before anything publishes",
       "Serverless proxy to work around CORS on the OnlySocial publishing API",
     ],
     reflection:
