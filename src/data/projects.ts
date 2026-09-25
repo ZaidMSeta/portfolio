@@ -28,7 +28,7 @@ export const projects: Project[] = [
     hook: "A full-stack course planning and seat-tracking platform used by 200+ McMaster students.",
     description:
       "A student-focused web app for browsing courses, planning degree progress, and tracking useful academic information in one place.",
-    stack: ["React", "TypeScript", "Go", "PostgreSQL", "Python"],
+    stack: ["React", "TypeScript", "Go", "Python", "PostgreSQL", "AWS Lambda"],
     image: "/projects/mactrack.png",
     repoUrl: "https://github.com/hasan-ston/mactrack",
     liveUrl: "https://mac-track.com",
@@ -40,7 +40,7 @@ export const projects: Project[] = [
     date: "2026",
     featured: true,
     summary:
-      "A practical platform that helps McMaster students browse courses, organize degree plans, and track academic information more easily.",
+      "Course search, degree planning, and near-real-time seat alerts for McMaster students, running on Go and Python services on AWS Lambda.",
     whatItIs:
       "MacTrack is a full-stack academic planning platform designed for McMaster students. It brings together course discovery, degree planning, seat tracking, professor information, and reviews into one interface.",
     whyBuilt:
