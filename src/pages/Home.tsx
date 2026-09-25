@@ -1,9 +1,11 @@
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { Hero } from "../components/home/Hero";
 import { FeaturedProjects } from "../components/home/FeaturedProjects";
 import { ExperienceSnapshot } from "../components/home/ExperienceSnapshot";
 import { BentoGrid } from "../components/home/BentoGrid";
 
 export default function Home() {
+  useDocumentTitle();
   return (
     <div className="space-y-20 lg:space-y-24">
       <Hero />

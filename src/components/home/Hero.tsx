@@ -1,5 +1,6 @@
 import { Github, Linkedin, ArrowRight } from "lucide-react";
 import { Link } from "react-router";
+import { site } from "../../data/site";
 
 export function Hero() {
   return (
@@ -17,7 +18,7 @@ export function Hero() {
 
         <div className="flex flex-wrap items-center gap-4 pt-1 text-sm text-fg/60">
           <a
-            href="https://github.com/ZaidMSeta"
+            href={site.links.github}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 transition hover:text-fg"
@@ -29,7 +30,7 @@ export function Hero() {
           <span className="text-fg/20">|</span>
 
           <a
-            href="https://www.linkedin.com/in/zaidseta"
+            href={site.links.linkedin}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 transition hover:text-fg"

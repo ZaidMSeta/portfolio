@@ -1,7 +1,10 @@
 import { Download } from "lucide-react";
+import { site } from "../data/site";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 
 export default function Resume() {
-  const resumeUrl = "/resume.pdf";
+  const resumeUrl = site.resume;
+  useDocumentTitle("Resume");
 
   return (
     <div className="space-y-10">

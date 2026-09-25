@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { fetchLatestCommits, type GitHubActivityCommit } from "../../lib/utils/githubActivity";
 import { getTechColour } from "../../lib/utils/techColour";
+import { site } from "../../data/site";
 
 const tileClassName =
   "rounded-xl border border-fg/10 bg-fg/5 p-5 transition hover:border-fg/15 hover:bg-fg/[0.07]";
@@ -191,7 +192,7 @@ function LocationTile() {
             <MapPin size={14} className="text-accent" />
             <h3 className="text-sm font-medium text-fg">Location</h3>
           </div>
-          <p className="mt-1 text-sm text-fg/75">Hamilton, ON</p>
+          <p className="mt-1 text-sm text-fg/75">{site.location}</p>
           <p className="text-xs text-fg/45">Ontario, Canada</p>
         </div>
       </div>
@@ -201,9 +202,9 @@ function LocationTile() {
 
 function ConnectTile() {
   const links = [
-    { icon: Mail, label: "Email", href: "mailto:zaidmseta@gmail.com" },
-    { icon: Github, label: "GitHub", href: "https://github.com/ZaidMSeta" },
-    { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/zaidseta" },
+    { icon: Mail, label: "Email", href: site.links.email },
+    { icon: Github, label: "GitHub", href: site.links.github },
+    { icon: Linkedin, label: "LinkedIn", href: site.links.linkedin },
   ];
 
   return (
