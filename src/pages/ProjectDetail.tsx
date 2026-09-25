@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Link, useParams } from "react-router";
 import { ArrowLeft, ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
 import { projects } from "../data/projects";
-import { getTechColour } from "../lib/utils/techColour";
+import { ProjectImage } from "../components/ProjectImage";
+import { TechTags } from "../components/TechTag";
 
 function ImageCarousel({ images, title }: { images: string[]; title: string }) {
   const [index, setIndex] = useState(0);
@@ -12,7 +13,7 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
     return (
       <div className="overflow-hidden rounded-xl border border-fg/10 bg-fg/5">
         <div className="aspect-[16/9] bg-fg/5">
-          <img src={images[0]} alt={title} className="h-full w-full object-cover" />
+          <ProjectImage src={images[0]} alt={title} />
         </div>
       </div>
     );
@@ -115,7 +116,7 @@ export default function ProjectDetail() {
 
       <div className="space-y-3">
         <div className="flex items-center justify-between gap-4 text-sm">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 font-mono text-xs">
             <span className="text-fg/45">{project.date}</span>
             <span className="text-accent">{project.status}</span>
           </div>
@@ -145,20 +146,7 @@ export default function ProjectDetail() {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2">
-          {project.stack.map((tech) => {
-            const color = getTechColour(tech);
-            return (
-              <span
-                key={tech}
-                className="rounded-md px-2 py-0.5 text-[11px]"
-                style={{ backgroundColor: color.bg, color: color.text }}
-              >
-                {tech}
-              </span>
-            );
-          })}
-        </div>
+        <TechTags stack={project.stack} />
       </div>
 
       <section className="rounded-xl border border-fg/10 bg-fg/5 p-5">

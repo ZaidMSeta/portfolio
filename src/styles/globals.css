@@ -1,9 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
 
 @import "tailwindcss";
 
 /* Register theme colors — dark is default, .light overrides below */
 @theme {
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
   --color-bg: #0f1115;
   --color-fg: #ffffff;
   --color-accent: #5eead4;
@@ -26,7 +29,7 @@
 
 @layer base {
   :root {
-    font-family: "IBM Plex Mono", monospace;
+    font-family: var(--font-sans);
     line-height: 1.5;
     font-weight: 400;
     font-synthesis: none;

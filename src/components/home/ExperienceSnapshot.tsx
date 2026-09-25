@@ -9,13 +9,13 @@ export function ExperienceSnapshot() {
   return (
     <section>
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-fg">Experience</h2>
+        <h2 className="text-2xl font-semibold tracking-tight text-fg">Experience</h2>
 
         <Link
           to="/experience"
-          className="text-sm text-fg/60 transition hover:text-fg"
+          className="font-mono text-xs text-fg/50 transition hover:text-fg"
         >
-          See all experience →
+          all experience →
         </Link>
       </div>
 
@@ -37,7 +37,7 @@ export function ExperienceSnapshot() {
                 </div>
               </div>
 
-              <div className="text-right text-xs text-fg/50">
+              <div className="text-right font-mono text-xs text-fg/50">
                 <p>{formatYM(role.start)}</p>
                 <p>
                   — {role.end === "Present" ? "Present" : formatYM(role.end)}

@@ -37,7 +37,7 @@ export default function Experience() {
                 </div>
               </div>
 
-              <div className="text-sm text-fg/50 lg:text-right">
+              <div className="font-mono text-xs text-fg/50 lg:text-right">
                 <p>{formatYM(role.start)}</p>
                 <p>— {role.end === "Present" ? "Present" : formatYM(role.end)}</p>
               </div>
