@@ -9,11 +9,11 @@ import {
   Linkedin,
 } from "lucide-react";
 import { fetchLatestCommits, type GitHubActivityCommit } from "../../lib/utils/githubActivity";
-import { getTechColour } from "../../lib/utils/techColour";
+import { TechTag } from "../TechTag";
 import { site } from "../../data/site";
 
 const tileClassName =
-  "rounded-xl border border-fg/10 bg-fg/5 p-5 transition hover:border-fg/15 hover:bg-fg/[0.07]";
+  "rounded-xl border border-fg/10 card p-5 transition hover:border-fg/20";
 
 function GitHubActivity() {
   const [commits, setCommits] = useState<GitHubActivityCommit[]>([]);
@@ -140,9 +140,9 @@ function CurrentFocusTile() {
 
 function StackTile() {
   const stack = [
+    "Python",
     "TypeScript",
     "React",
-    "Python",
     "Go",
     "FastAPI",
     "PostgreSQL",
@@ -158,19 +158,9 @@ function StackTile() {
       </div>
 
       <div className="flex flex-wrap gap-1.5">
-        {stack.map((tech) => {
-          const colour = getTechColour(tech);
-
-          return (
-            <span
-              key={tech}
-              className="rounded-md px-2 py-0.5 text-[11px]"
-              style={{ backgroundColor: colour.bg, color: colour.text }}
-            >
-              {tech}
-            </span>
-          );
-        })}
+        {stack.map((tech) => (
+          <TechTag key={tech} tech={tech} />
+        ))}
       </div>
     </div>
   );
@@ -178,7 +168,7 @@ function StackTile() {
 
 function LocationTile() {
   return (
-    <div className="overflow-hidden rounded-xl border border-fg/10 bg-fg/5 transition hover:border-fg/15 hover:bg-fg/[0.07] md:col-span-2 md:row-span-2">
+    <div className="overflow-hidden rounded-xl border border-fg/10 card transition hover:border-fg/20 md:col-span-2 md:row-span-2">
       <div className="relative h-full min-h-[320px] w-full overflow-hidden">
         <iframe
           title="Hamilton, Ontario"

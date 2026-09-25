@@ -8,6 +8,8 @@ export type Experience = {
   end: string;
   description: string[];
   showOnHome: boolean;
+  // "earlier" roles collapse under the main timeline on /experience
+  kind: "software" | "earlier";
 };
 
 export const experiences: Experience[] = [
@@ -25,6 +27,7 @@ export const experiences: Experience[] = [
       "Wrote verification scripts that enforce byte-identical navigation and footers across every page, catching regressions before they reach the client.",
     ],
     showOnHome: true,
+    kind: "software",
   },
   {
     id: "mount-hamilton-united",
@@ -41,6 +44,7 @@ export const experiences: Experience[] = [
       "Ran recurring compliance campaigns for 50+ coaches and 75+ volunteers using scripted mail merges with per-recipient conditional attachments.",
     ],
     showOnHome: true,
+    kind: "software",
   },
   {
     id: "cmta",
@@ -56,6 +60,7 @@ export const experiences: Experience[] = [
       "Wrote a serverless proxy to work around CORS on the OnlySocial publishing API.",
     ],
     showOnHome: true,
+    kind: "software",
   },
   {
     id: "morphace",
@@ -71,6 +76,7 @@ export const experiences: Experience[] = [
       "Wrote pytest suites against the API endpoints to validate data flows ahead of feature releases.",
     ],
     showOnHome: true,
+    kind: "software",
   },
   {
     id: "bell-canada",
@@ -85,6 +91,7 @@ export const experiences: Experience[] = [
       "Completed activations and renewals with zero non-compliant transactions.",
     ],
     showOnHome: false,
+    kind: "earlier",
   },
   {
     id: "focus-on-youth",
@@ -99,6 +106,7 @@ export const experiences: Experience[] = [
       "Organized and supervised STEM-themed activities that encouraged curiosity and interest in technology.",
     ],
     showOnHome: false,
+    kind: "earlier",
   },
   {
     id: "krazy-binz",
@@ -113,5 +121,6 @@ export const experiences: Experience[] = [
       "Assisted customers with product questions and helped resolve issues during busy store hours.",
     ],
     showOnHome: false,
+    kind: "earlier",
   },
 ];

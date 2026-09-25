@@ -3,23 +3,24 @@ import { useState } from "react";
 import { Link, useParams } from "react-router";
 import { ArrowLeft, ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
 import { projects } from "../data/projects";
-import { getTechColour } from "../lib/utils/techColour";
+import { ProjectImage } from "../components/ProjectImage";
+import { TechTags } from "../components/TechTag";
 
 function ImageCarousel({ images, title }: { images: string[]; title: string }) {
   const [index, setIndex] = useState(0);
 
   if (images.length === 1) {
     return (
-      <div className="overflow-hidden rounded-xl border border-fg/10 bg-fg/5">
+      <div className="overflow-hidden rounded-xl border border-fg/10 card">
         <div className="aspect-[16/9] bg-fg/5">
-          <img src={images[0]} alt={title} className="h-full w-full object-cover" />
+          <ProjectImage src={images[0]} alt={title} />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border border-fg/10 bg-fg/5">
+    <div className="overflow-hidden rounded-xl border border-fg/10 card">
       <div className="relative aspect-[16/9] bg-fg/5">
         <img
           src={images[index]}
@@ -69,7 +70,7 @@ export default function ProjectDetail() {
     return (
       <div className="space-y-6">
         <div className="space-y-3">
-          <h1 className="text-4xl font-semibold tracking-tight text-fg">
+          <h1 className="text-4xl tracking-tight text-fg">
             Project Not Found
           </h1>
           <p className="text-sm leading-7 text-fg/65 sm:text-base">
@@ -102,7 +103,7 @@ export default function ProjectDetail() {
         </Link>
 
         <div className="space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight text-fg sm:text-4xl">
+          <h1 className="text-3xl tracking-tight text-fg sm:text-4xl">
             {project.title}
           </h1>
           <p className="max-w-2xl text-sm leading-7 text-fg/65 sm:text-base">
@@ -115,7 +116,7 @@ export default function ProjectDetail() {
 
       <div className="space-y-3">
         <div className="flex items-center justify-between gap-4 text-sm">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 font-mono text-xs">
             <span className="text-fg/45">{project.date}</span>
             <span className="text-accent">{project.status}</span>
           </div>
@@ -145,36 +146,23 @@ export default function ProjectDetail() {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2">
-          {project.stack.map((tech) => {
-            const color = getTechColour(tech);
-            return (
-              <span
-                key={tech}
-                className="rounded-md px-2 py-0.5 text-[11px]"
-                style={{ backgroundColor: color.bg, color: color.text }}
-              >
-                {tech}
-              </span>
-            );
-          })}
-        </div>
+        <TechTags stack={project.stack} />
       </div>
 
-      <section className="rounded-xl border border-fg/10 bg-fg/5 p-5">
+      <section className="rounded-xl border border-fg/10 card p-5">
         <div className="space-y-8">
           <div>
-            <h2 className="mb-3 text-xl font-semibold text-fg">What It Is</h2>
+            <h2 className="mb-3 text-xl text-fg">What It Is</h2>
             <p className="text-sm leading-7 text-fg/65 sm:text-base">{project.whatItIs}</p>
           </div>
 
           <div>
-            <h2 className="mb-3 text-xl font-semibold text-fg">Why I Built It</h2>
+            <h2 className="mb-3 text-xl text-fg">Why I Built It</h2>
             <p className="text-sm leading-7 text-fg/65 sm:text-base">{project.whyBuilt}</p>
           </div>
 
           <div>
-            <h2 className="mb-3 text-xl font-semibold text-fg">Key Features</h2>
+            <h2 className="mb-3 text-xl text-fg">Key Features</h2>
             <ul className="space-y-2">
               {project.features.map((feature) => (
                 <li
@@ -189,7 +177,7 @@ export default function ProjectDetail() {
           </div>
 
           <div>
-            <h2 className="mb-3 text-xl font-semibold text-fg">Reflection</h2>
+            <h2 className="mb-3 text-xl text-fg">Reflection</h2>
             <p className="text-sm leading-7 text-fg/65 sm:text-base">{project.reflection}</p>
           </div>
         </div>

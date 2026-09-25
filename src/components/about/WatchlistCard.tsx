@@ -17,7 +17,7 @@ function PosterFallback({ title, type }: { title: string; type: TraktItem["type"
 
 export function WatchlistCard() {
   return (
-    <article className="flex flex-col rounded-xl border border-fg/10 bg-fg/5 p-5 transition hover:border-fg/20">
+    <article className="flex flex-col rounded-xl border border-fg/10 card p-5 transition hover:border-fg/20">
       <div className="mb-5 flex items-center gap-2">
         <Clapperboard size={14} className="text-accent" />
         <h3 className="text-sm font-medium text-fg">Recently Watched</h3>
