@@ -9,7 +9,7 @@ import {
   Linkedin,
 } from "lucide-react";
 import { fetchLatestCommits, type GitHubActivityCommit } from "../../lib/utils/githubActivity";
-import { getTechColour } from "../../lib/utils/techColour";
+import { TechTag } from "../TechTag";
 import { site } from "../../data/site";
 
 const tileClassName =
@@ -158,19 +158,9 @@ function StackTile() {
       </div>
 
       <div className="flex flex-wrap gap-1.5">
-        {stack.map((tech) => {
-          const colour = getTechColour(tech);
-
-          return (
-            <span
-              key={tech}
-              className="rounded-md px-2 py-0.5 text-[11px]"
-              style={{ backgroundColor: colour.bg, color: colour.text }}
-            >
-              {tech}
-            </span>
-          );
-        })}
+        {stack.map((tech) => (
+          <TechTag key={tech} tech={tech} />
+        ))}
       </div>
     </div>
   );

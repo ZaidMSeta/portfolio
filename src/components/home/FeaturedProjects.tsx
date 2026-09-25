@@ -1,94 +1,103 @@
 import { Link } from "react-router";
-import { ExternalLink, Github } from "lucide-react";
+import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
 import { projects } from "../../data/projects";
-import { getTechColour } from "../../lib/utils/techColour";
-
+import { ProjectImage } from "../ProjectImage";
+import { TechTags } from "../TechTag";
 
 export function FeaturedProjects() {
   const featuredProjects = projects.filter((project) => project.featured);
 
   return (
     <section>
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-fg">Featured Projects</h2>
+      <div className="mb-8 flex items-end justify-between">
+        <h2 className="text-2xl font-semibold tracking-tight text-fg">Featured projects</h2>
 
-        <Link to="/projects" className="text-sm text-fg/60 transition hover:text-fg">
-          View all →
+        <Link to="/projects" className="font-mono text-xs text-fg/50 transition hover:text-fg">
+          all projects →
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="space-y-6">
         {featuredProjects.map((project, index) => (
           <article
             key={project.id}
-            className={`group relative flex flex-col overflow-hidden rounded-xl border border-fg/10 bg-fg/5 transition hover:border-fg/20 ${index >= 2 ? "hidden lg:flex" : ""}`}
+            className="group relative grid overflow-hidden rounded-2xl border border-fg/10 bg-fg/[0.03] transition hover:border-fg/20 md:grid-cols-2"
           >
-            <div className="aspect-16/10 overflow-hidden bg-fg/5">
-              <img
+            <div
+              className={`aspect-16/10 overflow-hidden border-fg/10 bg-fg/5 max-md:border-b md:aspect-auto md:min-h-[320px] ${
+                index % 2 === 1 ? "md:order-2 md:border-l" : "md:border-r"
+              }`}
+            >
+              <ProjectImage
                 src={project.image}
-                onError={(e) => {
-                  e.currentTarget.style.visibility = "hidden";
-                }}
                 alt={project.title}
-                className="h-full w-full object-cover opacity-80 transition-opacity group-hover:opacity-100"
+                className="object-top opacity-90 transition duration-500 group-hover:scale-[1.02] group-hover:opacity-100"
               />
             </div>
 
-            <div className="flex flex-1 flex-col p-4">
-              <div className="mb-2 flex items-start justify-between gap-3">
-                <h3 className="text-sm font-semibold text-fg">
-                  <Link to={`/projects/${project.slug}`} className="after:absolute after:inset-0">
-                    {project.title}
-                  </Link>
-                </h3>
-                <span className="shrink-0 text-[11px] text-fg/50">{project.date}</span>
-              </div>
+            <div className="flex flex-col p-6 sm:p-8">
+              <p className="font-mono text-xs text-fg/40">
+                {String(index + 1).padStart(2, "0")} · {project.date} ·{" "}
+                <span className="text-accent/80">{project.status}</span>
+              </p>
 
-              <p className="mb-3 text-sm leading-6 text-fg/60">{project.hook}</p>
+              <h3 className="mt-3 flex items-center gap-2 text-2xl font-semibold tracking-tight text-fg">
+                <Link to={`/projects/${project.slug}`} className="after:absolute after:inset-0">
+                  {project.title}
+                </Link>
+                <ArrowUpRight
+                  size={20}
+                  className="text-fg/30 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                />
+              </h3>
 
-              <div className="mt-auto mb-3 flex flex-wrap gap-1.5">
-                {project.stack.map((tech) => {
-                  const color = getTechColour(tech);
-                  return (
-                    <span
-                      key={tech}
-                      className="rounded-md px-2 py-0.5 text-[10px]"
-                      style={{ backgroundColor: color.bg, color: color.text }}
-                    >
-                      {tech}
-                    </span>
-                  );
-                })}
-              </div>
+              <p className="mt-3 text-sm leading-6 text-fg/60 sm:text-base sm:leading-7">
+                {project.hook}
+              </p>
 
-              <div className="flex items-center justify-between border-t border-fg/10 pt-3">
-                <div className="flex items-center gap-3 text-xs">
-                  {project.repoUrl ? (
-                    <a
-                      href={project.repoUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="relative z-10 inline-flex items-center gap-1 text-fg/60 transition hover:text-fg"
-                    >
-                      <Github size={12} />
-                      Code
-                    </a>
-                  ) : null}
+              {project.metrics && (
+                <dl className="mt-6 flex gap-8">
+                  {project.metrics.map((metric) => (
+                    <div key={metric.label}>
+                      <dt className="sr-only">{metric.label}</dt>
+                      <dd className="text-2xl font-semibold tracking-tight text-fg">
+                        {metric.value}
+                      </dd>
+                      <dd className="font-mono text-[11px] text-fg/45">{metric.label}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
 
-                  {project.liveUrl ? (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="relative z-10 inline-flex items-center gap-1 text-fg/60 transition hover:text-fg"
-                    >
-                      <ExternalLink size={12} />
-                      Live
-                    </a>
-                  ) : null}
-                </div>
+              <div className="mt-auto pt-6">
+                <TechTags stack={project.stack} />
 
-                <span className="text-xs text-fg/40">Details →</span>
+                {(project.repoUrl || project.liveUrl) && (
+                  <div className="mt-4 flex items-center gap-4 font-mono text-xs">
+                    {project.repoUrl && (
+                      <a
+                        href={project.repoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="relative z-10 inline-flex items-center gap-1.5 text-fg/55 transition hover:text-fg"
+                      >
+                        <Github size={13} />
+                        code
+                      </a>
+                    )}
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="relative z-10 inline-flex items-center gap-1.5 text-fg/55 transition hover:text-fg"
+                      >
+                        <ExternalLink size={13} />
+                        live
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </article>
