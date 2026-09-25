@@ -19,40 +19,27 @@ export function ExperienceSnapshot() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <ol className="divide-y divide-fg/10 rounded-2xl border border-fg/10 card">
         {featuredExperience.map((role) => (
-          <article
+          <li
             key={role.id}
-            className="rounded-xl border border-fg/10 bg-fg/5 p-5 transition hover:border-fg/20"
+            className="grid gap-x-6 gap-y-2 p-5 sm:grid-cols-[auto_1fr_auto] sm:items-start sm:p-6"
           >
-            <div className="mb-4 flex items-start justify-between gap-4">
-              <div className="flex items-start gap-3">
-                <CompanyLogo src={role.logo} company={role.company} className="h-10 w-10" />
+            <CompanyLogo src={role.logo} company={role.company} className="h-10 w-10" />
 
-                <div>
-                  <h3 className="text-base font-semibold text-fg">
-                    {role.title}
-                  </h3>
-                  <p className="text-sm text-fg/60">{role.company}</p>
-                </div>
-              </div>
-
-              <div className="text-right font-mono text-xs text-fg/50">
-                <p>{formatYM(role.start)}</p>
-                <p>
-                  — {role.end === "Present" ? "Present" : formatYM(role.end)}
-                </p>
-              </div>
+            <div className="min-w-0">
+              <h3 className="text-base font-semibold text-fg">
+                {role.title} <span className="font-normal text-fg/50">· {role.company}</span>
+              </h3>
+              <p className="mt-1 max-w-3xl text-sm leading-6 text-fg/60">{role.description[0]}</p>
             </div>
 
-            <p className="mb-3 text-sm text-fg/50">{role.location}</p>
-
-            <p className="text-sm leading-6 text-fg/60">
-              {role.description[0]}
+            <p className="font-mono text-xs text-fg/45 sm:pt-1 sm:text-right">
+              {formatYM(role.start)} — {formatYM(role.end)}
             </p>
-          </article>
+          </li>
         ))}
-      </div>
+      </ol>
     </section>
   );
 }

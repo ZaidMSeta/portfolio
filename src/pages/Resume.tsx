@@ -14,7 +14,7 @@ export default function Resume() {
         </h1>
       </section>
 
-      <section className="rounded-xl border border-fg/10 bg-fg/5 p-5 sm:p-6">
+      <section className="rounded-xl border border-fg/10 card p-5 sm:p-6">
         <div className="grid grid-cols-3 items-center gap-3 border-b border-fg/10 pb-4">
           <div aria-hidden />
 
@@ -53,7 +53,7 @@ export default function Resume() {
           </a>
         </div>
 
-        <div className="mt-5 hidden h-[75vh] overflow-hidden rounded-xl border border-fg/10 bg-fg/5 sm:block">
+        <div className="mt-5 hidden h-[75vh] overflow-hidden rounded-xl border border-fg/10 card sm:block">
           <object data={resumeUrl} type="application/pdf" className="h-full w-full">
             <p className="p-4 text-sm text-fg/65">
               Your browser can't preview PDFs.

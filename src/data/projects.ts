@@ -95,10 +95,6 @@ export const projects: Project[] = [
     image: "/projects/ressam-gardens.png",
     repoUrl: "",
     liveUrl: "https://ressamgardens.ca",
-    metrics: [
-      { value: "10", label: "pages shipped" },
-      { value: "15", label: "client review rounds" },
-    ],
     status: "Ongoing",
     date: "2026",
     featured: true,

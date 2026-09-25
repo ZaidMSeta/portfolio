@@ -1,4 +1,14 @@
-import { Github, Linkedin, ArrowRight, Mail } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpen,
+  Briefcase,
+  ChessKnight,
+  Github,
+  Hammer,
+  Linkedin,
+  Mail,
+  type LucideIcon,
+} from "lucide-react";
 import { Link } from "react-router";
 import { site } from "../../data/site";
 import { experiences } from "../../data/experience";
@@ -15,28 +25,33 @@ function NowPanel() {
   const latestRating = ratingHistory[ratingHistory.length - 1]?.rating;
 
   const rows = [
-    currentRole && { key: "role", value: `${currentRole.title} @ ${currentRole.company}` },
-    { key: "building", value: site.building },
-    currentRead && { key: "reading", value: shortTitle(currentRead.book.title) },
-    latestRating && { key: "chess", value: `${latestRating} rapid` },
-    { key: "based", value: site.location },
-  ].filter(Boolean) as { key: string; value: string }[];
+    currentRole && {
+      icon: Briefcase,
+      label: "Working",
+      value: `${currentRole.title} at ${currentRole.company}`,
+    },
+    { icon: Hammer, label: "Building", value: site.building },
+    currentRead && { icon: BookOpen, label: "Reading", value: shortTitle(currentRead.book.title) },
+    latestRating && { icon: ChessKnight, label: "Playing", value: `Chess, ${latestRating} rapid` },
+  ].filter(Boolean) as { icon: LucideIcon; label: string; value: string }[];
 
   return (
-    <div className="rounded-xl border border-fg/10 bg-fg/[0.03] font-mono text-xs">
-      <div className="flex items-center justify-between border-b border-fg/10 px-4 py-2.5 text-fg/40">
-        <span>~/now</span>
-        <span>{__BUILD_DATE__.slice(0, 7)}</span>
-      </div>
+    <div className="rounded-2xl border border-fg/10 card p-5">
+      <p className="text-xs font-medium uppercase tracking-[0.14em] text-fg/40">Currently</p>
 
-      <dl className="space-y-2.5 px-4 py-4">
+      <ul className="mt-4 space-y-4">
         {rows.map((row) => (
-          <div key={row.key} className="grid grid-cols-[72px_1fr] gap-3">
-            <dt className="text-accent/80">{row.key}</dt>
-            <dd className="text-fg/70">{row.value}</dd>
-          </div>
+          <li key={row.label} className="flex items-start gap-3">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent">
+              <row.icon size={15} />
+            </span>
+            <div className="min-w-0">
+              <p className="text-xs text-fg/45">{row.label}</p>
+              <p className="text-sm text-fg/85">{row.value}</p>
+            </div>
+          </li>
         ))}
-      </dl>
+      </ul>
     </div>
   );
 }
