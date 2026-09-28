@@ -85,6 +85,35 @@ export const projects: Project[] = [
       "This project reinforced how valuable simple tools can be when they solve an obvious everyday problem. It also gave me experience with scraping, data transformation, and designing a frontend around fast, practical queries.",
   },
   {
+    id: "mhusc-scheduling",
+    slug: "mhusc-scheduling",
+    title: "MHUSC Field Scheduler",
+    hook: "Automated 400+ hand-booked events into the club's registration platform, then built a viewer that merges five schedule sources and flags double-bookings.",
+    description:
+      "Scheduling tools for a Hamilton youth soccer club: a Playwright driver that enters events into PowerUp, and a field viewer that shows who is on every field tonight.",
+    stack: ["TypeScript", "Playwright", "Next.js", "Supabase", "Tailwind", "SheetJS"],
+    image: "/projects/mhusc.png",
+    repoUrl: "",
+    liveUrl: "",
+    status: "Complete",
+    date: "2026",
+    featured: true,
+    summary:
+      "Scheduling automation for Mount Hamilton United: bulk event entry into the club's registration platform, and one view of every field across five schedule sources.",
+    whatItIs:
+      "Two tools built while working at Mount Hamilton United SC: a Playwright driver that enters and audits events in PowerUp, and a Next.js field viewer that merges the club's schedules with four outside leagues.",
+    whyBuilt:
+      "Events were being booked into PowerUp by hand, and there was no single view of which team was on which field on a given night.",
+    features: [
+      "Playwright and TypeScript driver that entered and audited 400+ events in PowerUp",
+      "Imports PowerUp and four league schedule exports in the browser",
+      "Merges shared practice slots and removes games listed twice",
+      "Conflict board and tonight's timeline across 115 fields",
+    ],
+    reflection:
+      "Working as an admin rather than a developer meant the problems found me: whatever took staff the most time each week was the next thing to automate.",
+  },
+  {
     id: "ressam-gardens",
     slug: "ressam-gardens",
     title: "Ressam Gardens",
