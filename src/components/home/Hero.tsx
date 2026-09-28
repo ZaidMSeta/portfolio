@@ -1,28 +1,20 @@
 import {
   ArrowRight,
-  BookOpen,
   Briefcase,
-  ChessKnight,
+  GraduationCap,
   Github,
   Hammer,
   Linkedin,
   Mail,
+  MapPin,
   type LucideIcon,
 } from "lucide-react";
 import { Link } from "react-router";
 import { site } from "../../data/site";
 import { experiences } from "../../data/experience";
-import { getHardcoverData } from "../../lib/utils/hardCover";
-import ratingHistory from "../../data/chessRatingHistory.json";
-
-function shortTitle(title: string) {
-  return title.split(":")[0].trim();
-}
 
 function NowPanel() {
   const currentRole = experiences.find((role) => role.end === "Present");
-  const currentRead = getHardcoverData().currentRead;
-  const latestRating = ratingHistory[ratingHistory.length - 1]?.rating;
 
   const rows = [
     currentRole && {
@@ -31,8 +23,8 @@ function NowPanel() {
       value: `${currentRole.title} at ${currentRole.company}`,
     },
     { icon: Hammer, label: "Building", value: site.building },
-    currentRead && { icon: BookOpen, label: "Reading", value: shortTitle(currentRead.book.title) },
-    latestRating && { icon: ChessKnight, label: "Playing", value: `Chess, ${latestRating} rapid` },
+    { icon: GraduationCap, label: "Studying", value: site.studying },
+    { icon: MapPin, label: "Based in", value: site.location },
   ].filter(Boolean) as { icon: LucideIcon; label: string; value: string }[];
 
   return (
