@@ -414,4 +414,84 @@ export const caseStudies: Record<string, CaseStudy> = {
       "Building the checks early paid off. Sixteen rounds in, the header and footer are still identical on every page, and a round can't go to the client with a broken layout on a phone.",
     ],
   },
+  "mhusc-scheduling": {
+    role: "Administration Assistant, sole developer",
+    timeline: "May – Aug 2026",
+    stats: [
+      { value: "400+", label: "events entered automatically" },
+      { value: "4,804", label: "PowerUp events imported" },
+      { value: "5", label: "schedule sources merged" },
+      { value: "115", label: "fields tracked" },
+    ],
+    problem: [
+      "Mount Hamilton United runs practices and games across dozens of venues and more than a hundred fields. Games come from four outside leagues; practices live in the club's registration platform, PowerUp, where staff were booking events by hand, one at a time.",
+      "Nobody had a single view of who was on which field on a given night, so double bookings were hard to spot until the night itself.",
+    ],
+    flow: [
+      {
+        title: "Enter events automatically",
+        detail: "A Playwright driver fills in PowerUp's event forms from the schedule and audits what's already there, replacing hand entry.",
+        tech: "Playwright · TypeScript",
+      },
+      {
+        title: "Upload schedule exports",
+        detail: "PowerUp's master schedule and four league exports are read straight in the browser.",
+        tech: "SheetJS",
+      },
+      {
+        title: "Recognize and normalize",
+        detail: "Detects each file's source from its headers, maps each team's different names to one key, merges shared practice slots, and drops games listed twice.",
+        tech: "TypeScript",
+      },
+      {
+        title: "Preview, then commit",
+        detail: "Shows adds, updates, and retirements before saving. Re-imports only retire events from the same source, divisions, and dates.",
+        tech: "Supabase",
+      },
+      {
+        title: "See tonight's fields",
+        detail: "A conflict board and a timeline show who's on every field and flag double bookings.",
+        tech: "Next.js · Tailwind",
+      },
+    ],
+    contributions: [
+      {
+        when: "Summer",
+        title: "Automated schedule entry",
+        body: "Built a Playwright and TypeScript driver against PowerUp that entered and audited 400+ league events staff had been booking by hand.",
+      },
+      {
+        when: "Aug",
+        title: "The field viewer",
+        body: "Built a Next.js and Supabase app that imports PowerUp's schedule plus four league exports, cleans and merges them, and answers one question: who is on which field tonight, and is anything double booked.",
+      },
+      {
+        when: "May – Aug",
+        title: "Club operations automation",
+        body: "Built an inventory tracker with a transaction log that keeps per-colour, per-size kit stock current, a Power Automate flow that files volunteer document scans into SharePoint and updates a compliance tracker, and scripted mail merges with per-recipient attachments for 50+ coaches and 75+ volunteers.",
+      },
+    ],
+    decisions: [
+      {
+        title: "Retire, never delete",
+        body: "Events missing from a new export are marked cancelled rather than deleted, and only within that file's source, divisions, and date range, so a partial export can't wipe the rest of the schedule.",
+      },
+      {
+        title: "Manual fixes survive re-imports",
+        body: "Fields corrected by hand are locked against the next import, and every change is written to a revisions table.",
+      },
+      {
+        title: "Merge shared slots",
+        body: "1,212 of the 4,804 PowerUp events were one practice slot shared by two to five teams. Merging them means the board shows fields, not duplicate rows.",
+      },
+      {
+        title: "No personal data",
+        body: "The viewer stores schedules only. Anyone can read; writes go through an admin-only route.",
+      },
+    ],
+    reflection: [
+      "Working as an admin rather than a developer meant the problems found me: whatever took staff the most time each week was the next thing to automate.",
+      "The viewer taught me that importing messy real-world data is mostly deciding what not to trust: which file is which, which names mean the same team, and what a missing row actually means.",
+    ],
+  },
 };
