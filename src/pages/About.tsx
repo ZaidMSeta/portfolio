@@ -41,8 +41,8 @@ export default function About() {
 
               <p>
                 Lately I've been doing more client work, which has turned out to be its own
-                skill. Translating vague feedback into scoped work, and shipping something
-                through fifteen rounds of review without losing the thread, is harder than
+                skill. Translating vague feedback into scoped work, and carrying a project
+                through sixteen rounds of review without losing the thread, is harder than
                 the code usually is.
               </p>
             </div>

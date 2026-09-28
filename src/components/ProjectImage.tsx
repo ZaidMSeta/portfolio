@@ -4,10 +4,12 @@ type ProjectImageProps = {
   src: string;
   alt: string;
   className?: string;
+  // Called when the screenshot is missing, for callers that would rather hide the slot
+  onMissing?: () => void;
 };
 
 // Shows a titled placeholder until a screenshot exists for the project
-export function ProjectImage({ src, alt, className = "" }: ProjectImageProps) {
+export function ProjectImage({ src, alt, className = "", onMissing }: ProjectImageProps) {
   const [failed, setFailed] = useState(false);
 
   if (failed || !src) {
@@ -24,7 +26,10 @@ export function ProjectImage({ src, alt, className = "" }: ProjectImageProps) {
     <img
       src={src}
       alt={alt}
-      onError={() => setFailed(true)}
+      onError={() => {
+        setFailed(true);
+        onMissing?.();
+      }}
       className={`h-full w-full object-cover ${className}`}
     />
   );

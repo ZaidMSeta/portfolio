@@ -28,9 +28,9 @@ export const projects: Project[] = [
     hook: "A full-stack course planning and seat-tracking platform used by 200+ McMaster students.",
     description:
       "A student-focused web app for browsing courses, planning degree progress, and tracking useful academic information in one place.",
-    stack: ["React", "TypeScript", "Go", "PostgreSQL", "Python"],
+    stack: ["React", "TypeScript", "Go", "Python", "PostgreSQL", "AWS Lambda"],
     image: "/projects/mactrack.png",
-    repoUrl: "https://github.com/hasan-ston/mactrack",
+    repoUrl: "",
     liveUrl: "https://mac-track.com",
     metrics: [
       { value: "200+", label: "students using it" },
@@ -40,7 +40,7 @@ export const projects: Project[] = [
     date: "2026",
     featured: true,
     summary:
-      "A practical platform that helps McMaster students browse courses, organize degree plans, and track academic information more easily.",
+      "Course search, degree planning, and near-real-time seat alerts for McMaster students, running on Go and Python services on AWS Lambda.",
     whatItIs:
       "MacTrack is a full-stack academic planning platform designed for McMaster students. It brings together course discovery, degree planning, seat tracking, professor information, and reviews into one interface.",
     whyBuilt:
@@ -59,18 +59,18 @@ export const projects: Project[] = [
     id: "roomradar",
     slug: "roomradar",
     title: "RoomRadar",
-    hook: "Scrapes McMaster's timetable on a schedule and turns it into a live, filterable view of which classrooms are free right now.",
+    hook: "Scrapes McMaster's full timetable each term and flips it into a live view of which of 354 classrooms are free right now.",
     description:
       "A student tool that scrapes timetable data and turns it into a searchable interface for finding free rooms on campus.",
-    stack: ["React", "TypeScript", "Playwright", "Node.js", "GitHub Actions"],
+    stack: ["TypeScript", "Playwright", "React", "Vite", "Node.js"],
     image: "/projects/roomradar.png",
-    repoUrl: "",
-    liveUrl: "https://mcemptyroom.vercel.app",
-    status: "Complete",
+    repoUrl: "https://github.com/ZaidMSeta/mcmaster-room-schedule-scraper",
+    liveUrl: "https://macroomradar.vercel.app",
+    status: "Ongoing",
     date: "2026",
     featured: true,
     summary:
-      "A campus utility for finding empty classrooms using building, day, and time-based filters.",
+      "A campus tool that turns McMaster's course timetable into a room-by-room view of what's free now, later, or for a stretch of time.",
     whatItIs:
       "RoomRadar is a practical campus tool that processes timetable and room data into a searchable interface, helping users quickly find available classrooms.",
     whyBuilt:
@@ -78,7 +78,7 @@ export const projects: Project[] = [
     features: [
       "Automated Playwright script that scrapes university timetable data and transforms raw XML into room-centric availability JSON",
       "Normalized large timetable datasets into a queryable format supporting real-time filtering by building, day, and time",
-      "Scheduled as a GitHub Actions cron job so room data refreshes without manual runs",
+      "Resumable, read-only scrape that refreshes the whole term in one run",
       "A simple interface focused on speed and usability",
     ],
     reflection:
@@ -88,30 +88,30 @@ export const projects: Project[] = [
     id: "ressam-gardens",
     slug: "ressam-gardens",
     title: "Ressam Gardens",
-    hook: "Production site for a Hamilton memory care community, with scripted regression checks keeping every page consistent through 15 rounds of client review.",
+    hook: "An 11-page site for a Hamilton memory care community, built through 16 review rounds with automated checks at every step. Launching soon.",
     description:
-      "A full rebuild of the web presence for a memory care and dementia community, built around helping families book a tour.",
-    stack: ["React", "TypeScript", "Tailwind", "Vercel"],
+      "A rebuild of the web presence for a memory care and dementia community, built around helping families book a tour. Pre-launch.",
+    stack: ["HTML", "Tailwind", "JavaScript", "Playwright", "Python", "Astro"],
     image: "/projects/ressam-gardens.png",
     repoUrl: "",
-    liveUrl: "https://ressamgardens.ca",
+    liveUrl: "",
     status: "Ongoing",
     date: "2026",
     featured: true,
     summary:
-      "A client site for a memory care community, designed around the adult children researching care for a parent.",
+      "A calm, trustworthy site for a memory care community, designed around the adult children researching care for a parent. In progress ahead of launch.",
     whatItIs:
       "Ressam Gardens is a memory care and dementia community in Hamilton. I rebuilt their site from the ground up: ten pages covering the community, care model, and admissions, with tour booking as the main conversion path.",
     whyBuilt:
       "Their previous site was slow and visually dated, and the people it needed to reach were families making a hard decision under stress. The rebuild was about making the place feel trustworthy and making it easy to take the next step.",
     features: [
-      "Ten-page site covering the community, care approach, and admissions",
+      "Eleven pages covering the community, care approach, suites, dining, and admissions",
       "Tour booking as the primary conversion path",
       "Verification scripts enforcing byte-identical navigation and footers across every page",
       "Verified each release across mobile, tablet, and desktop",
     ],
     reflection:
-      "This was my first sustained client relationship rather than a one-off build. Fifteen rounds of review taught me more about scoping and translating vague feedback into concrete work than any amount of solo building would have.",
+      "This was my first sustained client relationship rather than a one-off build. Sixteen rounds of review taught me more about scoping and translating vague feedback into concrete work than any amount of solo building would have.",
   },
   {
     id: "cmta-event-tool",
@@ -136,7 +136,7 @@ export const projects: Project[] = [
     features: [
       "Poster upload with structured event extraction via the Google Gemini API",
       "Platform-specific caption generation",
-      "Human approval step before anything publishes",
+      "Every extracted field and caption is reviewed and editable before anything publishes",
       "Serverless proxy to work around CORS on the OnlySocial publishing API",
     ],
     reflection:
