@@ -88,30 +88,30 @@ export const projects: Project[] = [
     id: "ressam-gardens",
     slug: "ressam-gardens",
     title: "Ressam Gardens",
-    hook: "Production site for a Hamilton memory care community, with scripted regression checks keeping every page consistent through 15 rounds of client review.",
+    hook: "An 11-page site for a Hamilton memory care community, built through 16 review rounds with automated checks at every step. Launching soon.",
     description:
-      "A full rebuild of the web presence for a memory care and dementia community, built around helping families book a tour.",
-    stack: ["React", "TypeScript", "Tailwind", "Vercel"],
+      "A rebuild of the web presence for a memory care and dementia community, built around helping families book a tour. Pre-launch.",
+    stack: ["HTML", "Tailwind", "JavaScript", "Playwright", "Python", "Astro"],
     image: "/projects/ressam-gardens.png",
     repoUrl: "",
-    liveUrl: "https://ressamgardens.ca",
+    liveUrl: "",
     status: "Ongoing",
     date: "2026",
     featured: true,
     summary:
-      "A client site for a memory care community, designed around the adult children researching care for a parent.",
+      "A calm, trustworthy site for a memory care community, designed around the adult children researching care for a parent. In progress ahead of launch.",
     whatItIs:
       "Ressam Gardens is a memory care and dementia community in Hamilton. I rebuilt their site from the ground up: ten pages covering the community, care model, and admissions, with tour booking as the main conversion path.",
     whyBuilt:
       "Their previous site was slow and visually dated, and the people it needed to reach were families making a hard decision under stress. The rebuild was about making the place feel trustworthy and making it easy to take the next step.",
     features: [
-      "Ten-page site covering the community, care approach, and admissions",
+      "Eleven pages covering the community, care approach, suites, dining, and admissions",
       "Tour booking as the primary conversion path",
       "Verification scripts enforcing byte-identical navigation and footers across every page",
       "Verified each release across mobile, tablet, and desktop",
     ],
     reflection:
-      "This was my first sustained client relationship rather than a one-off build. Fifteen rounds of review taught me more about scoping and translating vague feedback into concrete work than any amount of solo building would have.",
+      "This was my first sustained client relationship rather than a one-off build. Sixteen rounds of review taught me more about scoping and translating vague feedback into concrete work than any amount of solo building would have.",
   },
   {
     id: "cmta-event-tool",

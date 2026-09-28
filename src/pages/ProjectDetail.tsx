@@ -9,12 +9,16 @@ import { useDocumentTitle } from "../hooks/useDocumentTitle";
 
 function ImageCarousel({ images, title }: { images: string[]; title: string }) {
   const [index, setIndex] = useState(0);
+  const [missing, setMissing] = useState(false);
+
+  // No screenshot yet: leave the slot out rather than show an empty frame
+  if (missing || !images[0]) return null;
 
   if (images.length === 1) {
     return (
       <div className="overflow-hidden rounded-xl border border-fg/10 card">
         <div className="aspect-[16/9] bg-fg/5">
-          <ProjectImage src={images[0]} alt={title} />
+          <ProjectImage src={images[0]} alt={title} onMissing={() => setMissing(true)} />
         </div>
       </div>
     );
@@ -302,7 +306,7 @@ export default function ProjectDetail() {
         )}
       </header>
 
-      <ImageCarousel images={images} title={project.title} />
+      <ImageCarousel key={project.slug} images={images} title={project.title} />
 
       <div className="grid gap-12 lg:grid-cols-[1fr_260px] lg:gap-16">
         <div className="lg:order-2">

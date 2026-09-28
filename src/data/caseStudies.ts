@@ -224,7 +224,7 @@ export const caseStudies: Record<string, CaseStudy> = {
   },
   "cmta-event-tool": {
     role: "Solo developer for a nonprofit client",
-    timeline: "Apr – May 2026",
+    timeline: "Mar – May 2026",
     stats: [
       { value: "8", label: "fields read from each poster" },
       { value: "4", label: "outputs per poster" },
@@ -310,6 +310,108 @@ export const caseStudies: Record<string, CaseStudy> = {
     reflection: [
       "The hard part wasn't the AI extraction. It was designing for one non-technical person who needed to stay in control of what went out under the association's name.",
       "Almost everything after the first week was about trust: seeing exactly what the model read, fixing it in place, and knowing nothing publishes without a click.",
+    ],
+  },
+  "ressam-gardens": {
+    role: "Web developer, sole developer for the client",
+    timeline: "Jun 2026 – present",
+    stats: [
+      { value: "11", label: "pages" },
+      { value: "16", label: "review rounds" },
+      { value: "3", label: "screen sizes checked every round" },
+      { value: "2", label: "sites for one client" },
+    ],
+    problem: [
+      "Ressam Gardens is a memory care and dementia community in Hamilton. The people looking at its website are usually adult children researching care for a parent, often under real stress. The existing WordPress site was slow and dated.",
+      "The brief: a site that feels calm and trustworthy, explains the care model plainly, and makes booking a tour the obvious next step.",
+    ],
+    flow: [
+      {
+        title: "Meeting to feedback map",
+        detail: "Client notes become exact page and element targets, plus a list of questions for the next meeting.",
+        tech: "Markdown",
+      },
+      {
+        title: "Start a round",
+        detail: "Each round gets its own branch and a tagged restore point before anything changes.",
+        tech: "git",
+      },
+      {
+        title: "Build the changes",
+        detail: "Pages are static HTML with Tailwind and small vanilla JavaScript modules for navigation, carousels, and forms.",
+        tech: "HTML · Tailwind · JavaScript",
+      },
+      {
+        title: "Verify",
+        detail: "Byte-for-byte header and footer checks, copy rules, and a Playwright sweep at 390, 768, and 1280px.",
+        tech: "Node · Python · Playwright",
+      },
+      {
+        title: "Client review",
+        detail: "The client compares layout options in a built-in switcher, and the next round starts from their picks.",
+        tech: "JavaScript",
+      },
+    ],
+    contributions: [
+      {
+        when: "Jul",
+        title: "From six directions to one design",
+        body: "Explored six homepage directions, settled on a frosted-glass hero as the base, and carried that system across the site.",
+      },
+      {
+        when: "Jul",
+        title: "Copy that sounds like care, not a clinic",
+        body: "Worked the client's own copy and answers into every page and removed clinical language so the site reads like a home rather than a facility.",
+      },
+      {
+        when: "Aug",
+        title: "A structure families can navigate",
+        body: "Rebuilt the navigation with dropdowns, split amenities into separate suites and dining pages, and added a layout switcher so the client could compare options directly in the browser.",
+      },
+      {
+        when: "Aug",
+        title: "Checks that run every round",
+        body: "Wrote scripts that fail a round if any page's header or footer drifts by a single byte, enforce copy rules like one correct phone number and no links to removed pages, and sweep every page in a real browser at three widths for overflow, overlapping text, small tap targets, duplicate ids, and console errors.",
+      },
+      {
+        when: "Sep",
+        title: "Launch readiness",
+        body: "Audited the path to launch: rescued content from the old site, found an exposed setup page on the client's WordPress server, planned redirects for about 70 old URLs, wrote a DNS and email cutover checklist, and noted Ontario privacy and accessibility requirements.",
+      },
+      {
+        when: "Aug – Sep",
+        title: "A second site for the clinic brand",
+        body: "Built a separate site for the owner's TMS clinic in Astro, deliberately unlike Ressam's look: five design directions across twelve pages, with automated accessibility and browser checks on every direction.",
+      },
+    ],
+    decisions: [
+      {
+        title: "Stay static, enforce consistency with checks",
+        body: "With no build step, every preview is just files the client can open. The trade-off is a header and footer copied onto every page, so a script compares each copy byte for byte and fails the round if one drifts.",
+      },
+      {
+        title: "Turn feedback into targets",
+        body: "Every meeting ends as a map from comments to specific files and elements, so nothing gets lost between rounds and open questions go straight onto the next agenda.",
+      },
+      {
+        title: "Phone width is the gate",
+        body: "The browser sweep checks 390, 768, and 1280px every round, and a failure at 390px blocks the round.",
+      },
+      {
+        title: "Let the client choose in the browser",
+        body: "Pages can carry two or three layout options behind a small switcher, which turned \"can we see it another way\" into a click instead of another round.",
+      },
+    ],
+    story: {
+      title: "What's left before launch",
+      paragraphs: [
+        "The site isn't live yet. The launch audit put mobile performance on the homepage at 27 in Lighthouse, mostly from loading Tailwind at runtime and a 6 MB hero video; accessibility, best practices, and SEO scored in the high 90s to 100.",
+        "The plan is to port the pages to Astro with shared components, which retires the copy-and-check approach, self-host fonts and styles, serve responsive images, and add a sitemap and structured data before cutting over DNS.",
+      ],
+    },
+    reflection: [
+      "Ressam is my first long-running client project, and the code was rarely the hard part. Turning an hour of feedback into specific, checkable changes was.",
+      "Building the checks early paid off. Sixteen rounds in, the header and footer are still identical on every page, and a round can't go to the client with a broken layout on a phone.",
     ],
   },
 };
