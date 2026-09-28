@@ -22,7 +22,7 @@ export const experiences: Experience[] = [
     start: "2026-06",
     end: "Present",
     description: [
-      "Designed and built a 10-page site for a memory care community, shipped through 15 rounds of client review.",
+      "Designing and building an 11-page site for a memory care community through 16 review rounds, ahead of launch.",
       "Run weekly client meetings, translating non-technical feedback into scoped build plans and verifying each release across mobile, tablet, and desktop.",
       "Wrote verification scripts that enforce byte-identical navigation and footers across every page, catching regressions before they reach the client.",
     ],
@@ -53,7 +53,7 @@ export const experiences: Experience[] = [
     logo: "/logos/cmta.png",
     location: "Remote",
     start: "2026-03",
-    end: "2026-04",
+    end: "2026-05",
     description: [
       "Built an event promotion automation tool in React, Vite, and TypeScript, deployed on Vercel, replacing a manual cross-platform social posting workflow.",
       "Integrated the Google Gemini API for structured event extraction from posters and platform-specific caption generation.",
