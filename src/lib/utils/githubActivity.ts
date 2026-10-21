@@ -88,7 +88,50 @@ async function fetchCommitDetails(
   };
 }
 
+// Unauthenticated GitHub allows 60 requests an hour per IP and one load costs up
+// to 11, so reuse the last result for a while instead of refetching every visit
+const CACHE_KEY = "github-activity";
+const CACHE_TTL_MS = 10 * 60 * 1000;
+
+type CachedCommits = { savedAt: number; commits: GitHubActivityCommit[] };
+
+function readCache(): CachedCommits | null {
+  try {
+    return JSON.parse(localStorage.getItem(CACHE_KEY) ?? "null");
+  } catch {
+    // Storage blocked or malformed entry
+    return null;
+  }
+}
+
+function writeCache(commits: GitHubActivityCommit[]) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ savedAt: Date.now(), commits }));
+  } catch {
+    // Caching is best effort
+  }
+}
+
 export async function fetchLatestCommits(): Promise<GitHubActivityCommit[]> {
+  const cached = readCache();
+  if (cached && Date.now() - cached.savedAt < CACHE_TTL_MS) return cached.commits;
+
+  try {
+    const commits = await fetchFreshCommits();
+    if (commits.length > 0) {
+      writeCache(commits);
+      return commits;
+    }
+  } catch (err) {
+    if (!cached) throw err;
+  }
+
+  // Rate limited or nothing came back: older commits beat an empty tile
+  if (cached) return cached.commits;
+  throw new Error("No commits could be loaded");
+}
+
+async function fetchFreshCommits(): Promise<GitHubActivityCommit[]> {
   const res = await fetch(
     `https://api.github.com/users/${encodeURIComponent(GITHUB_USERNAME)}/events/public`,
     {
