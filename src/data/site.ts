@@ -7,6 +7,8 @@ export const site = {
 
   // Hero status line and "now" panel; update these as things change
   status: "Open to Winter 2027 SWE co-op",
+  availability: "Looking for a Winter 2027 software co-op, any term length.",
+  timeZone: "America/Toronto",
   building: "MacTrack's unified degree planner",
   studying: "Computer Science (Co-op), McMaster '28",
 
