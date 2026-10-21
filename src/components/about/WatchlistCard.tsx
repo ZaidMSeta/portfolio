@@ -32,7 +32,7 @@ export function WatchlistCard() {
               key={`${item.type}-${item.title}-${item.watchedAt}`}
               className="flex flex-1 items-center gap-3 rounded-lg border border-fg/10 bg-fg/[0.03] p-3"
             >
-              <div className="h-14 w-10 shrink-0 overflow-hidden rounded-md border border-fg/5">
+              <div className="h-20 w-14 shrink-0 overflow-hidden rounded-md border border-fg/5">
                 {item.posterUrl ? (
                   <img
                     src={item.posterUrl}

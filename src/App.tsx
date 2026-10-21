@@ -1,5 +1,5 @@
-import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router";
+import { lazy, Suspense, useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router";
 import PageShell from "./components/layout/PageShell";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
@@ -11,9 +11,21 @@ import NotFound from "./pages/NotFound";
 // About pulls in recharts, so keep it out of the main bundle
 const About = lazy(() => import("./pages/About"));
 
+// BrowserRouter keeps the old scroll position, so new pages would open mid-way down
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [pathname]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <PageShell>
+      <ScrollToTop />
       <Suspense fallback={null}>
         <Routes>
           <Route path="/" element={<Home />} />

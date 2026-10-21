@@ -33,7 +33,7 @@ function TimelineEntry({ role, isCurrent }: { role: Role; isCurrent: boolean }) 
           </div>
         </div>
 
-        <ul className="mt-5 space-y-3">
+        <ul className="mt-5 max-w-3xl space-y-3">
           {role.description.map((item) => (
             <li key={item} className="flex gap-3 text-sm leading-7 text-fg/65 sm:text-base">
               <span className="mt-3 h-1 w-1 shrink-0 rounded-full bg-fg/35" />

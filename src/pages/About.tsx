@@ -24,7 +24,7 @@ export default function About() {
           <div className="space-y-5">
             <h2 className="text-2xl text-fg">Hi, I'm Zaid.</h2>
 
-            <div className="space-y-4 text-sm leading-7 text-fg/65 sm:text-base">
+            <div className="max-w-3xl space-y-4 text-sm leading-7 text-fg/65 sm:text-base">
               <p>
                 I'm a Computer Science student at McMaster University, interested in
                 full-stack development and in building tools that people actually keep using

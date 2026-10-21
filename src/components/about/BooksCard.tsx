@@ -5,6 +5,7 @@ import {
   getPrimaryAuthor,
   type HardcoverBook,
 } from "../../lib/utils/hardCover";
+import { formatYM } from "../../lib/utils/formatDate";
 
 function BookCover({ book }: { book: HardcoverBook | null }) {
   const imageUrl = book?.book?.image?.url;
@@ -59,7 +60,7 @@ export function BooksCard() {
                 {getPrimaryAuthor(data.currentRead)}
               </p>
               <p className="mt-2 text-xs text-fg/45">
-                Started {data.currentRead.user_book_reads?.[0]?.started_at || "recently"}
+                Started {formatYM(data.currentRead.user_book_reads?.[0]?.started_at?.slice(0, 7) ?? "") || "recently"}
               </p>
             </div>
           </div>

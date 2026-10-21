@@ -1,12 +1,34 @@
 {
   "username": "zaidseta",
   "currentRead": {
+    "id": 17883741,
+    "updated_at": "2026-08-27T05:43:06.210697+00:00",
+    "book": {
+      "title": "The Odyssey",
+      "image": {
+        "url": "https://assets.hardcover.app/edition/6114921/6cf9eff4-26ad-4dba-9aee-99ccd22ed73f.jpg"
+      },
+      "contributions": [
+        {
+          "author": {
+            "name": "Homer"
+          }
+        }
+      ]
+    },
+    "user_book_reads": [
+      {
+        "started_at": "2026-08-27"
+      }
+    ]
+  },
+  "lastFinished": {
     "id": 13653396,
-    "updated_at": "2026-03-27T22:05:57.983707+00:00",
+    "updated_at": "2026-08-27T05:41:50.506172+00:00",
     "book": {
       "title": "Atomic habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones",
       "image": {
-        "url": "https://assets.hardcover.app/edition/12605395/b42cef3682e39a6bad722790e48ee64bdf8bd7fb.jpeg"
+        "url": "https://assets.hardcover.app/edition/12605395/629717fe-df46-40b8-8529-dca0323bf699.jpg"
       },
       "contributions": [
         {
@@ -15,29 +37,7 @@
           }
         }
       ]
-    },
-    "user_book_reads": [
-      {
-        "started_at": "2026-03-27"
-      }
-    ]
-  },
-  "lastFinished": {
-    "id": 13653395,
-    "updated_at": "2026-03-27T22:05:42.744898+00:00",
-    "book": {
-      "title": "Ender's Game",
-      "image": {
-        "url": "https://assets.hardcover.app/external_data/60441176/4430587892e367395499f249b810cea57f9a4028.jpeg"
-      },
-      "contributions": [
-        {
-          "author": {
-            "name": "Orson Scott Card"
-          }
-        }
-      ]
     }
   },
-  "fetchedAt": "2026-03-27T22:35:43.881Z"
+  "fetchedAt": "2026-10-21T23:17:21.415Z"
 }
