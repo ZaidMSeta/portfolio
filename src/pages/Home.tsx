@@ -3,6 +3,7 @@ import { Hero } from "../components/home/Hero";
 import { FeaturedProjects } from "../components/home/FeaturedProjects";
 import { ExperienceSnapshot } from "../components/home/ExperienceSnapshot";
 import { BentoGrid } from "../components/home/BentoGrid";
+import { ContactCTA } from "../components/home/ContactCTA";
 
 export default function Home() {
   useDocumentTitle();
@@ -14,6 +15,7 @@ export default function Home() {
         <FeaturedProjects />
         <ExperienceSnapshot />
         <BentoGrid />
+        <ContactCTA />
       </div>
     </div>
   );

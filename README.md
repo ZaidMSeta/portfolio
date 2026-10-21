@@ -13,7 +13,7 @@ Personal portfolio site built with React, TypeScript, and Tailwind CSS.
 
 ## Pages
 
-- **Home** — hero, featured projects, experience snapshot, and a bento grid with live GitHub activity
+- **Home** — hero, featured projects, experience snapshot, a bento grid (live GitHub activity, contribution graph, local time, an "off the clock" tile), and a contact block
 - **About** — bio and interest cards (chess stats, current read, etc.)
 - **Projects** — full project grid with individual detail pages
 - **Experience** — work history
@@ -26,6 +26,7 @@ Personal portfolio site built with React, TypeScript, and Tailwind CSS.
 - **Chess rating history** — committed JSON, regenerated via script (see below)
 - **Hardcover** — current and last finished book (committed JSON, via script)
 - **Trakt + TMDB** — watchlist and recently watched (committed JSON, via script)
+- **GitHub contributions** — last year's contribution calendar (committed JSON, via script)
 
 The script-generated files under `src/data/` are committed, so the site builds
 and deploys without any secrets. Re-run the fetch scripts to refresh them.
@@ -50,6 +51,7 @@ and deploys without any secrets. Re-run the fetch scripts to refresh them.
    npm run fetch:hardcover
    npm run fetch:trakt
    npm run fetch:chess
+   npm run fetch:github
    ```
 
 4. Start the dev server:
@@ -68,6 +70,7 @@ and deploys without any secrets. Re-run the fetch scripts to refresh them.
 | `npm run fetch:hardcover` | Fetch reading data from Hardcover API |
 | `npm run fetch:trakt` | Fetch watchlist and history from Trakt + TMDB |
 | `npm run fetch:chess` | Regenerate the Chess.com Elo rating history |
+| `npm run fetch:github` | Fetch the GitHub contribution calendar (no token needed) |
 | `npm run lint` | Run ESLint |
 
 ## Deployment
