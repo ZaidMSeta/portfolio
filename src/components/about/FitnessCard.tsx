@@ -24,8 +24,8 @@ const todayNote: Record<string, string> = {
 
 const goals = [
   "Five sessions a week, every week",
-  "Adding weight to the big compound lifts",
-  "Sleeping before 1 AM (in progress)",
+  "A new PR on every big lift this term",
+  "Not skipping the gym during exam season",
 ];
 
 export function FitnessCard() {

@@ -26,17 +26,13 @@ function useRapidClicks(count: number, windowMs: number) {
 const LOGO = "zaid.seta";
 const COLOURS = ["#f472b6", "#facc15", "#a78bfa", "#fb923c", "#60a5fa", "#4ade80", "#f87171", "#5eead4"];
 
-// Every second click on the logo, one random character (letter or dot) spins into a new
-// colour; the colours stay until reload
+// Every click on the logo spins one random character (letter or dot) into a new colour;
+// the colours stay until reload
 function Logo() {
-  const clicks = useRef(0);
   const [colours, setColours] = useState<Record<number, string>>({});
   const [spins, setSpins] = useState<Record<number, number>>({});
 
   const onClick = () => {
-    clicks.current += 1;
-    if (clicks.current % 2 !== 0) return;
-
     const index = Math.floor(Math.random() * LOGO.length);
     setColours((current) => {
       const options = COLOURS.filter((colour) => colour !== current[index]);
@@ -92,7 +88,7 @@ export default function Header() {
   const location = useLocation();
   const { theme, toggle } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
-  const toggleSpam = useRapidClicks(8, 4000);
+  const toggleSpam = useRapidClicks(4, 3000);
 
   // Close the mobile menu on navigation
   useEffect(() => {
