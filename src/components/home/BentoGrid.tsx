@@ -144,35 +144,6 @@ function StackTile() {
   );
 }
 
-// Tiny inline sparkline; avoids pulling recharts into the home bundle
-function Sparkline({ values }: { values: number[] }) {
-  const width = 200;
-  const height = 48;
-  const min = Math.min(...values);
-  const max = Math.max(...values);
-  const range = max - min || 1;
-  const points = values
-    .map((value, i) => {
-      const x = (i / (values.length - 1)) * width;
-      const y = height - ((value - min) / range) * (height - 4) - 2;
-      return `${x.toFixed(1)},${y.toFixed(1)}`;
-    })
-    .join(" ");
-
-  return (
-    <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" className="h-12 w-full" aria-hidden>
-      <polyline
-        points={points}
-        fill="none"
-        stroke="var(--color-accent)"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-        vectorEffect="non-scaling-stroke"
-      />
-    </svg>
-  );
-}
-
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const LEVEL_CLASSES =["bg-fg/[0.06]", "bg-accent/25", "bg-accent/50", "bg-accent/75", "bg-accent"];
@@ -247,13 +218,11 @@ function OffTheClockRow({
   label,
   title,
   detail,
-  aside,
 }: {
   thumb: ReactNode;
   label: string;
   title: string;
   detail: string;
-  aside?: ReactNode;
 }) {
   return (
     <li className="flex items-center gap-4 py-3 first:pt-0 last:pb-0">
@@ -265,7 +234,6 @@ function OffTheClockRow({
         <p className="truncate text-sm font-medium text-fg/85">{title}</p>
         <p className="truncate text-xs text-subtle">{detail}</p>
       </div>
-      {aside && <div className="w-24 shrink-0 sm:w-32">{aside}</div>}
     </li>
   );
 }
@@ -305,7 +273,6 @@ function OffTheClockTile() {
             label="chess · rapid"
             title={String(ratings[ratings.length - 1])}
             detail={`peak ${Math.max(...ratings)}`}
-            aside={<Sparkline values={ratings} />}
           />
         )}
 
