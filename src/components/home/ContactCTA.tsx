@@ -31,7 +31,7 @@ function CopyEmailButton() {
 
 export function ContactCTA() {
   return (
-    <Reveal as="section" className="relative overflow-hidden rounded-2xl border border-fg/10 card p-6 sm:p-10">
+    <Reveal as="section" className="cta-tint relative overflow-hidden rounded-2xl border border-fg/10 card p-6 sm:p-10">
       {/* Soft accent glow in the corner, echoing the hero status pill */}
       <div
         aria-hidden

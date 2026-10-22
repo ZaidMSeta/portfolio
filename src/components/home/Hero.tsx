@@ -54,7 +54,8 @@ const delay = (ms: number) => ({ "--delay": `${ms}ms` }) as CSSProperties;
 
 export function Hero() {
   return (
-    <section className="grid gap-12 pt-4 sm:pt-10 lg:grid-cols-[1fr_340px] lg:items-end">
+    <section className="relative isolate grid gap-12 pt-4 sm:pt-10 lg:grid-cols-[1fr_340px] lg:items-end">
+      <div aria-hidden className="hero-backdrop pointer-events-none absolute -inset-x-4 -top-10 -bottom-10 -z-10 sm:-inset-x-6 lg:-inset-x-8" />
       <div>
         <p style={delay(0)} className="animate-rise-in inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/10 px-3 py-1 font-mono text-xs text-accent">
           <span className="relative flex h-1.5 w-1.5">

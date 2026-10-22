@@ -150,7 +150,8 @@ function StackTile() {
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-const LEVEL_CLASSES =["bg-fg/[0.06]", "bg-accent/25", "bg-accent/50", "bg-accent/75", "bg-accent"];
+// Colours per level live in globals.css so each theme can tune them
+const LEVEL_CLASSES = ["contrib-l0", "contrib-l1", "contrib-l2", "contrib-l3", "contrib-l4"];
 
 // Weeks older than this drop off on phones, where 53 columns would be too small to read
 const MOBILE_WEEKS = 26;
