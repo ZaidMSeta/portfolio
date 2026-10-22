@@ -3,23 +3,34 @@ import { Dumbbell } from "lucide-react";
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const split = [
-  { day: "Mon", label: "Push" },
-  { day: "Tue", label: "Pull" },
-  { day: "Wed", label: "Legs" },
+  { day: "Mon", label: "Upper" },
+  { day: "Tue", label: "Lower" },
+  { day: "Wed", label: "Rest" },
   { day: "Thu", label: "Push" },
-  { day: "Fri", label: "Pull" },
-  { day: "Sat", label: "Legs" },
-  { day: "Sun", label: "Rest" },
+  { day: "Fri", label: "Rest" },
+  { day: "Sat", label: "Pull" },
+  { day: "Sun", label: "Legs" },
 ];
 
+// What the card says about today
+const todayNote: Record<string, string> = {
+  Upper: "Upper day.",
+  Lower: "Lower day.",
+  Push: "Push day.",
+  Pull: "Pull day.",
+  Legs: "Leg day. no skipping.",
+  Rest: "Rest day. (probably)",
+};
+
 const goals = [
-  "Currently bulking",
-  "Improve consistency on leg days",
-  "Increase compound lift numbers",
+  "Five sessions a week, every week",
+  "A new PR on every big lift this term",
+  "Not skipping the gym during exam season",
 ];
 
 export function FitnessCard() {
   const today = DAYS[new Date().getDay()];
+  const todayLabel = split.find((item) => item.day === today)?.label ?? "Rest";
 
   return (
     <article className="flex flex-col rounded-xl border border-fg/10 card p-5 transition hover:border-fg/20">
@@ -30,7 +41,7 @@ export function FitnessCard() {
 
       <div className="flex flex-1 flex-col gap-3">
         <div className="rounded-lg border border-fg/10 bg-fg/[0.03] p-4">
-          <p className="mb-3 text-xs text-fg/45">Current split</p>
+          <p className="mb-3 text-xs text-subtle">Current split</p>
 
           <div className="grid grid-cols-7 gap-1.5">
             {split.map((item) => {
@@ -44,7 +55,7 @@ export function FitnessCard() {
                       : "border-fg/10 bg-fg/[0.03]"
                   }`}
                 >
-                  <p className={`text-[10px] ${isToday ? "text-accent/70" : "text-fg/40"}`}>
+                  <p className={`text-[10px] ${isToday ? "text-accent" : "text-subtle"}`}>
                     {item.day}
                   </p>
                   <p className={`text-[11px] font-medium ${isToday ? "text-accent" : "text-fg"}`}>
@@ -54,10 +65,14 @@ export function FitnessCard() {
               );
             })}
           </div>
+
+          <p className="mt-3 font-mono text-[11px] text-subtle">
+            today: <span className="text-accent">{todayNote[todayLabel]}</span>
+          </p>
         </div>
 
         <div className="flex flex-1 flex-col justify-center rounded-lg border border-fg/10 bg-fg/[0.03] p-4">
-          <p className="mb-3 text-xs text-fg/45">Current goals</p>
+          <p className="mb-3 text-xs text-subtle">Current goals</p>
           <div className="space-y-2">
             {goals.map((goal) => (
               <div key={goal} className="flex items-start gap-2.5">

@@ -5,13 +5,14 @@ import {
   getPrimaryAuthor,
   type HardcoverBook,
 } from "../../lib/utils/hardCover";
+import { formatYM } from "../../lib/utils/formatDate";
 
 function BookCover({ book }: { book: HardcoverBook | null }) {
   const imageUrl = book?.book?.image?.url;
 
   if (!book) {
     return (
-      <div className="flex h-20 w-14 shrink-0 items-center justify-center rounded-md border border-fg/10 bg-fg/[0.03] text-[10px] text-fg/35">
+      <div className="flex h-20 w-14 shrink-0 items-center justify-center rounded-md border border-fg/10 bg-fg/[0.03] text-[10px] text-subtle">
         No book
       </div>
     );
@@ -19,7 +20,7 @@ function BookCover({ book }: { book: HardcoverBook | null }) {
 
   if (!imageUrl) {
     return (
-      <div className="flex h-20 w-14 shrink-0 items-center justify-center rounded-md border border-fg/10 bg-fg/[0.03] text-[10px] text-fg/35">
+      <div className="flex h-20 w-14 shrink-0 items-center justify-center rounded-md border border-fg/10 bg-fg/[0.03] text-[10px] text-subtle">
         No cover
       </div>
     );
@@ -46,7 +47,7 @@ export function BooksCard() {
       </div>
 
       <div className="mb-5 rounded-lg border border-fg/10 bg-fg/[0.03] p-4">
-        <p className="mb-3 text-xs text-fg/45">Currently Reading</p>
+        <p className="mb-3 text-xs text-subtle">Currently Reading</p>
 
         {data.currentRead ? (
           <div className="flex items-start gap-4">
@@ -58,8 +59,8 @@ export function BooksCard() {
               <p className="mt-1 text-sm text-fg/60">
                 {getPrimaryAuthor(data.currentRead)}
               </p>
-              <p className="mt-2 text-xs text-fg/45">
-                Started {data.currentRead.user_book_reads?.[0]?.started_at || "recently"}
+              <p className="mt-2 text-xs text-subtle">
+                Started {formatYM(data.currentRead.user_book_reads?.[0]?.started_at?.slice(0, 7) ?? "") || "recently"}
               </p>
             </div>
           </div>
@@ -69,7 +70,7 @@ export function BooksCard() {
       </div>
 
       <div className="rounded-lg border border-fg/10 bg-fg/[0.03] p-4">
-        <p className="mb-3 text-xs text-fg/45">Last Finished</p>
+        <p className="mb-3 text-xs text-subtle">Last Finished</p>
 
         {data.lastFinished ? (
           <div className="flex items-start gap-4">
@@ -81,7 +82,7 @@ export function BooksCard() {
               <p className="mt-1 text-sm text-fg/60">
                 {getPrimaryAuthor(data.lastFinished)}
               </p>
-              <p className="mt-2 text-xs text-fg/45">Finished recently</p>
+              <p className="mt-2 text-xs text-subtle">Finished recently</p>
             </div>
           </div>
         ) : (

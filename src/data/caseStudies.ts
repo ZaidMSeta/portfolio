@@ -224,7 +224,7 @@ export const caseStudies: Record<string, CaseStudy> = {
   },
   "cmta-event-tool": {
     role: "Solo developer for a nonprofit client",
-    timeline: "Mar – May 2026",
+    timeline: "Mar – Apr 2026",
     stats: [
       { value: "8", label: "fields read from each poster" },
       { value: "4", label: "outputs per poster" },

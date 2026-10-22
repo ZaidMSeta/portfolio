@@ -6,6 +6,9 @@ import { caseStudies, type CaseStudy } from "../data/caseStudies";
 import { ProjectImage } from "../components/ProjectImage";
 import { TechTags } from "../components/TechTag";
 import { useDocumentTitle } from "../hooks/useDocumentTitle";
+import { Reveal } from "../components/motion/Reveal";
+import { CountUp } from "../components/motion/CountUp";
+import NotFound from "./NotFound";
 
 function ImageCarousel({ images, title }: { images: string[]; title: string }) {
   const [index, setIndex] = useState(0);
@@ -68,10 +71,10 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section>
+    <Reveal as="section">
       <h2 className="mb-5 text-2xl tracking-tight text-fg">{title}</h2>
       {children}
-    </section>
+    </Reveal>
   );
 }
 
@@ -92,7 +95,7 @@ function FlowDiagram({ steps }: { steps: CaseStudy["flow"] }) {
   return (
     <ol className="grid gap-3 lg:grid-cols-5 lg:gap-0">
       {steps.map((step, index) => (
-        <li key={step.title} className="relative flex lg:flex-col">
+        <Reveal as="li" key={step.title} delay={index * 90} className="relative flex lg:flex-col">
           <div
             className={`flex flex-1 flex-col rounded-xl border border-fg/10 card p-4 ${
               index < steps.length - 1 ? "lg:mr-6" : ""
@@ -101,7 +104,7 @@ function FlowDiagram({ steps }: { steps: CaseStudy["flow"] }) {
             <span className="font-mono text-xs text-accent">{String(index + 1).padStart(2, "0")}</span>
             <h3 className="mt-2 font-display text-lg leading-tight text-fg">{step.title}</h3>
             <p className="mt-2 text-sm leading-6 text-fg/60">{step.detail}</p>
-            <p className="mt-auto pt-3 font-mono text-[11px] text-fg/40">{step.tech}</p>
+            <p className="mt-auto pt-3 font-mono text-[11px] text-subtle">{step.tech}</p>
           </div>
           {index < steps.length - 1 && (
             <span
@@ -109,7 +112,7 @@ function FlowDiagram({ steps }: { steps: CaseStudy["flow"] }) {
               className="absolute -bottom-3 left-6 h-3 w-px bg-fg/20 lg:bottom-auto lg:left-auto lg:right-1.5 lg:top-1/2 lg:h-px lg:w-3"
             />
           )}
-        </li>
+        </Reveal>
       ))}
     </ol>
   );
@@ -118,11 +121,11 @@ function FlowDiagram({ steps }: { steps: CaseStudy["flow"] }) {
 function CardList({ items }: { items: { title: string; body: string }[] }) {
   return (
     <div className="grid gap-4 sm:grid-cols-2">
-      {items.map((item) => (
-        <div key={item.title} className="rounded-xl border border-fg/10 card p-5">
+      {items.map((item, index) => (
+        <Reveal key={item.title} delay={(index % 2) * 80} className="rounded-xl border border-fg/10 card p-5">
           <h3 className="font-display text-lg leading-snug text-fg">{item.title}</h3>
           <p className="mt-2 text-sm leading-6 text-fg/60">{item.body}</p>
-        </div>
+        </Reveal>
       ))}
     </div>
   );
@@ -140,14 +143,14 @@ function Sidebar({ project, study }: { project: Project; study?: CaseStudy }) {
       <dl className="space-y-4">
         {rows.map((row) => (
           <div key={row.label}>
-            <dt className="font-mono text-xs text-fg/40">{row.label}</dt>
+            <dt className="font-mono text-xs text-subtle">{row.label}</dt>
             <dd className="mt-1 text-sm text-fg/80">{row.value}</dd>
           </div>
         ))}
       </dl>
 
       <div>
-        <p className="mb-2 font-mono text-xs text-fg/40">Stack</p>
+        <p className="mb-2 font-mono text-xs text-subtle">Stack</p>
         <TechTags stack={project.stack} />
       </div>
 
@@ -188,7 +191,7 @@ function CaseStudyBody({ study }: { study: CaseStudy }) {
         <ul className="space-y-6">
           {study.contributions.map((item) => (
             <li key={item.title} className="border-l-2 border-accent/40 pl-5">
-              {item.when && <p className="font-mono text-xs text-accent/80">{item.when}</p>}
+              {item.when && <p className="font-mono text-xs text-accent">{item.when}</p>}
               <h3 className="font-display text-lg text-fg">{item.title}</h3>
               <p className="mt-1.5 text-base leading-7 text-fg/65">{item.body}</p>
             </li>
@@ -239,28 +242,10 @@ function StandardBody({ project }: { project: Project }) {
 export default function ProjectDetail() {
   const { slug } = useParams();
   const project = projects.find((item) => item.slug === slug);
-  useDocumentTitle(project?.title ?? "Project not found");
+  useDocumentTitle(project?.title ?? "Not found");
 
-  if (!project) {
-    return (
-      <div className="space-y-6">
-        <div className="space-y-3">
-          <h1 className="text-4xl tracking-tight text-fg">Project not found</h1>
-          <p className="text-sm leading-7 text-fg/65 sm:text-base">
-            The project you're looking for doesn't exist.
-          </p>
-        </div>
+  if (!project) return <NotFound />;
 
-        <Link
-          to="/projects"
-          className="inline-flex items-center gap-2 text-sm text-fg/60 transition hover:text-fg"
-        >
-          <ArrowLeft size={14} />
-          Back to projects
-        </Link>
-      </div>
-    );
-  }
 
   const study = caseStudies[project.slug];
   const stats = study?.stats ?? project.metrics;
@@ -279,15 +264,15 @@ export default function ProjectDetail() {
       <header className="space-y-8">
         <Link
           to="/projects"
-          className="inline-flex items-center gap-2 font-mono text-xs text-fg/50 transition hover:text-fg"
+          className="inline-flex items-center gap-2 font-mono text-xs text-subtle transition hover:text-fg"
         >
           <ArrowLeft size={14} />
           all projects
         </Link>
 
         <div className="max-w-3xl">
-          <p className="font-mono text-xs text-fg/45">
-            {project.date} · <span className="text-accent/80">{project.status}</span>
+          <p className="font-mono text-xs text-subtle">
+            {project.date} · <span className="text-accent">{project.status}</span>
           </p>
           <h1 className="mt-3 text-4xl tracking-tight text-fg sm:text-5xl">{project.title}</h1>
           <p className="mt-4 text-lg leading-8 text-fg/65">{project.summary}</p>
@@ -298,8 +283,10 @@ export default function ProjectDetail() {
             {stats.map((stat) => (
               <div key={stat.label}>
                 <dt className="sr-only">{stat.label}</dt>
-                <dd className="font-display text-3xl text-fg sm:text-4xl">{stat.value}</dd>
-                <dd className="mt-1 font-mono text-[11px] text-fg/45">{stat.label}</dd>
+                <dd className="font-display text-3xl text-fg sm:text-4xl">
+                  <CountUp value={stat.value} />
+                </dd>
+                <dd className="mt-1 font-mono text-[11px] text-subtle">{stat.label}</dd>
               </div>
             ))}
           </dl>
