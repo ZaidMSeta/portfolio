@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "react-router";
 import {
   BookOpen,
@@ -18,6 +18,7 @@ import { getHardcoverData, getPrimaryAuthor } from "../../lib/utils/hardCover";
 import { getTraktData } from "../../lib/utils/trakt";
 import ratingHistory from "../../data/chessRatingHistory.json";
 import contributions from "../../data/contributions.json";
+import { Reveal } from "../motion/Reveal";
 
 const tileClassName =
   "rounded-xl border border-fg/10 card p-5 transition hover:border-fg/20";
@@ -61,7 +62,7 @@ function GitHubActivity() {
   }, []);
 
   return (
-    <div className={`${tileClassName} md:col-span-2 md:row-span-2`}>
+    <div className={`${tileClassName} h-full`}>
       <div className="mb-4 flex items-center gap-2">
         <GitCommit size={14} className="text-accent" />
         <h3 className="text-sm font-medium text-fg">Recent GitHub Activity</h3>
@@ -77,13 +78,13 @@ function GitHubActivity() {
           ))}
 
         {!loading && error && (
-          <p className="text-sm leading-6 text-fg/55">
+          <p className="text-sm leading-6 text-subtle">
             Couldn't load recent commits right now.
           </p>
         )}
 
         {!loading && !error && commits.length === 0 && (
-          <p className="text-sm leading-6 text-fg/55">
+          <p className="text-sm leading-6 text-subtle">
             No recent commits found.
           </p>
         )}
@@ -103,7 +104,7 @@ function GitHubActivity() {
                   >
                     {commit.message}
                   </a>
-                  <p className="mt-1 text-xs text-fg/40">{commit.repoName}</p>
+                  <p className="mt-1 text-xs text-subtle">{commit.repoName}</p>
                 </div>
               </div>
 
@@ -132,7 +133,7 @@ function StackTile() {
   const stack = ["Python", "TypeScript", "React", "Go", "FastAPI", "PostgreSQL", "Tailwind", "Playwright"];
 
   return (
-    <div className={`${tileClassName} md:col-span-2`}>
+    <div className={`${tileClassName} h-full`}>
       <TileHeader icon={Layers} title="Stack" />
       <div className="flex flex-wrap gap-1.5">
         {stack.map((tech) => (
@@ -188,13 +189,13 @@ function ContributionsTile() {
   for (let i = 0; i < days.length; i += 7) weeks.push(days.slice(i, i + 7));
 
   return (
-    <div className={`${tileClassName} md:col-span-2`}>
+    <div className={`${tileClassName} h-full`}>
       <div className="mb-4 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <CalendarDays size={14} className="text-accent" />
           <h3 className="text-sm font-medium text-fg">Contributions</h3>
         </div>
-        <p className="font-mono text-[11px] text-fg/45">{total.toLocaleString()} in the last year</p>
+        <p className="font-mono text-[11px] text-subtle">{total.toLocaleString()} in the last year</p>
       </div>
 
       <div className="flex justify-between gap-[3px]" aria-hidden>
@@ -204,18 +205,22 @@ function ContributionsTile() {
           const mobileHidden = index < weeks.length - MOBILE_WEEKS ? "max-sm:hidden" : "";
 
           return (
-            <div key={week[0].date} className={`flex min-w-0 flex-1 flex-col gap-[3px] ${mobileHidden}`}>
+            <div
+              key={week[0].date}
+              className={`flex min-w-0 flex-1 flex-col gap-[3px] ${mobileHidden}`}
+              style={{ "--col": index } as CSSProperties}
+            >
               {week.map((day) => (
                 <span
                   key={day.date}
                   title={`${day.count} on ${day.date}`}
-                  className={`aspect-square w-full rounded-[2px] ${LEVEL_CLASSES[day.level] ?? LEVEL_CLASSES[0]}`}
+                  className={`contrib-cell aspect-square w-full rounded-[2px] ${LEVEL_CLASSES[day.level] ?? LEVEL_CLASSES[0]}`}
                 />
               ))}
               {/* Label the first week of each month; text overflows into the next columns */}
               <span className="relative mt-1 h-3">
                 {month !== previousMonth && index > 0 && (
-                  <span className="absolute left-0 top-0 whitespace-nowrap font-mono text-[10px] leading-3 text-fg/35">
+                  <span className="absolute left-0 top-0 whitespace-nowrap font-mono text-[10px] leading-3 text-subtle">
                     {MONTHS[month]}
                   </span>
                 )}
@@ -225,7 +230,7 @@ function ContributionsTile() {
         })}
       </div>
 
-      <div className="mt-3 flex items-center justify-end gap-1 font-mono text-[10px] text-fg/35" aria-hidden>
+      <div className="mt-3 flex items-center justify-end gap-1 font-mono text-[10px] text-subtle" aria-hidden>
         less
         {LEVEL_CLASSES.map((className) => (
           <span key={className} className={`h-2.5 w-2.5 rounded-[2px] ${className}`} />
@@ -253,12 +258,12 @@ function OffTheClockItem({
   return (
     <div className="flex min-w-0 flex-col">
       <div className="mb-3 h-24">{visual}</div>
-      <p className="flex items-center gap-1.5 font-mono text-[10px] text-fg/40">
-        <Icon size={11} className="text-accent/70" />
+      <p className="flex items-center gap-1.5 font-mono text-[10px] text-subtle">
+        <Icon size={11} className="text-accent" />
         {label}
       </p>
       <p className="mt-1 truncate text-xs font-medium text-fg/80">{title}</p>
-      <p className="truncate font-mono text-[10px] text-fg/40">{detail}</p>
+      <p className="truncate font-mono text-[10px] text-subtle">{detail}</p>
     </div>
   );
 }
@@ -272,13 +277,13 @@ function OffTheClockTile() {
   const coverClassName = "h-full w-16 rounded-md border border-fg/10 bg-fg/5 object-cover";
 
   return (
-    <Link to="/about" className={`${tileClassName} group md:col-span-2`}>
+    <Link to="/about" className={`${tileClassName} group block h-full`}>
       <div className="mb-4 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <Coffee size={14} className="text-accent" />
           <h3 className="text-sm font-medium text-fg">Off the clock</h3>
         </div>
-        <span className="font-mono text-[11px] text-fg/40 transition group-hover:text-fg/70">about →</span>
+        <span className="font-mono text-[11px] text-subtle transition group-hover:text-fg/70">about →</span>
       </div>
 
       <div className="grid grid-cols-3 gap-4">
@@ -356,7 +361,7 @@ function LocationTile() {
   const time = useLocalTime(site.timeZone);
 
   return (
-    <div className="relative min-h-[220px] overflow-hidden rounded-xl border border-fg/10 card md:col-span-2">
+    <div className="relative h-full min-h-[220px] overflow-hidden rounded-xl border border-fg/10 card">
       <iframe
         title="Map of Hamilton, Ontario"
         src="https://www.openstreetmap.org/export/embed.html?bbox=-79.932%2C43.225%2C-79.815%2C43.295&layer=mapnik&marker=43.2557%2C-79.8711"
@@ -385,17 +390,27 @@ export function BentoGrid() {
     <section>
       <div className="mb-8 flex items-end justify-between">
         <h2 className="text-2xl tracking-tight text-fg">Lately</h2>
-        <Link to="/about" className="font-mono text-xs text-fg/50 transition hover:text-fg">
+        <Link to="/about" className="font-mono text-xs text-subtle transition hover:text-fg">
           more about me →
         </Link>
       </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-        <GitHubActivity />
-        <ContributionsTile />
-        <StackTile />
-        <LocationTile />
-        <OffTheClockTile />
+        <Reveal className="md:col-span-2 md:row-span-2">
+          <GitHubActivity />
+        </Reveal>
+        <Reveal className="md:col-span-2" delay={80}>
+          <ContributionsTile />
+        </Reveal>
+        <Reveal className="md:col-span-2" delay={160}>
+          <StackTile />
+        </Reveal>
+        <Reveal className="md:col-span-2" delay={80}>
+          <LocationTile />
+        </Reveal>
+        <Reveal className="md:col-span-2" delay={160}>
+          <OffTheClockTile />
+        </Reveal>
       </div>
     </section>
   );

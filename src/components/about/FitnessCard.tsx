@@ -30,7 +30,7 @@ export function FitnessCard() {
 
       <div className="flex flex-1 flex-col gap-3">
         <div className="rounded-lg border border-fg/10 bg-fg/[0.03] p-4">
-          <p className="mb-3 text-xs text-fg/45">Current split</p>
+          <p className="mb-3 text-xs text-subtle">Current split</p>
 
           <div className="grid grid-cols-7 gap-1.5">
             {split.map((item) => {
@@ -44,7 +44,7 @@ export function FitnessCard() {
                       : "border-fg/10 bg-fg/[0.03]"
                   }`}
                 >
-                  <p className={`text-[10px] ${isToday ? "text-accent/70" : "text-fg/40"}`}>
+                  <p className={`text-[10px] ${isToday ? "text-accent" : "text-subtle"}`}>
                     {item.day}
                   </p>
                   <p className={`text-[11px] font-medium ${isToday ? "text-accent" : "text-fg"}`}>
@@ -57,7 +57,7 @@ export function FitnessCard() {
         </div>
 
         <div className="flex flex-1 flex-col justify-center rounded-lg border border-fg/10 bg-fg/[0.03] p-4">
-          <p className="mb-3 text-xs text-fg/45">Current goals</p>
+          <p className="mb-3 text-xs text-subtle">Current goals</p>
           <div className="space-y-2">
             {goals.map((goal) => (
               <div key={goal} className="flex items-start gap-2.5">

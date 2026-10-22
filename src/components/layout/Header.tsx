@@ -23,7 +23,7 @@ function Breadcrumb({ pathname }: { pathname: string }) {
             key={to}
             to={to}
             onClick={scrollToTop}
-            className={`truncate transition ${isLast ? "text-accent hover:text-accent/80" : "shrink-0 text-fg/45 hover:text-fg/70"}`}
+            className={`truncate transition ${isLast ? "text-accent hover:text-accent/80" : "shrink-0 text-subtle hover:text-fg/70"}`}
           >
             /{segment}
           </Link>
@@ -45,11 +45,16 @@ export default function Header() {
 
   const themeButton = (
     <button
-      onClick={toggle}
-      aria-label="Toggle theme"
-      className="rounded-md p-1 text-fg/50 transition hover:text-fg"
+      onClick={(event) => {
+        const rect = event.currentTarget.getBoundingClientRect();
+        toggle({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+      }}
+      aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+      className="rounded-md p-1 text-subtle transition hover:text-fg"
     >
-      {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+      <span key={theme} className="animate-spin-in block">
+        {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+      </span>
     </button>
   );
 

@@ -12,14 +12,14 @@ export default function Footer() {
               <span className="hidden text-fg/20 md:inline">•</span>
               <a
                 href={site.links.email}
-                className="inline-flex items-center gap-2 text-fg/50 transition hover:text-fg"
+                className="inline-flex items-center gap-2 text-subtle transition hover:text-fg"
               >
                 <Mail size={14} className="text-accent" />
                 <span>{site.email.replace("@", " [at] ").replace(".", " [dot] ")}</span>
               </a>
             </div>
 
-            <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-fg/30">
+            <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-subtle">
               <span>© {new Date().getFullYear()} {site.name}</span>
               <span className="text-fg/20">•</span>
               <span>Built with React + Tailwind</span>
@@ -41,7 +41,7 @@ export default function Footer() {
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-fg/10 bg-fg/[0.03] text-fg/55 transition hover:border-fg/20 hover:bg-fg/[0.06] hover:text-fg"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-fg/10 bg-fg/[0.03] text-subtle transition hover:border-fg/20 hover:bg-fg/[0.06] hover:text-fg"
             >
               <Github size={16} />
             </a>
@@ -51,7 +51,7 @@ export default function Footer() {
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-fg/10 bg-fg/[0.03] text-fg/55 transition hover:border-fg/20 hover:bg-fg/[0.06] hover:text-fg"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-fg/10 bg-fg/[0.03] text-subtle transition hover:border-fg/20 hover:bg-fg/[0.06] hover:text-fg"
             >
               <Linkedin size={16} />
             </a>
@@ -59,7 +59,7 @@ export default function Footer() {
             <a
               href={site.links.email}
               aria-label="Email"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-fg/10 bg-fg/[0.03] text-fg/55 transition hover:border-fg/20 hover:bg-fg/[0.06] hover:text-fg"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-fg/10 bg-fg/[0.03] text-subtle transition hover:border-fg/20 hover:bg-fg/[0.06] hover:text-fg"
             >
               <Mail size={16} />
             </a>

@@ -17,7 +17,7 @@ export function ProjectImage({ src, alt, className = "", onMissing }: ProjectIma
       <div
         className={`flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_30%_20%,color-mix(in_srgb,var(--color-accent)_14%,transparent),transparent_60%)] ${className}`}
       >
-        <span className="font-mono text-sm text-fg/40">{alt}</span>
+        <span className="font-mono text-sm text-subtle">{alt}</span>
       </div>
     );
   }

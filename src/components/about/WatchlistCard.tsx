@@ -24,7 +24,7 @@ export function WatchlistCard() {
       </div>
 
       {items.length === 0 ? (
-        <p className="text-sm text-fg/40">Nothing tracked yet.</p>
+        <p className="text-sm text-subtle">Nothing tracked yet.</p>
       ) : (
         <div className="flex flex-1 flex-col gap-3">
           {items.map((item) => (
@@ -46,7 +46,7 @@ export function WatchlistCard() {
 
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium text-fg">{item.title}</p>
-                <p className="text-xs text-fg/50">
+                <p className="text-xs text-subtle">
                   {item.year} · {item.type === "movie" ? "Movie" : "Show"}
                 </p>
               </div>

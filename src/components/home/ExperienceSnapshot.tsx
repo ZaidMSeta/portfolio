@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { CompanyLogo } from "../CompanyLogo";
 import { formatYM } from "../../lib/utils/formatDate";
 import { experiences } from "../../data/experience";
+import { Reveal } from "../motion/Reveal";
 
 export function ExperienceSnapshot() {
   const featuredExperience = experiences.filter((role) => role.showOnHome);
@@ -13,13 +14,13 @@ export function ExperienceSnapshot() {
 
         <Link
           to="/experience"
-          className="font-mono text-xs text-fg/50 transition hover:text-fg"
+          className="font-mono text-xs text-subtle transition hover:text-fg"
         >
           all experience →
         </Link>
       </div>
 
-      <ol className="divide-y divide-fg/10 rounded-2xl border border-fg/10 card">
+      <Reveal as="ol" className="divide-y divide-fg/10 rounded-2xl border border-fg/10 card">
         {featuredExperience.map((role) => (
           <li
             key={role.id}
@@ -29,17 +30,17 @@ export function ExperienceSnapshot() {
 
             <div className="min-w-0">
               <h3 className="text-base font-semibold text-fg">
-                {role.title} <span className="font-normal text-fg/50">· {role.company}</span>
+                {role.title} <span className="font-normal text-subtle">· {role.company}</span>
               </h3>
               <p className="mt-1 max-w-3xl text-sm leading-6 text-fg/60">{role.description[0]}</p>
             </div>
 
-            <p className="font-mono text-xs text-fg/45 sm:pt-1 sm:text-right">
+            <p className="font-mono text-xs text-subtle sm:pt-1 sm:text-right">
               {formatYM(role.start)} — {formatYM(role.end)}
             </p>
           </li>
         ))}
-      </ol>
+      </Reveal>
     </section>
   );
 }
