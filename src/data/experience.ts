@@ -39,9 +39,9 @@ export const experiences: Experience[] = [
     end: "2026-08",
     description: [
       "Automated league schedule entry with a Playwright and TypeScript driver against the club's registration platform, entering and auditing 400+ events previously booked by hand.",
-      "Built an inventory tracking system with a transaction log and formula-based views that keep per-colour and per-size stock current as gear goes out and comes back.",
+      "Built an inventory logging web app with a transaction log that tracks per-colour and per-size stock, exchanges, and pickups, and sends pickup emails as gear goes out and comes back.",
       "Built a Power Automate flow that files volunteer document scans into SharePoint and updates a compliance tracker without manual entry.",
-      "Ran recurring compliance campaigns for 50+ coaches and 75+ volunteers using scripted mail merges with per-recipient conditional attachments.",
+      "Built error handling into the club's automations and wrote handover documentation so staff could keep running them after my term ended.",
     ],
     showOnHome: true,
     kind: "software",
@@ -71,7 +71,7 @@ export const experiences: Experience[] = [
     start: "2026-02",
     end: "2026-04",
     description: [
-      "Built FastAPI and PostgreSQL endpoints for sensor data storage, calibration logic, and user-specific data retrieval.",
+      "Built FastAPI and PostgreSQL endpoints, with error handling, for sensor data storage, calibration logic, and user-specific data retrieval.",
       "Shipped the reminders feature end to end: authored the technical proposal, chose the notification architecture, and built the working Swift implementation using iOS local notifications and on-device persistence.",
       "Wrote pytest suites against the API endpoints to validate data flows ahead of feature releases.",
     ],
