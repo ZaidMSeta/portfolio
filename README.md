@@ -27,6 +27,7 @@ Personal portfolio site built with React, TypeScript, and Tailwind CSS.
 - **Hardcover** — current and last finished book (committed JSON, via script)
 - **Trakt + TMDB** — watchlist and recently watched (committed JSON, via script)
 - **GitHub contributions** — last year's contribution calendar (committed JSON, via script)
+- **RoomRadar** — free rooms on campus right now, computed in the browser from `public/roomradar.json` (pulled from the RoomRadar repo once a term via script)
 
 The script-generated files under `src/data/` are committed, so the site builds
 and deploys without any secrets. Re-run the fetch scripts to refresh them.
@@ -52,6 +53,7 @@ and deploys without any secrets. Re-run the fetch scripts to refresh them.
    npm run fetch:trakt
    npm run fetch:chess
    npm run fetch:github
+   npm run fetch:rooms
    ```
 
 4. Start the dev server:
@@ -71,6 +73,7 @@ and deploys without any secrets. Re-run the fetch scripts to refresh them.
 | `npm run fetch:trakt` | Fetch watchlist and history from Trakt + TMDB |
 | `npm run fetch:chess` | Regenerate the Chess.com Elo rating history |
 | `npm run fetch:github` | Fetch the GitHub contribution calendar (no token needed) |
+| `npm run fetch:rooms` | Pull RoomRadar's term schedule for the live free-rooms tile (no token needed) |
 | `npm run lint` | Run ESLint |
 
 ## Link previews and SEO
