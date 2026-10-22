@@ -84,9 +84,11 @@ their HTML templates for screenshotting.
 
 ## Deployment
 
-Deployed on Vercel. `vercel.json` turns on `cleanUrls` (so `/about` serves
-`about.html`) and adds an SPA rewrite so client-side routes
-(`/projects/mactrack`, etc.) resolve on direct load and refresh instead of 404ing.
+Deployed on Vercel. Every route has its own prerendered HTML file, and
+`vercel.json` turns on `cleanUrls` so `/projects/mactrack` serves
+`projects/mactrack.html`. There is no catch-all rewrite: unknown paths fall
+through to `404.html`, which boots the app and shows the not-found page with a
+real 404 status. New routes need an entry in `scripts/seoPages.mjs`.
 
 `vite.config.js` injects `__COMMIT_SHA__` and `__BUILD_DATE__` at build time.
 On Vercel the SHA comes from `VERCEL_GIT_COMMIT_SHA`; locally it falls back to

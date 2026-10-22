@@ -62,7 +62,6 @@ export default function Experience() {
 
         <p className="max-w-3xl text-sm leading-7 text-fg/65 sm:text-base">
           Software work for clients, a nonprofit, a startup, and a local soccer club.
-          Most of it replaced something people were doing by hand.
         </p>
       </section>
 

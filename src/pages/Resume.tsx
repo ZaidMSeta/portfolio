@@ -9,10 +9,7 @@ export default function Resume() {
   return (
     <div className="space-y-8">
       <section className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-        <div className="space-y-3">
-          <h1 className="text-4xl tracking-tight text-fg sm:text-5xl">Resume</h1>
-          <p className="text-sm text-fg/65 sm:text-base">One page, as a PDF.</p>
-        </div>
+        <h1 className="text-4xl tracking-tight text-fg sm:text-5xl">Resume</h1>
 
         <div className="flex flex-wrap gap-3">
           <a
