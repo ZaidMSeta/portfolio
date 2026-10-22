@@ -3,23 +3,31 @@ import { Dumbbell } from "lucide-react";
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const split = [
-  { day: "Mon", label: "Push" },
-  { day: "Tue", label: "Pull" },
-  { day: "Wed", label: "Legs" },
-  { day: "Thu", label: "Push" },
-  { day: "Fri", label: "Pull" },
-  { day: "Sat", label: "Legs" },
-  { day: "Sun", label: "Rest" },
+  { day: "Mon", label: "Upper" },
+  { day: "Tue", label: "Lower" },
+  { day: "Wed", label: "Rest" },
+  { day: "Thu", label: "Upper" },
+  { day: "Fri", label: "Rest" },
+  { day: "Sat", label: "Lower" },
+  { day: "Sun", label: "Upper" },
 ];
+
+// What the card says about today
+const todayNote: Record<string, string> = {
+  Upper: "Upper day.",
+  Lower: "Lower day. no skipping.",
+  Rest: "Rest day. (probably)",
+};
 
 const goals = [
   "Currently bulking",
-  "Improve consistency on leg days",
+  "Improve consistency on lower days",
   "Increase compound lift numbers",
 ];
 
 export function FitnessCard() {
   const today = DAYS[new Date().getDay()];
+  const todayLabel = split.find((item) => item.day === today)?.label ?? "Rest";
 
   return (
     <article className="flex flex-col rounded-xl border border-fg/10 card p-5 transition hover:border-fg/20">
@@ -54,6 +62,10 @@ export function FitnessCard() {
               );
             })}
           </div>
+
+          <p className="mt-3 font-mono text-[11px] text-subtle">
+            today: <span className="text-accent">{todayNote[todayLabel]}</span>
+          </p>
         </div>
 
         <div className="flex flex-1 flex-col justify-center rounded-lg border border-fg/10 bg-fg/[0.03] p-4">

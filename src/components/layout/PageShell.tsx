@@ -2,6 +2,8 @@ import type { ReactNode } from "react";
 import { useLocation } from "react-router";
 import Header from "./Header";
 import Footer from "./Footer";
+import { Toaster } from "../Toaster";
+import { useAwayTitle } from "../../hooks/useAwayTitle";
 
 type PageShellProps = {
   children: ReactNode;
@@ -9,6 +11,7 @@ type PageShellProps = {
 
 export default function PageShell({ children }: PageShellProps) {
   const { pathname } = useLocation();
+  useAwayTitle();
 
   return (
     <div className="min-h-screen bg-bg text-fg">
@@ -21,6 +24,7 @@ export default function PageShell({ children }: PageShellProps) {
         {children}
       </main>
       <Footer />
+      <Toaster />
     </div>
   );
 }

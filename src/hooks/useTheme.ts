@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 
 type Theme = "dark" | "light";
@@ -21,6 +21,7 @@ function systemTheme(): Theme {
 // First visit follows the OS; once someone toggles, their choice sticks
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>(() => storedTheme() ?? systemTheme());
+  const lastToggle = useRef(0);
 
   useEffect(() => {
     document.documentElement.classList.toggle("light", theme === "light");
@@ -45,8 +46,14 @@ export function useTheme() {
       // Storage blocked (e.g. some private modes); the theme just won't persist
     }
 
+    // The page doesn't take clicks while a view transition runs, so repeat toggles
+    // switch instantly instead of animating and swallowing the next click
+    const now = Date.now();
+    const rapid = now - lastToggle.current < 1000;
+    lastToggle.current = now;
+
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!document.startViewTransition || reduceMotion || !origin) {
+    if (!document.startViewTransition || reduceMotion || !origin || rapid) {
       setTheme(next);
       return;
     }
@@ -69,7 +76,7 @@ export function useTheme() {
             `circle(${radius}px at ${origin.x}px ${origin.y}px)`,
           ],
         },
-        { duration: 450, easing: "cubic-bezier(0.4, 0, 0.2, 1)", pseudoElement: "::view-transition-new(root)" },
+        { duration: 380, easing: "cubic-bezier(0.4, 0, 0.2, 1)", pseudoElement: "::view-transition-new(root)" },
       );
     });
   };

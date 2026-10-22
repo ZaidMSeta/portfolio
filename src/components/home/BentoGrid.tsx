@@ -159,6 +159,14 @@ function ContributionsTile() {
   const { days, total } = contributions;
   if (days.length === 0) return null;
 
+  const busiest = days.reduce((max, day) => (day.count > max.count ? day : max), days[0]);
+  const label = (day: (typeof days)[number]) => {
+    const [year, month, date] = day.date.split("-").map(Number);
+    const when = new Date(year, month - 1, date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    const base = `${day.count} contribution${day.count === 1 ? "" : "s"} · ${when}`;
+    return day === busiest && day.count > 0 ? `${base} · this was a long day` : base;
+  };
+
   // The calendar starts on a Sunday, so every 7 days is one column
   const weeks: (typeof days)[] = [];
   for (let i = 0; i < days.length; i += 7) weeks.push(days.slice(i, i + 7));
@@ -188,7 +196,7 @@ function ContributionsTile() {
               {week.map((day) => (
                 <span
                   key={day.date}
-                  title={`${day.count} on ${day.date}`}
+                  title={label(day)}
                   className={`contrib-cell aspect-square w-full rounded-[2px] ${LEVEL_CLASSES[day.level] ?? LEVEL_CLASSES[0]}`}
                 />
               ))}
@@ -381,6 +389,11 @@ function RoomRadarTile() {
   );
 }
 
+// Hamilton's hour (0-23), for the late-night note on the map tile
+function localHour(timeZone: string) {
+  return Number(new Intl.DateTimeFormat("en-US", { timeZone, hour: "numeric", hourCycle: "h23" }).format(new Date()));
+}
+
 function formatLocalTime(timeZone: string) {
   return new Intl.DateTimeFormat("en-US", {
     timeZone,
@@ -403,6 +416,8 @@ function useLocalTime(timeZone: string) {
 
 function LocationTile() {
   const time = useLocalTime(site.timeZone);
+  // Re-read on each render; useLocalTime re-renders every 15 seconds
+  const lateNight = localHour(site.timeZone) < 5;
 
   return (
     <div className="relative h-full min-h-[220px] overflow-hidden rounded-xl border border-fg/10 card">
@@ -414,6 +429,11 @@ function LocationTile() {
       />
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-bg via-bg/80 to-transparent p-4 pt-10">
+        {lateNight && (
+          <p className="mb-2 font-mono text-[11px] text-accent">
+            it's {time.replace(/\s*[A-Z]{3,4}$/, "")} here. I'm probably still debugging.
+          </p>
+        )}
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <MapPin size={14} className="text-accent" />

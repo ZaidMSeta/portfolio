@@ -22,7 +22,7 @@ const pages = [
   {
     path: "/resume",
     title: "Resume",
-    description: "Zaid Seta's resume. Computer Science (Co-op) at McMaster, open to a Winter 2027 software co-op.",
+    description: "Zaid Seta's resume. Computer Science (Co-op) at McMaster, open to a Winter or Summer 2027 software co-op.",
   },
   ...projects.map((project) => ({
     path: `/projects/${project.slug}`,

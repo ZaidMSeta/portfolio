@@ -53,7 +53,7 @@ export const experiences: Experience[] = [
     logo: "/logos/cmta.png",
     location: "Remote",
     start: "2026-03",
-    end: "2026-05",
+    end: "2026-04",
     description: [
       "Built an event promotion automation tool in React, Vite, and TypeScript, deployed on Vercel, replacing a manual cross-platform social posting workflow.",
       "Integrated the Google Gemini API for structured event extraction from posters and platform-specific caption generation.",
