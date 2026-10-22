@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { useTheme } from "../../hooks/useTheme";
@@ -23,33 +23,42 @@ function useRapidClicks(count: number, windowMs: number) {
   };
 }
 
-const DOT_COLOURS = ["#f472b6", "#facc15", "#a78bfa", "#fb923c", "#60a5fa", "#4ade80", "#f87171"];
+const LOGO = "zaid.seta";
+const COLOURS = ["#f472b6", "#facc15", "#a78bfa", "#fb923c", "#60a5fa", "#4ade80", "#f87171", "#5eead4"];
 
-// Click the dot in zaid.seta five times and it spins into a new colour
-function LogoDot() {
-  const fiveClicks = useRapidClicks(5, 2000);
-  const [spin, setSpin] = useState(0);
-  const [colour, setColour] = useState<string | null>(null);
+// Every second click on the logo, one random character (letter or dot) spins into a new
+// colour; the colours stay until reload
+function Logo() {
+  const clicks = useRef(0);
+  const [colours, setColours] = useState<Record<number, string>>({});
+  const [spins, setSpins] = useState<Record<number, number>>({});
 
-  const onClick = (event: MouseEvent) => {
-    // The dot sits inside the home link; only swallow the click when the trick fires
-    if (!fiveClicks()) return;
-    event.preventDefault();
-    setSpin((n) => n + 1);
-    setColour((current) => {
-      const options = DOT_COLOURS.filter((option) => option !== current);
-      return options[Math.floor(Math.random() * options.length)];
+  const onClick = () => {
+    clicks.current += 1;
+    if (clicks.current % 2 !== 0) return;
+
+    const index = Math.floor(Math.random() * LOGO.length);
+    setColours((current) => {
+      const options = COLOURS.filter((colour) => colour !== current[index]);
+      return { ...current, [index]: options[Math.floor(Math.random() * options.length)] };
     });
+    setSpins((current) => ({ ...current, [index]: (current[index] ?? 0) + 1 }));
   };
 
   return (
-    <span
-      key={spin}
-      onClick={onClick}
-      className={`inline-block origin-[50%_72%] ${spin > 0 ? "animate-[dot-spin_0.6s_cubic-bezier(0.2,0.7,0.2,1)]" : ""} ${colour ? "" : "text-accent"}`}
-      style={colour ? { color: colour } : undefined}
-    >
-      .
+    <span onClick={onClick}>
+      {[...LOGO].map((char, index) => (
+        <span
+          // Changing the key replays the spin on that character
+          key={`${index}-${spins[index] ?? 0}`}
+          className={`inline-block origin-[50%_60%] ${spins[index] ? "animate-[dot-spin_0.6s_cubic-bezier(0.2,0.7,0.2,1)]" : ""} ${
+            !colours[index] && char === "." ? "text-accent" : ""
+          }`}
+          style={colours[index] ? { color: colours[index] } : undefined}
+        >
+          {char}
+        </span>
+      ))}
     </span>
   );
 }
@@ -115,7 +124,7 @@ export default function Header() {
             onClick={scrollToTop}
             className="shrink-0 text-fg transition hover:text-fg/80"
           >
-            zaid<LogoDot />seta
+            <Logo />
           </Link>
           <Breadcrumb pathname={location.pathname} />
         </div>
