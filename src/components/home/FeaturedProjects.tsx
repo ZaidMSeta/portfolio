@@ -3,6 +3,8 @@ import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
 import { projects } from "../../data/projects";
 import { ProjectImage } from "../ProjectImage";
 import { TechTags } from "../TechTag";
+import { Reveal } from "../motion/Reveal";
+import { CountUp } from "../motion/CountUp";
 
 export function FeaturedProjects() {
   const featuredProjects = projects.filter((project) => project.featured);
@@ -12,14 +14,15 @@ export function FeaturedProjects() {
       <div className="mb-8 flex items-end justify-between">
         <h2 className="text-2xl tracking-tight text-fg">Featured projects</h2>
 
-        <Link to="/projects" className="font-mono text-xs text-fg/50 transition hover:text-fg">
+        <Link to="/projects" className="font-mono text-xs text-subtle transition hover:text-fg">
           all projects →
         </Link>
       </div>
 
       <div className="space-y-6">
         {featuredProjects.map((project, index) => (
-          <article
+          <Reveal
+            as="article"
             key={project.id}
             className="group relative grid overflow-hidden rounded-2xl border border-fg/10 card transition hover:border-fg/20 md:grid-cols-2"
           >
@@ -36,9 +39,9 @@ export function FeaturedProjects() {
             </div>
 
             <div className="flex flex-col p-6 sm:p-8">
-              <p className="font-mono text-xs text-fg/40">
+              <p className="font-mono text-xs text-subtle">
                 {String(index + 1).padStart(2, "0")} · {project.date} ·{" "}
-                <span className="text-accent/80">{project.status}</span>
+                <span className="text-accent">{project.status}</span>
               </p>
 
               <h3 className="mt-3 flex items-center gap-2 font-display text-3xl tracking-tight text-fg">
@@ -61,9 +64,9 @@ export function FeaturedProjects() {
                     <div key={metric.label}>
                       <dt className="sr-only">{metric.label}</dt>
                       <dd className="font-display text-3xl text-fg">
-                        {metric.value}
+                        <CountUp value={metric.value} />
                       </dd>
-                      <dd className="font-mono text-[11px] text-fg/45">{metric.label}</dd>
+                      <dd className="font-mono text-[11px] text-subtle">{metric.label}</dd>
                     </div>
                   ))}
                 </dl>
@@ -79,7 +82,7 @@ export function FeaturedProjects() {
                         href={project.repoUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="relative z-10 inline-flex items-center gap-1.5 text-fg/55 transition hover:text-fg"
+                        className="relative z-10 inline-flex items-center gap-1.5 text-subtle transition hover:text-fg"
                       >
                         <Github size={13} />
                         code
@@ -90,7 +93,7 @@ export function FeaturedProjects() {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="relative z-10 inline-flex items-center gap-1.5 text-fg/55 transition hover:text-fg"
+                        className="relative z-10 inline-flex items-center gap-1.5 text-subtle transition hover:text-fg"
                       >
                         <ExternalLink size={13} />
                         live
@@ -100,7 +103,7 @@ export function FeaturedProjects() {
                 )}
               </div>
             </div>
-          </article>
+          </Reveal>
         ))}
       </div>
     </section>

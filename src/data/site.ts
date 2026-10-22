@@ -2,6 +2,8 @@ const email = "zaidmseta@gmail.com";
 
 export const site = {
   name: "Zaid Seta",
+  // Canonical origin for link previews, the sitemap, and robots.txt
+  url: "https://zaidseta.com",
   location: "Hamilton, ON",
   email,
 

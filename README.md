@@ -73,9 +73,19 @@ and deploys without any secrets. Re-run the fetch scripts to refresh them.
 | `npm run fetch:github` | Fetch the GitHub contribution calendar (no token needed) |
 | `npm run lint` | Run ESLint |
 
+## Link previews and SEO
+
+At build time `scripts/seoPages.mjs` writes a copy of `index.html` for every route
+(`about.html`, `projects/mactrack.html`, ...) with its own title, description, and
+preview image, plus `sitemap.xml` and `robots.txt`. Crawlers that don't run
+JavaScript (LinkedIn, iMessage, Slack) read those tags. The site origin lives in
+`site.url`. Preview cards are in `public/og/`; `scripts/ogCards.mjs` regenerates
+their HTML templates for screenshotting.
+
 ## Deployment
 
-Deployed on Vercel. `vercel.json` adds an SPA rewrite so client-side routes
+Deployed on Vercel. `vercel.json` turns on `cleanUrls` (so `/about` serves
+`about.html`) and adds an SPA rewrite so client-side routes
 (`/projects/mactrack`, etc.) resolve on direct load and refresh instead of 404ing.
 
 `vite.config.js` injects `__COMMIT_SHA__` and `__BUILD_DATE__` at build time.

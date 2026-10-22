@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { ArrowRight, Check, Copy, Linkedin, Mail } from "lucide-react";
 import { site } from "../../data/site";
+import { Reveal } from "../motion/Reveal";
 
 function CopyEmailButton() {
   const [copied, setCopied] = useState(false);
@@ -30,7 +31,7 @@ function CopyEmailButton() {
 
 export function ContactCTA() {
   return (
-    <section className="rounded-2xl border border-fg/10 card p-6 sm:p-10">
+    <Reveal as="section" className="rounded-2xl border border-fg/10 card p-6 sm:p-10">
       <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
         <div className="max-w-2xl">
           <p className="inline-flex items-center gap-2 font-mono text-xs text-accent">
@@ -64,7 +65,7 @@ export function ContactCTA() {
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn"
-              className="rounded-lg p-2 text-fg/50 transition hover:text-fg"
+              className="rounded-lg p-2 text-subtle transition hover:text-fg"
             >
               <Linkedin size={18} />
             </a>
@@ -72,6 +73,6 @@ export function ContactCTA() {
           <CopyEmailButton />
         </div>
       </div>
-    </section>
+    </Reveal>
   );
 }
