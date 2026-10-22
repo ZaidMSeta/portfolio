@@ -10,6 +10,7 @@ import {
   GitCommit,
   Layers,
   MapPin,
+  Radar,
 } from "lucide-react";
 import { fetchLatestCommits, type GitHubActivityCommit } from "../../lib/utils/githubActivity";
 import { TechTag } from "../TechTag";
@@ -18,7 +19,10 @@ import { getHardcoverData, getPrimaryAuthor } from "../../lib/utils/hardCover";
 import { getTraktData } from "../../lib/utils/trakt";
 import ratingHistory from "../../data/chessRatingHistory.json";
 import contributions from "../../data/contributions.json";
-import { Reveal } from "../motion/Reveal";
+import { Reveal, useInView } from "../motion/Reveal";
+import { CountUp } from "../motion/CountUp";
+import { projects } from "../../data/projects";
+import { freeRightNow, type RoomRadarData } from "../../lib/utils/roomRadar";
 
 const tileClassName =
   "rounded-xl border border-fg/10 card p-5 transition hover:border-fg/20";
@@ -289,6 +293,94 @@ function OffTheClockTile() {
   );
 }
 
+function RoomRadarTile() {
+  const { ref, inView } = useInView<HTMLAnchorElement>();
+  const [data, setData] = useState<RoomRadarData | null>(null);
+  const [failed, setFailed] = useState(false);
+  const [now, setNow] = useState(() => new Date());
+
+  // Only download the schedule once the tile is on screen
+  useEffect(() => {
+    if (!inView || data) return;
+    let ignore = false;
+    fetch("/roomradar.json")
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(`roomradar.json: ${res.status}`))))
+      .then((json: RoomRadarData) => !ignore && setData(json))
+      .catch(() => !ignore && setFailed(true));
+    return () => {
+      ignore = true;
+    };
+  }, [inView, data]);
+
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 60_000);
+    return () => clearInterval(id);
+  }, []);
+
+  const status = data ? freeRightNow(data, now) : null;
+  const liveUrl = projects.find((project) => project.slug === "roomradar")?.liveUrl;
+
+  const note = status && {
+    classes: status.topBuilding && `Most open: ${status.topBuilding.name} · ${status.topBuilding.free} free`,
+    "after-hours": "Classes are done for now. Buildings may be locked.",
+    "no-classes": "No classes today. Some buildings may be locked.",
+    "out-of-term": "Between terms, so the timetable is empty.",
+  }[status.reason];
+
+  return (
+    <a
+      ref={ref}
+      href={liveUrl}
+      target="_blank"
+      rel="noreferrer"
+      className={`${tileClassName} group flex h-full flex-col`}
+    >
+      <div className="mb-4 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <Radar size={14} className="text-accent" />
+          <h3 className="text-sm font-medium text-fg">Free rooms at McMaster</h3>
+        </div>
+        <span className="flex items-center gap-1.5 font-mono text-[11px] text-subtle transition group-hover:text-fg">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+          </span>
+          live · roomradar ↗
+        </span>
+      </div>
+
+      {failed && <p className="text-sm text-fg/60">Couldn't load room data right now.</p>}
+
+      {!failed && !status && (
+        <div className="space-y-3">
+          <div className="h-9 w-32 animate-pulse rounded bg-fg/8" />
+          <div className="h-2 w-full animate-pulse rounded-full bg-fg/8" />
+        </div>
+      )}
+
+      {status && (
+        <>
+          <p className="flex items-baseline gap-2">
+            <span className="font-display text-4xl text-fg">
+              <CountUp value={String(status.free)} />
+            </span>
+            <span className="text-sm text-fg/60">of {status.total} rooms free right now</span>
+          </p>
+
+          <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-fg/[0.08]" aria-hidden>
+            <div
+              className="h-full rounded-full bg-accent transition-[width] duration-1000"
+              style={{ width: `${(status.free / status.total) * 100}%` }}
+            />
+          </div>
+
+          {note && <p className="mt-3 truncate font-mono text-[11px] text-subtle">{note}</p>}
+        </>
+      )}
+    </a>
+  );
+}
+
 function formatLocalTime(timeZone: string) {
   return new Intl.DateTimeFormat("en-US", {
     timeZone,
@@ -355,13 +447,16 @@ export function BentoGrid() {
           <ContributionsTile />
         </Reveal>
         <Reveal className="md:col-span-2" delay={160}>
-          <StackTile />
+          <RoomRadarTile />
         </Reveal>
         <Reveal className="md:col-span-2" delay={80}>
           <LocationTile />
         </Reveal>
         <Reveal className="md:col-span-2" delay={160}>
           <OffTheClockTile />
+        </Reveal>
+        <Reveal className="md:col-span-4" delay={80}>
+          <StackTile />
         </Reveal>
       </div>
     </section>

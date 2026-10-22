@@ -1,6 +1,14 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 import { site } from "../../data/site";
 
+// __BUILD_DATE__ is "2026-10-21"; read it as a local date so it doesn't shift a day in UTC
+const [year, month, day] = __BUILD_DATE__.split("-").map(Number);
+const updated = new Date(year, month - 1, day).toLocaleDateString("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+
 export default function Footer() {
   return (
     <footer className="mt-24 border-t border-fg/8">
@@ -23,6 +31,8 @@ export default function Footer() {
               <span>© {new Date().getFullYear()} {site.name}</span>
               <span className="text-fg/20">•</span>
               <span>Built with React + Tailwind</span>
+              <span className="text-fg/20">•</span>
+              <span>Updated {updated}</span>
               <span className="text-fg/20">•</span>
               <a
                 href={`${site.repo}/commit/${__COMMIT_SHA__}`}

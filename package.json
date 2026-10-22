@@ -11,7 +11,8 @@
     "fetch:hardcover": "node scripts/fetchHardcover.mjs",
     "fetch:trakt": "node scripts/fetchTrakt.mjs",
     "fetch:chess": "node scripts/generateChessRatingHistory.mjs",
-    "fetch:github": "node scripts/fetchContributions.mjs"
+    "fetch:github": "node scripts/fetchContributions.mjs",
+    "fetch:rooms": "node scripts/fetchRoomRadar.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
