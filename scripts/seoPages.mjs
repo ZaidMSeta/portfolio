@@ -44,7 +44,7 @@ function setMeta(html, attr, key, value) {
 
 function renderPage(template, page) {
   const title = page.title ? `${page.title} · ${site.name}` : null;
-  const url = `${site.url}${page.path === "/" ? "" : page.path}`;
+  const url = `${site.url}${page.path}`;
   let html = template;
 
   if (title) {
