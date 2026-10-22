@@ -1,6 +1,6 @@
 // Vite plugin: link-preview crawlers (LinkedIn, iMessage, Slack, Discord) don't run
 // JavaScript, so every route gets its own copy of index.html with the right title,
-// description, and preview image baked in. Also writes sitemap.xml and robots.txt.
+// description, and preview image baked in. Also writes 404.html, sitemap.xml, and robots.txt.
 import fs from "node:fs";
 import path from "node:path";
 import { projects } from "../src/data/projects.ts";
@@ -87,6 +87,15 @@ export function seoPages() {
         fs.mkdirSync(path.dirname(file), { recursive: true });
         fs.writeFileSync(file, renderPage(template, page));
       }
+
+      // Any path without its own file gets 404.html: the same app shell, which renders the
+      // not-found page client-side, served with a real 404 status
+      const notFound = renderPage(template, {
+        path: "/404",
+        title: "Not found",
+        description: "This page doesn't exist.",
+      }).replace("</head>", `  <meta name="robots" content="noindex" />\n  </head>`);
+      fs.writeFileSync(path.join(outDir, "404.html"), notFound.replace(/\s*<link rel="canonical"[^>]*>/, ""));
 
       const today = new Date().toISOString().slice(0, 10);
       const urls = [{ path: "/" }, ...pages]

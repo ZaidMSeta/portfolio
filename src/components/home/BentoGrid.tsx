@@ -242,29 +242,31 @@ function ContributionsTile() {
   );
 }
 
-function OffTheClockItem({
-  icon: Icon,
+function OffTheClockRow({
+  thumb,
   label,
   title,
   detail,
-  visual,
+  aside,
 }: {
-  icon: typeof Layers;
+  thumb: ReactNode;
   label: string;
   title: string;
   detail: string;
-  visual: ReactNode;
+  aside?: ReactNode;
 }) {
   return (
-    <div className="flex min-w-0 flex-col">
-      <div className="mb-3 h-24">{visual}</div>
-      <p className="flex items-center gap-1.5 font-mono text-[10px] text-subtle">
-        <Icon size={11} className="text-accent" />
-        {label}
-      </p>
-      <p className="mt-1 truncate text-xs font-medium text-fg/80">{title}</p>
-      <p className="truncate font-mono text-[10px] text-subtle">{detail}</p>
-    </div>
+    <li className="flex items-center gap-4 py-3 first:pt-0 last:pb-0">
+      <div className="flex h-14 w-10 shrink-0 items-center justify-center overflow-hidden rounded-md border border-fg/10 bg-fg/5">
+        {thumb}
+      </div>
+      <div className="min-w-0 flex-1">
+        <p className="font-mono text-[10px] text-subtle">{label}</p>
+        <p className="truncate text-sm font-medium text-fg/85">{title}</p>
+        <p className="truncate text-xs text-subtle">{detail}</p>
+      </div>
+      {aside && <div className="w-24 shrink-0 sm:w-32">{aside}</div>}
+    </li>
   );
 }
 
@@ -274,7 +276,8 @@ function OffTheClockTile() {
   const watched = getTraktData().items[0];
   const ratings = ratingHistory.map((point) => point.rating);
 
-  const coverClassName = "h-full w-16 rounded-md border border-fg/10 bg-fg/5 object-cover";
+  const cover = (url?: string | null) =>
+    url ? <img src={url} alt="" loading="lazy" className="h-full w-full object-cover" /> : null;
 
   return (
     <Link to="/about" className={`${tileClassName} group block h-full`}>
@@ -283,56 +286,38 @@ function OffTheClockTile() {
           <Coffee size={14} className="text-accent" />
           <h3 className="text-sm font-medium text-fg">Off the clock</h3>
         </div>
-        <span className="font-mono text-[11px] text-subtle transition group-hover:text-fg/70">about →</span>
+        <span className="font-mono text-[11px] text-subtle transition group-hover:text-fg">about →</span>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <ul className="divide-y divide-fg/10">
         {book && (
-          <OffTheClockItem
-            icon={BookOpen}
+          <OffTheClockRow
+            thumb={cover(book.book.image?.url) ?? <BookOpen size={14} className="text-accent" />}
             label={currentRead ? "reading" : "last read"}
             title={book.book.title.split(":")[0]}
             detail={getPrimaryAuthor(book)}
-            visual={
-              book.book.image?.url ? (
-                <img src={book.book.image.url} alt="" loading="lazy" className={coverClassName} />
-              ) : (
-                <div className={coverClassName} />
-              )
-            }
           />
         )}
 
         {ratings.length > 1 && (
-          <OffTheClockItem
-            icon={ChessKnight}
-            label="chess"
-            title={`${ratings[ratings.length - 1]} rapid`}
+          <OffTheClockRow
+            thumb={<ChessKnight size={16} className="text-accent" />}
+            label="chess · rapid"
+            title={String(ratings[ratings.length - 1])}
             detail={`peak ${Math.max(...ratings)}`}
-            visual={
-              <div className="flex h-full items-end">
-                <Sparkline values={ratings} />
-              </div>
-            }
+            aside={<Sparkline values={ratings} />}
           />
         )}
 
         {watched && (
-          <OffTheClockItem
-            icon={Clapperboard}
-            label="watched"
+          <OffTheClockRow
+            thumb={cover(watched.posterUrl) ?? <Clapperboard size={14} className="text-accent" />}
+            label="last watched"
             title={watched.title}
             detail={`${watched.year} · ${watched.type === "movie" ? "film" : "show"}`}
-            visual={
-              watched.posterUrl ? (
-                <img src={watched.posterUrl} alt="" loading="lazy" className={coverClassName} />
-              ) : (
-                <div className={coverClassName} />
-              )
-            }
           />
         )}
-      </div>
+      </ul>
     </Link>
   );
 }
