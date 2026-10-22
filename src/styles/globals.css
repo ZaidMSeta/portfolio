@@ -148,11 +148,6 @@
   100% { opacity: 0; transform: translate(14px, -34px) scale(1.15); }
 }
 
-@keyframes breathe {
-  0%, 100% { transform: scaleY(1); }
-  50% { transform: scaleY(1.035) translateY(-1px); }
-}
-
 @utility animate-page-in {
   animation: page-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
