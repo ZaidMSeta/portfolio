@@ -6,23 +6,26 @@ const split = [
   { day: "Mon", label: "Upper" },
   { day: "Tue", label: "Lower" },
   { day: "Wed", label: "Rest" },
-  { day: "Thu", label: "Upper" },
+  { day: "Thu", label: "Push" },
   { day: "Fri", label: "Rest" },
-  { day: "Sat", label: "Lower" },
-  { day: "Sun", label: "Upper" },
+  { day: "Sat", label: "Pull" },
+  { day: "Sun", label: "Legs" },
 ];
 
 // What the card says about today
 const todayNote: Record<string, string> = {
   Upper: "Upper day.",
-  Lower: "Lower day. no skipping.",
+  Lower: "Lower day.",
+  Push: "Push day.",
+  Pull: "Pull day.",
+  Legs: "Leg day. no skipping.",
   Rest: "Rest day. (probably)",
 };
 
 const goals = [
-  "Currently bulking",
-  "Improve consistency on lower days",
-  "Increase compound lift numbers",
+  "Five sessions a week, every week",
+  "Adding weight to the big compound lifts",
+  "Sleeping before 1 AM (in progress)",
 ];
 
 export function FitnessCard() {

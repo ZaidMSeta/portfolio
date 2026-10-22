@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "react-router";
 import {
   BookOpen,
@@ -155,12 +155,28 @@ const LEVEL_CLASSES =["bg-fg/[0.06]", "bg-accent/25", "bg-accent/50", "bg-accent
 // Weeks older than this drop off on phones, where 53 columns would be too small to read
 const MOBILE_WEEKS = 26;
 
+type ContributionDay = (typeof contributions.days)[number];
+
 function ContributionsTile() {
   const { days, total } = contributions;
+  const gridRef = useRef<HTMLDivElement>(null);
+  // Hovered square and where its tooltip goes, relative to the grid
+  const [hover, setHover] = useState<{ day: ContributionDay; x: number; y: number; alignRight: boolean } | null>(
+    null,
+  );
   if (days.length === 0) return null;
 
+  const showTooltip = (day: ContributionDay, cell: HTMLElement) => {
+    const grid = gridRef.current?.getBoundingClientRect();
+    const rect = cell.getBoundingClientRect();
+    if (!grid) return;
+    // Open toward the middle of the tile so the pill never runs off an edge
+    const x = rect.left + rect.width / 2 - grid.left;
+    setHover({ day, x, y: rect.top - grid.top, alignRight: x > grid.width / 2 });
+  };
+
   const busiest = days.reduce((max, day) => (day.count > max.count ? day : max), days[0]);
-  const label = (day: (typeof days)[number]) => {
+  const label = (day: ContributionDay) => {
     const [year, month, date] = day.date.split("-").map(Number);
     const when = new Date(year, month - 1, date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
     const base = `${day.count} contribution${day.count === 1 ? "" : "s"} · ${when}`;
@@ -181,7 +197,15 @@ function ContributionsTile() {
         <p className="font-mono text-[11px] text-subtle">{total.toLocaleString()} in the last year</p>
       </div>
 
-      <div className="flex justify-between gap-[3px]" aria-hidden>
+      <div ref={gridRef} className="relative flex justify-between gap-[3px]" aria-hidden onPointerLeave={() => setHover(null)}>
+        {hover && (
+          <span
+            className={`pointer-events-none absolute z-10 -translate-y-full whitespace-nowrap ${hover.alignRight ? "-translate-x-full" : ""} rounded-md border border-fg/10 bg-bg px-2.5 py-1.5 font-mono text-[11px] text-fg shadow-lg`}
+            style={{ left: hover.alignRight ? hover.x + 8 : hover.x - 8, top: hover.y - 6 }}
+          >
+            {label(hover.day)}
+          </span>
+        )}
         {weeks.map((week, index) => {
           const month = Number(week[0].date.slice(5, 7)) - 1;
           const previousMonth = index > 0 ? Number(weeks[index - 1][0].date.slice(5, 7)) - 1 : -1;
@@ -196,8 +220,10 @@ function ContributionsTile() {
               {week.map((day) => (
                 <span
                   key={day.date}
-                  title={label(day)}
-                  className={`contrib-cell aspect-square w-full rounded-[2px] ${LEVEL_CLASSES[day.level] ?? LEVEL_CLASSES[0]}`}
+                  onPointerEnter={(event) => showTooltip(day, event.currentTarget)}
+                  className={`contrib-cell aspect-square w-full rounded-[2px] ${LEVEL_CLASSES[day.level] ?? LEVEL_CLASSES[0]} ${
+                    hover?.day === day ? "ring-1 ring-fg/60" : ""
+                  }`}
                 />
               ))}
               {/* Label the first week of each month; text overflows into the next columns */}

@@ -25,7 +25,7 @@ export function Toaster() {
       {toast && (
         <p
           key={toast.id}
-          className="animate-rise-in rounded-full border border-fg/10 bg-bg/90 px-4 py-2 font-mono text-xs text-fg shadow-lg backdrop-blur"
+          className="animate-rise-in rounded-xl border border-accent/30 bg-bg/95 px-6 py-3.5 font-mono text-base text-fg shadow-2xl shadow-black/30 backdrop-blur"
         >
           {toast.message}
         </p>
