@@ -3,6 +3,7 @@ import { ChessCard } from "../components/about/ChessCard";
 import { FitnessCard } from "../components/about/FitnessCard";
 import { BooksCard } from "../components/about/BooksCard";
 import { WatchlistCard } from "../components/about/WatchlistCard";
+import { Reveal } from "../components/motion/Reveal";
 
 export default function About() {
   useDocumentTitle("About");
@@ -24,7 +25,7 @@ export default function About() {
           <div className="space-y-5">
             <h2 className="text-2xl text-fg">Hi, I'm Zaid.</h2>
 
-            <div className="space-y-4 text-sm leading-7 text-fg/65 sm:text-base">
+            <div className="max-w-3xl space-y-4 text-sm leading-7 text-fg/65 sm:text-base">
               <p>
                 I'm a Computer Science student at McMaster University, interested in
                 full-stack development and in building tools that people actually keep using
@@ -54,10 +55,11 @@ export default function About() {
         <h2 className="text-2xl text-fg">Interests</h2>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <BooksCard />
-          <FitnessCard />
-          <WatchlistCard />
-          <ChessCard />
+          {[BooksCard, FitnessCard, WatchlistCard, ChessCard].map((Card, index) => (
+            <Reveal key={index} delay={(index % 2) * 80} className="*:h-full">
+              <Card />
+            </Reveal>
+          ))}
         </div>
       </section>
     </div>

@@ -9,6 +9,7 @@ import {
   MapPin,
   type LucideIcon,
 } from "lucide-react";
+import type { CSSProperties } from "react";
 import { Link } from "react-router";
 import { site } from "../../data/site";
 import { experiences } from "../../data/experience";
@@ -28,8 +29,8 @@ function NowPanel() {
   ].filter(Boolean) as { icon: LucideIcon; label: string; value: string }[];
 
   return (
-    <div className="rounded-2xl border border-fg/10 card p-5">
-      <p className="text-xs font-medium uppercase tracking-[0.14em] text-fg/40">Currently</p>
+    <div style={delay(400)} className="animate-rise-in rounded-2xl border border-fg/10 card p-5">
+      <p className="text-xs font-medium uppercase tracking-[0.14em] text-subtle">Currently</p>
 
       <ul className="mt-4 space-y-4">
         {rows.map((row) => (
@@ -38,7 +39,7 @@ function NowPanel() {
               <row.icon size={15} />
             </span>
             <div className="min-w-0">
-              <p className="text-xs text-fg/45">{row.label}</p>
+              <p className="text-xs text-subtle">{row.label}</p>
               <p className="text-sm text-fg/85">{row.value}</p>
             </div>
           </li>
@@ -48,11 +49,14 @@ function NowPanel() {
   );
 }
 
+// Staggered entrance delay for hero blocks
+const delay = (ms: number) => ({ "--delay": `${ms}ms` }) as CSSProperties;
+
 export function Hero() {
   return (
     <section className="grid gap-12 pt-4 sm:pt-10 lg:grid-cols-[1fr_340px] lg:items-end">
       <div>
-        <p className="inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/10 px-3 py-1 font-mono text-xs text-accent">
+        <p style={delay(0)} className="animate-rise-in inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/10 px-3 py-1 font-mono text-xs text-accent">
           <span className="relative flex h-1.5 w-1.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
@@ -60,21 +64,21 @@ export function Hero() {
           {site.status}
         </p>
 
-        <h1 className="mt-6 text-5xl tracking-tight text-fg sm:text-6xl lg:text-7xl">
+        <h1 style={delay(80)} className="animate-rise-in mt-6 text-5xl tracking-tight text-fg sm:text-6xl lg:text-7xl">
           Zaid Seta
         </h1>
 
-        <p className="mt-4 max-w-2xl text-xl font-medium tracking-tight text-fg/85 sm:text-2xl">
+        <p style={delay(160)} className="animate-rise-in mt-4 max-w-2xl text-xl font-medium tracking-tight text-fg/85 sm:text-2xl">
           Software developer building tools people actually use.
         </p>
 
-        <p className="mt-4 max-w-xl text-base leading-7 text-fg/60">
+        <p style={delay(240)} className="animate-rise-in mt-4 max-w-xl text-base leading-7 text-fg/60">
           Computer Science at McMaster. I work across backend services, automation,
           and full-stack apps: a course planner used by 200+ students, a Playwright
           driver that entered 400+ league events, and production work for real clients.
         </p>
 
-        <div className="mt-8 flex flex-wrap items-center gap-3">
+        <div style={delay(320)} className="animate-rise-in mt-8 flex flex-wrap items-center gap-3">
           <Link
             to="/resume"
             className="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-bg transition hover:bg-accent/85"
@@ -97,7 +101,7 @@ export function Hero() {
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
-              className="rounded-lg p-2 text-fg/50 transition hover:text-fg"
+              className="rounded-lg p-2 text-subtle transition hover:text-fg"
             >
               <Github size={18} />
             </a>
@@ -106,7 +110,7 @@ export function Hero() {
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn"
-              className="rounded-lg p-2 text-fg/50 transition hover:text-fg"
+              className="rounded-lg p-2 text-subtle transition hover:text-fg"
             >
               <Linkedin size={18} />
             </a>

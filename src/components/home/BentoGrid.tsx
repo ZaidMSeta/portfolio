@@ -1,12 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "react-router";
-import { BookOpen, ChessKnight, Clapperboard, GitCommit, Layers, MapPin } from "lucide-react";
+import {
+  BookOpen,
+  CalendarDays,
+  ChessKnight,
+  Clapperboard,
+  Clock,
+  Coffee,
+  GitCommit,
+  Layers,
+  MapPin,
+  Radar,
+} from "lucide-react";
 import { fetchLatestCommits, type GitHubActivityCommit } from "../../lib/utils/githubActivity";
 import { TechTag } from "../TechTag";
 import { site } from "../../data/site";
 import { getHardcoverData, getPrimaryAuthor } from "../../lib/utils/hardCover";
 import { getTraktData } from "../../lib/utils/trakt";
 import ratingHistory from "../../data/chessRatingHistory.json";
+import contributions from "../../data/contributions.json";
+import { Reveal, useInView } from "../motion/Reveal";
+import { CountUp } from "../motion/CountUp";
+import { projects } from "../../data/projects";
+import { freeRightNow, type RoomRadarData } from "../../lib/utils/roomRadar";
 
 const tileClassName =
   "rounded-xl border border-fg/10 card p-5 transition hover:border-fg/20";
@@ -50,7 +66,7 @@ function GitHubActivity() {
   }, []);
 
   return (
-    <div className={`${tileClassName} md:col-span-2 md:row-span-2`}>
+    <div className={`${tileClassName} h-full`}>
       <div className="mb-4 flex items-center gap-2">
         <GitCommit size={14} className="text-accent" />
         <h3 className="text-sm font-medium text-fg">Recent GitHub Activity</h3>
@@ -66,13 +82,13 @@ function GitHubActivity() {
           ))}
 
         {!loading && error && (
-          <p className="text-sm leading-6 text-fg/55">
+          <p className="text-sm leading-6 text-subtle">
             Couldn't load recent commits right now.
           </p>
         )}
 
         {!loading && !error && commits.length === 0 && (
-          <p className="text-sm leading-6 text-fg/55">
+          <p className="text-sm leading-6 text-subtle">
             No recent commits found.
           </p>
         )}
@@ -92,7 +108,7 @@ function GitHubActivity() {
                   >
                     {commit.message}
                   </a>
-                  <p className="mt-1 text-xs text-fg/40">{commit.repoName}</p>
+                  <p className="mt-1 text-xs text-subtle">{commit.repoName}</p>
                 </div>
               </div>
 
@@ -121,7 +137,7 @@ function StackTile() {
   const stack = ["Python", "TypeScript", "React", "Go", "FastAPI", "PostgreSQL", "Tailwind", "Playwright"];
 
   return (
-    <div className={`${tileClassName} md:col-span-2`}>
+    <div className={`${tileClassName} h-full`}>
       <TileHeader icon={Layers} title="Stack" />
       <div className="flex flex-wrap gap-1.5">
         {stack.map((tech) => (
@@ -132,111 +148,305 @@ function StackTile() {
   );
 }
 
-function ReadingTile() {
-  const { currentRead, lastFinished } = getHardcoverData();
-  const book = currentRead ?? lastFinished;
-  if (!book) return null;
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-  const cover = book.book.image?.url;
+const LEVEL_CLASSES =["bg-fg/[0.06]", "bg-accent/25", "bg-accent/50", "bg-accent/75", "bg-accent"];
+
+// Weeks older than this drop off on phones, where 53 columns would be too small to read
+const MOBILE_WEEKS = 26;
+
+type ContributionDay = (typeof contributions.days)[number];
+
+function ContributionsTile() {
+  const { days, total } = contributions;
+  const gridRef = useRef<HTMLDivElement>(null);
+  // Hovered square and where its tooltip goes, relative to the grid
+  const [hover, setHover] = useState<{ day: ContributionDay; x: number; y: number; alignRight: boolean } | null>(
+    null,
+  );
+  if (days.length === 0) return null;
+
+  const showTooltip = (day: ContributionDay, cell: HTMLElement) => {
+    const grid = gridRef.current?.getBoundingClientRect();
+    const rect = cell.getBoundingClientRect();
+    if (!grid) return;
+    // Open toward the middle of the tile so the pill never runs off an edge
+    const x = rect.left + rect.width / 2 - grid.left;
+    setHover({ day, x, y: rect.top - grid.top, alignRight: x > grid.width / 2 });
+  };
+
+  const busiest = days.reduce((max, day) => (day.count > max.count ? day : max), days[0]);
+  const label = (day: ContributionDay) => {
+    const [year, month, date] = day.date.split("-").map(Number);
+    const when = new Date(year, month - 1, date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    const base = `${day.count} contribution${day.count === 1 ? "" : "s"} · ${when}`;
+    return day === busiest && day.count > 0 ? `${base} · this was a long day` : base;
+  };
+
+  // The calendar starts on a Sunday, so every 7 days is one column
+  const weeks: (typeof days)[] = [];
+  for (let i = 0; i < days.length; i += 7) weeks.push(days.slice(i, i + 7));
 
   return (
-    <div className={tileClassName}>
-      <TileHeader icon={BookOpen} title={currentRead ? "Reading" : "Last read"} />
-      <div className="flex gap-4">
-        {cover && (
-          <img
-            src={cover}
-            alt=""
-            loading="lazy"
-            className="h-24 w-16 shrink-0 rounded-md border border-fg/10 object-cover"
-          />
-        )}
-        <div className="min-w-0">
-          <p className="line-clamp-3 text-sm font-medium text-fg">{book.book.title.split(":")[0]}</p>
-          <p className="mt-1 text-xs text-fg/50">{getPrimaryAuthor(book)}</p>
+    <div className={`${tileClassName} h-full`}>
+      <div className="mb-4 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <CalendarDays size={14} className="text-accent" />
+          <h3 className="text-sm font-medium text-fg">Contributions</h3>
         </div>
+        <p className="font-mono text-[11px] text-subtle">{total.toLocaleString()} in the last year</p>
       </div>
+
+      <div ref={gridRef} className="relative flex justify-between gap-[3px]" aria-hidden onPointerLeave={() => setHover(null)}>
+        {hover && (
+          <span
+            className={`pointer-events-none absolute z-10 -translate-y-full whitespace-nowrap ${hover.alignRight ? "-translate-x-full" : ""} rounded-md border border-fg/10 bg-bg px-2.5 py-1.5 font-mono text-[11px] text-fg shadow-lg`}
+            style={{ left: hover.alignRight ? hover.x + 8 : hover.x - 8, top: hover.y - 6 }}
+          >
+            {label(hover.day)}
+          </span>
+        )}
+        {weeks.map((week, index) => {
+          const month = Number(week[0].date.slice(5, 7)) - 1;
+          const previousMonth = index > 0 ? Number(weeks[index - 1][0].date.slice(5, 7)) - 1 : -1;
+          const mobileHidden = index < weeks.length - MOBILE_WEEKS ? "max-sm:hidden" : "";
+
+          return (
+            <div
+              key={week[0].date}
+              className={`flex min-w-0 flex-1 flex-col gap-[3px] ${mobileHidden}`}
+              style={{ "--col": index } as CSSProperties}
+            >
+              {week.map((day) => (
+                <span
+                  key={day.date}
+                  onPointerEnter={(event) => showTooltip(day, event.currentTarget)}
+                  className={`contrib-cell aspect-square w-full rounded-[2px] ${LEVEL_CLASSES[day.level] ?? LEVEL_CLASSES[0]} ${
+                    hover?.day === day ? "ring-1 ring-fg/60" : ""
+                  }`}
+                />
+              ))}
+              {/* Label the first week of each month; text overflows into the next columns */}
+              <span className="relative mt-1 h-3">
+                {month !== previousMonth && index > 0 && (
+                  <span className="absolute left-0 top-0 whitespace-nowrap font-mono text-[10px] leading-3 text-subtle">
+                    {MONTHS[month]}
+                  </span>
+                )}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="mt-3 flex items-center justify-end gap-1 font-mono text-[10px] text-subtle" aria-hidden>
+        less
+        {LEVEL_CLASSES.map((className) => (
+          <span key={className} className={`h-2.5 w-2.5 rounded-[2px] ${className}`} />
+        ))}
+        more
+      </div>
+      <p className="sr-only">{total} GitHub contributions in the last year.</p>
     </div>
   );
 }
 
-// Tiny inline sparkline; avoids pulling recharts into the home bundle
-function Sparkline({ values }: { values: number[] }) {
-  const width = 200;
-  const height = 48;
-  const min = Math.min(...values);
-  const max = Math.max(...values);
-  const range = max - min || 1;
-  const points = values
-    .map((value, i) => {
-      const x = (i / (values.length - 1)) * width;
-      const y = height - ((value - min) / range) * (height - 4) - 2;
-      return `${x.toFixed(1)},${y.toFixed(1)}`;
-    })
-    .join(" ");
-
+function OffTheClockRow({
+  thumb,
+  label,
+  title,
+  detail,
+}: {
+  thumb: ReactNode;
+  label: string;
+  title: string;
+  detail: string;
+}) {
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" className="h-12 w-full" aria-hidden>
-      <polyline
-        points={points}
-        fill="none"
-        stroke="var(--color-accent)"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-        vectorEffect="non-scaling-stroke"
-      />
-    </svg>
+    <li className="flex items-center gap-4 py-3 first:pt-0 last:pb-0">
+      <div className="flex h-14 w-10 shrink-0 items-center justify-center overflow-hidden rounded-md border border-fg/10 bg-fg/5">
+        {thumb}
+      </div>
+      <div className="min-w-0 flex-1">
+        <p className="font-mono text-[10px] text-subtle">{label}</p>
+        <p className="truncate text-sm font-medium text-fg/85">{title}</p>
+        <p className="truncate text-xs text-subtle">{detail}</p>
+      </div>
+    </li>
   );
 }
 
-function ChessTile() {
+function OffTheClockTile() {
+  const { currentRead, lastFinished } = getHardcoverData();
+  const book = currentRead ?? lastFinished;
+  const watched = getTraktData().items[0];
   const ratings = ratingHistory.map((point) => point.rating);
-  if (ratings.length < 2) return null;
 
-  const current = ratings[ratings.length - 1];
-  const peak = Math.max(...ratings);
+  const cover = (url?: string | null) =>
+    url ? <img src={url} alt="" loading="lazy" className="h-full w-full object-cover" /> : null;
 
   return (
-    <Link to="/about" className={`${tileClassName} flex flex-col`}>
-      <TileHeader icon={ChessKnight} title="Chess" />
-      <p className="font-display text-3xl text-fg">{current}</p>
-      <p className="font-mono text-[11px] text-fg/45">rapid · peak {peak}</p>
-      <div className="mt-auto pt-3">
-        <Sparkline values={ratings} />
+    <Link to="/about" className={`${tileClassName} group block h-full`}>
+      <div className="mb-4 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <Coffee size={14} className="text-accent" />
+          <h3 className="text-sm font-medium text-fg">Off the clock</h3>
+        </div>
+        <span className="font-mono text-[11px] text-subtle transition group-hover:text-fg">about →</span>
       </div>
+
+      <ul className="divide-y divide-fg/10">
+        {book && (
+          <OffTheClockRow
+            thumb={cover(book.book.image?.url) ?? <BookOpen size={14} className="text-accent" />}
+            label={currentRead ? "reading" : "last read"}
+            title={book.book.title.split(":")[0]}
+            detail={getPrimaryAuthor(book)}
+          />
+        )}
+
+        {ratings.length > 1 && (
+          <OffTheClockRow
+            thumb={<ChessKnight size={16} className="text-accent" />}
+            label="chess · rapid"
+            title={String(ratings[ratings.length - 1])}
+            detail={`peak ${Math.max(...ratings)}`}
+          />
+        )}
+
+        {watched && (
+          <OffTheClockRow
+            thumb={cover(watched.posterUrl) ?? <Clapperboard size={14} className="text-accent" />}
+            label="last watched"
+            title={watched.title}
+            detail={`${watched.year} · ${watched.type === "movie" ? "film" : "show"}`}
+          />
+        )}
+      </ul>
     </Link>
   );
 }
 
-function WatchingTile() {
-  const items = getTraktData().items.slice(0, 3);
-  if (items.length === 0) return null;
+function RoomRadarTile() {
+  const { ref, inView } = useInView<HTMLAnchorElement>();
+  const [data, setData] = useState<RoomRadarData | null>(null);
+  const [failed, setFailed] = useState(false);
+  const [now, setNow] = useState(() => new Date());
+
+  // Only download the schedule once the tile is on screen
+  useEffect(() => {
+    if (!inView || data) return;
+    let ignore = false;
+    fetch("/roomradar.json")
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(`roomradar.json: ${res.status}`))))
+      .then((json: RoomRadarData) => !ignore && setData(json))
+      .catch(() => !ignore && setFailed(true));
+    return () => {
+      ignore = true;
+    };
+  }, [inView, data]);
+
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 60_000);
+    return () => clearInterval(id);
+  }, []);
+
+  const status = data ? freeRightNow(data, now) : null;
+  const liveUrl = projects.find((project) => project.slug === "roomradar")?.liveUrl;
+
+  const note = status && {
+    classes: status.topBuilding && `Most open: ${status.topBuilding.name} · ${status.topBuilding.free} free`,
+    "after-hours": "Classes are done for now. Buildings may be locked.",
+    "no-classes": "No classes today. Some buildings may be locked.",
+    "out-of-term": "Between terms, so the timetable is empty.",
+  }[status.reason];
 
   return (
-    <div className={`${tileClassName} md:col-span-2`}>
-      <TileHeader icon={Clapperboard} title="Recently watched" />
-      <div className="grid grid-cols-3 gap-3">
-        {items.map((item) => (
-          <div key={`${item.title}-${item.watchedAt}`} className="min-w-0">
-            <div className="aspect-[2/3] overflow-hidden rounded-md border border-fg/10 bg-fg/5">
-              {item.posterUrl && (
-                <img src={item.posterUrl} alt="" loading="lazy" className="h-full w-full object-cover" />
-              )}
-            </div>
-            <p className="mt-2 truncate text-xs text-fg/70">{item.title}</p>
-            <p className="font-mono text-[10px] text-fg/40">
-              {item.year} · {item.type === "movie" ? "film" : "show"}
-            </p>
-          </div>
-        ))}
+    <a
+      ref={ref}
+      href={liveUrl}
+      target="_blank"
+      rel="noreferrer"
+      className={`${tileClassName} group flex h-full flex-col`}
+    >
+      <div className="mb-4 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <Radar size={14} className="text-accent" />
+          <h3 className="text-sm font-medium text-fg">Free rooms at McMaster</h3>
+        </div>
+        <span className="flex items-center gap-1.5 font-mono text-[11px] text-subtle transition group-hover:text-fg">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+          </span>
+          live · roomradar ↗
+        </span>
       </div>
-    </div>
+
+      {failed && <p className="text-sm text-fg/60">Couldn't load room data right now.</p>}
+
+      {!failed && !status && (
+        <div className="space-y-3">
+          <div className="h-9 w-32 animate-pulse rounded bg-fg/8" />
+          <div className="h-2 w-full animate-pulse rounded-full bg-fg/8" />
+        </div>
+      )}
+
+      {status && (
+        <>
+          <p className="flex items-baseline gap-2">
+            <span className="font-display text-4xl text-fg">
+              <CountUp value={String(status.free)} />
+            </span>
+            <span className="text-sm text-fg/60">of {status.total} rooms free right now</span>
+          </p>
+
+          <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-fg/[0.08]" aria-hidden>
+            <div
+              className="h-full rounded-full bg-accent transition-[width] duration-1000"
+              style={{ width: `${(status.free / status.total) * 100}%` }}
+            />
+          </div>
+
+          {note && <p className="mt-3 truncate font-mono text-[11px] text-subtle">{note}</p>}
+        </>
+      )}
+    </a>
   );
 }
 
+// Hamilton's hour (0-23), for the late-night note on the map tile
+function localHour(timeZone: string) {
+  return Number(new Intl.DateTimeFormat("en-US", { timeZone, hour: "numeric", hourCycle: "h23" }).format(new Date()));
+}
+
+function formatLocalTime(timeZone: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    hour: "numeric",
+    minute: "2-digit",
+    timeZoneName: "short",
+  }).format(new Date());
+}
+
+function useLocalTime(timeZone: string) {
+  const [time, setTime] = useState(() => formatLocalTime(timeZone));
+
+  useEffect(() => {
+    const id = setInterval(() => setTime(formatLocalTime(timeZone)), 15_000);
+    return () => clearInterval(id);
+  }, [timeZone]);
+
+  return time;
+}
+
 function LocationTile() {
+  const time = useLocalTime(site.timeZone);
+  // Re-read on each render; useLocalTime re-renders every 15 seconds
+  const lateNight = localHour(site.timeZone) < 5;
+
   return (
-    <div className="relative min-h-[220px] overflow-hidden rounded-xl border border-fg/10 card md:col-span-2">
+    <div className="relative h-full min-h-[220px] overflow-hidden rounded-xl border border-fg/10 card">
       <iframe
         title="Map of Hamilton, Ontario"
         src="https://www.openstreetmap.org/export/embed.html?bbox=-79.932%2C43.225%2C-79.815%2C43.295&layer=mapnik&marker=43.2557%2C-79.8711"
@@ -245,9 +455,20 @@ function LocationTile() {
       />
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-bg via-bg/80 to-transparent p-4 pt-10">
-        <div className="flex items-center gap-2">
-          <MapPin size={14} className="text-accent" />
-          <p className="text-sm font-medium text-fg">{site.location}</p>
+        {lateNight && (
+          <p className="mb-2 font-mono text-[11px] text-accent">
+            it's {time.replace(/\s*[A-Z]{3,4}$/, "")} here. I'm probably still debugging.
+          </p>
+        )}
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <MapPin size={14} className="text-accent" />
+            <p className="text-sm font-medium text-fg">{site.location}</p>
+          </div>
+          <p className="flex items-center gap-1.5 font-mono text-xs text-fg/60">
+            <Clock size={12} className="text-accent" />
+            {time}
+          </p>
         </div>
       </div>
     </div>
@@ -259,18 +480,30 @@ export function BentoGrid() {
     <section>
       <div className="mb-8 flex items-end justify-between">
         <h2 className="text-2xl tracking-tight text-fg">Lately</h2>
-        <Link to="/about" className="font-mono text-xs text-fg/50 transition hover:text-fg">
+        <Link to="/about" className="font-mono text-xs text-subtle transition hover:text-fg">
           more about me →
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
-        <GitHubActivity />
-        <StackTile />
-        <ReadingTile />
-        <ChessTile />
-        <LocationTile />
-        <WatchingTile />
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+        <Reveal className="md:col-span-2 md:row-span-2">
+          <GitHubActivity />
+        </Reveal>
+        <Reveal className="md:col-span-2" delay={80}>
+          <ContributionsTile />
+        </Reveal>
+        <Reveal className="md:col-span-2" delay={160}>
+          <RoomRadarTile />
+        </Reveal>
+        <Reveal className="md:col-span-2" delay={80}>
+          <LocationTile />
+        </Reveal>
+        <Reveal className="md:col-span-2" delay={160}>
+          <OffTheClockTile />
+        </Reveal>
+        <Reveal className="md:col-span-4" delay={80}>
+          <StackTile />
+        </Reveal>
       </div>
     </section>
   );

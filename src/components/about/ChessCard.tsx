@@ -37,7 +37,7 @@ function CustomTooltip({
 
   return (
     <div className="rounded-lg border border-fg/10 bg-bg/95 px-3 py-2 shadow-lg backdrop-blur">
-      <p className="text-xs text-fg/45">{formatChartDate(label)}</p>
+      <p className="text-xs text-subtle">{formatChartDate(label)}</p>
       <p className="mt-1 text-sm text-fg">
         Elo: <span className="text-accent">{payload[0].value}</span>
       </p>
@@ -89,10 +89,10 @@ export function ChessCard() {
         <div className="mb-3 flex items-center justify-between">
           <p className="text-sm text-fg/70">Rating over time</p>
           <div className="text-right">
-            <p className="text-xs text-fg/45">
+            <p className="text-xs text-subtle">
               Peak: {loading ? "..." : data?.peakRating ?? "N/A"}
             </p>
-            <p className="text-xs text-fg/45">
+            <p className="text-xs text-subtle">
               Current: {loading ? "..." : data?.rapidRating ?? "N/A"}
             </p>
           </div>
@@ -142,20 +142,20 @@ export function ChessCard() {
 
       <div className="mb-5 grid grid-cols-2 gap-3">
         <div className="rounded-lg border border-fg/10 bg-fg/[0.03] p-3">
-          <p className="mb-1 text-xs text-fg/45">Openings as White</p>
+          <p className="mb-1 text-xs text-subtle">Openings as White</p>
           <p className="text-sm text-fg">Vienna Gambit</p>
           <p className="text-sm text-fg">Vienna Game</p>
         </div>
 
         <div className="rounded-lg border border-fg/10 bg-fg/[0.03] p-3">
-          <p className="mb-1 text-xs text-fg/45">Openings as Black</p>
+          <p className="mb-1 text-xs text-subtle">Openings as Black</p>
           <p className="text-sm text-fg">Caro-Kann</p>
           <p className="text-sm text-fg">King&apos;s Indian</p>
         </div>
       </div>
 
       <div className="rounded-lg border border-fg/10 bg-fg/[0.03] p-3">
-        <p className="mb-1 text-xs text-fg/45">Last Game</p>
+        <p className="mb-1 text-xs text-subtle">Last Game</p>
 
         {loading && <p className="text-sm text-fg/60">Loading...</p>}
 
@@ -168,7 +168,7 @@ export function ChessCard() {
             <p className="text-sm text-fg">
               {data.lastGame.resultText} vs. {data.lastGame.opponent}
             </p>
-            <p className="text-xs text-fg/50">
+            <p className="text-xs text-subtle">
               {data.lastGame.timeClass} · {data.lastGame.endTimeLabel}
               {data.lastGame.ratingDelta !== null
                 ? ` · ${data.lastGame.ratingDelta > 0 ? "+" : ""}${data.lastGame.ratingDelta}`

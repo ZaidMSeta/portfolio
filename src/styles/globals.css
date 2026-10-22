@@ -12,6 +12,8 @@
   --color-bg: #0f1115;
   --color-fg: #ffffff;
   --color-accent: #5eead4;
+  /* Small labels and metadata; tuned per theme to stay above 4.5:1 */
+  --color-subtle: rgb(255 255 255 / 0.55);
   --color-surface: rgb(255 255 255 / 0.05);
   --color-added: #4ade80;
   --color-removed: #f87171;
@@ -23,6 +25,7 @@
   --color-fg: #0f172a;
   /* teal-700: teal-600 is under 4.5:1 on white for small text */
   --color-accent: #0f766e;
+  --color-subtle: rgb(15 23 42 / 0.62);
   --color-surface: #ffffff;
   --color-added: #15803d;
   --color-removed: #b91c1c;
@@ -114,5 +117,105 @@
   h2 {
     font-family: var(--font-display);
     font-weight: var(--display-weight, 400);
+  }
+}
+
+/* ---------- Motion ---------- */
+
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes spin-in {
+  from { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes dot-spin {
+  from { transform: rotate(0) scale(1); }
+  50% { transform: rotate(360deg) scale(1.8); }
+  to { transform: rotate(720deg) scale(1); }
+}
+
+@keyframes cell-in {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes drift-up {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.8); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(14px, -34px) scale(1.15); }
+}
+
+@utility animate-page-in {
+  animation: page-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* Staggered entrance; set --delay inline */
+@utility animate-rise-in {
+  animation: rise-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+@utility animate-spin-in {
+  animation: spin-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* Scroll reveal: <Reveal> adds .is-visible once the element enters the viewport */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+    border-color 0.15s ease;
+  transition-delay: var(--delay, 0ms), var(--delay, 0ms), 0ms;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Contribution graph fills in column by column; --col is set per week */
+.reveal .contrib-cell {
+  opacity: 0;
+}
+
+.reveal.is-visible .contrib-cell {
+  animation: cell-in 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--col, 0) * 14ms + 150ms);
+}
+
+/* Theme switch: the new theme grows out of the toggle (see useTheme) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal,
+  .reveal .contrib-cell {
+    opacity: 1;
+    transform: none;
   }
 }

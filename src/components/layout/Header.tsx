@@ -1,11 +1,62 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { useTheme } from "../../hooks/useTheme";
 import { site } from "../../data/site";
+import { toast } from "../../lib/toast";
 
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: "instant" });
+}
+
+// Recent click times within a window; true once there have been `count` of them
+function useRapidClicks(count: number, windowMs: number) {
+  const clicks = useRef<number[]>([]);
+  return () => {
+    const now = Date.now();
+    clicks.current = [...clicks.current.filter((time) => now - time < windowMs), now];
+    if (clicks.current.length >= count) {
+      clicks.current = [];
+      return true;
+    }
+    return false;
+  };
+}
+
+const LOGO = "zaid.seta";
+const COLOURS = ["#f472b6", "#facc15", "#a78bfa", "#fb923c", "#60a5fa", "#4ade80", "#f87171", "#5eead4"];
+
+// Every click on the logo spins one random character (letter or dot) into a new colour;
+// the colours stay until reload
+function Logo() {
+  const [colours, setColours] = useState<Record<number, string>>({});
+  const [spins, setSpins] = useState<Record<number, number>>({});
+
+  const onClick = () => {
+    const index = Math.floor(Math.random() * LOGO.length);
+    setColours((current) => {
+      const options = COLOURS.filter((colour) => colour !== current[index]);
+      return { ...current, [index]: options[Math.floor(Math.random() * options.length)] };
+    });
+    setSpins((current) => ({ ...current, [index]: (current[index] ?? 0) + 1 }));
+  };
+
+  return (
+    <span onClick={onClick}>
+      {[...LOGO].map((char, index) => (
+        <span
+          // Changing the key replays the spin on that character
+          key={`${index}-${spins[index] ?? 0}`}
+          className={`inline-block origin-[50%_60%] ${spins[index] ? "animate-[dot-spin_0.6s_cubic-bezier(0.2,0.7,0.2,1)]" : ""} ${
+            !colours[index] && char === "." ? "text-accent" : ""
+          }`}
+          style={colours[index] ? { color: colours[index] } : undefined}
+        >
+          {char}
+        </span>
+      ))}
+    </span>
+  );
 }
 
 function Breadcrumb({ pathname }: { pathname: string }) {
@@ -23,7 +74,7 @@ function Breadcrumb({ pathname }: { pathname: string }) {
             key={to}
             to={to}
             onClick={scrollToTop}
-            className={`truncate transition ${isLast ? "text-accent hover:text-accent/80" : "shrink-0 text-fg/45 hover:text-fg/70"}`}
+            className={`truncate transition ${isLast ? "text-accent hover:text-accent/80" : "shrink-0 text-subtle hover:text-fg/70"}`}
           >
             /{segment}
           </Link>
@@ -37,6 +88,7 @@ export default function Header() {
   const location = useLocation();
   const { theme, toggle } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
+  const toggleSpam = useRapidClicks(4, 3000);
 
   // Close the mobile menu on navigation
   useEffect(() => {
@@ -45,11 +97,17 @@ export default function Header() {
 
   const themeButton = (
     <button
-      onClick={toggle}
-      aria-label="Toggle theme"
-      className="rounded-md p-1 text-fg/50 transition hover:text-fg"
+      onClick={(event) => {
+        const rect = event.currentTarget.getBoundingClientRect();
+        toggle({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+        if (toggleSpam()) toast("you good?");
+      }}
+      aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+      className="rounded-md p-1 text-subtle transition hover:text-fg"
     >
-      {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+      <span key={theme} className="animate-spin-in block">
+        {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+      </span>
     </button>
   );
 
@@ -62,7 +120,7 @@ export default function Header() {
             onClick={scrollToTop}
             className="shrink-0 text-fg transition hover:text-fg/80"
           >
-            zaid<span className="text-accent">.</span>seta
+            <Logo />
           </Link>
           <Breadcrumb pathname={location.pathname} />
         </div>
