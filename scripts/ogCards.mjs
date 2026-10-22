@@ -33,5 +33,5 @@ const fill = (o) => page(o).replace("${size}", o.title.length > 18 ? "76" : "96"
 for (const p of projects) {
   fs.writeFileSync(`${out}/${p.slug}.html`, fill({ kicker: `CASE STUDY · ${p.date} · ${p.status.toUpperCase()}`, title: p.title, body: p.hook, tags: p.stack, url: `zaidseta.com/projects/${p.slug}` }));
 }
-fs.writeFileSync(`${out}/default.html`, fill({ kicker: "OPEN TO WINTER 2027 SWE CO-OP", title: "Zaid Seta", body: "Software developer building tools people actually use. Computer Science (Co-op) at McMaster.", tags: ["Python", "TypeScript", "Go", "React", "PostgreSQL", "Playwright"], url: "zaidseta.com" }));
+fs.writeFileSync(`${out}/default.html`, fill({ kicker: "OPEN TO WINTER & SUMMER 2027 SWE CO-OP", title: "Zaid Seta", body: "Software developer building tools people actually use. Computer Science (Co-op) at McMaster.", tags: ["Python", "TypeScript", "Go", "React", "PostgreSQL", "Playwright"], url: "zaidseta.com" }));
 console.log(fs.readdirSync(out));
