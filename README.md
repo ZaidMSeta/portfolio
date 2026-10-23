@@ -30,7 +30,10 @@ Personal portfolio site built with React, TypeScript, and Tailwind CSS.
 - **RoomRadar** — free rooms on campus right now, computed in the browser from `public/roomradar.json` (pulled from the RoomRadar repo once a term via script)
 
 The script-generated files under `src/data/` are committed, so the site builds
-and deploys without any secrets. Re-run the fetch scripts to refresh them.
+and deploys without any secrets. The `Refresh data` GitHub Action re-runs the fetch
+scripts every morning and commits anything new, which redeploys the site. It needs
+`HARDCOVER_API_TOKEN`, `TRAKT_CLIENT_ID`, `TRAKT_USERNAME` and `TMDB_API_KEY` as
+repository secrets; you can also run it by hand from the Actions tab.
 
 ## Getting Started
 
