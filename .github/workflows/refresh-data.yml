@@ -35,18 +35,23 @@ jobs:
 
       # Each source fails on its own, so one broken API doesn't block the rest
       - name: GitHub contributions
+        id: github
         run: npm run fetch:github
         continue-on-error: true
       - name: Chess rating history
+        id: chess
         run: npm run fetch:chess
         continue-on-error: true
       - name: Hardcover
+        id: hardcover
         run: npm run fetch:hardcover
         continue-on-error: true
       - name: Trakt
+        id: trakt
         run: npm run fetch:trakt
         continue-on-error: true
       - name: RoomRadar
+        id: rooms
         run: npm run fetch:rooms
         continue-on-error: true
 
@@ -62,3 +67,10 @@ jobs:
           git add src/data public/roomradar.json
           git commit -m "data: daily refresh"
           git push
+
+      # Still commit what worked, then go red so GitHub emails about the source that didn't
+      - name: Report failed sources
+        if: contains(join(steps.*.outcome, ','), 'failure')
+        run: |
+          echo "::error::A data source failed; check the steps above"
+          exit 1
