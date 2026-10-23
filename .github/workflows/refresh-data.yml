@@ -1,0 +1,64 @@
+# Refreshes the committed data files (reading, watching, chess, contributions, RoomRadar)
+# every day. A push to main redeploys the site on Vercel.
+name: Refresh data
+
+on:
+  schedule:
+    - cron: "17 9 * * *" # 5:17 AM Toronto (EDT), 4:17 AM in winter
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      HARDCOVER_API_TOKEN: ${{ secrets.HARDCOVER_API_TOKEN }}
+      TRAKT_CLIENT_ID: ${{ secrets.TRAKT_CLIENT_ID }}
+      TRAKT_USERNAME: ${{ secrets.TRAKT_USERNAME }}
+      TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Each source fails on its own, so one broken API doesn't block the rest
+      - name: GitHub contributions
+        run: npm run fetch:github
+        continue-on-error: true
+      - name: Chess rating history
+        run: npm run fetch:chess
+        continue-on-error: true
+      - name: Hardcover
+        run: npm run fetch:hardcover
+        continue-on-error: true
+      - name: Trakt
+        run: npm run fetch:trakt
+        continue-on-error: true
+      - name: RoomRadar
+        run: npm run fetch:rooms
+        continue-on-error: true
+
+      # A fresh fetchedAt alone isn't worth a commit and a redeploy
+      - name: Commit changes
+        run: |
+          if git diff --quiet -I '"fetchedAt"' -- src/data public/roomradar.json; then
+            echo "Nothing new"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data public/roomradar.json
+          git commit -m "data: daily refresh"
+          git push
