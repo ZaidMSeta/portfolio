@@ -17,7 +17,7 @@ Personal portfolio site built with React, TypeScript, and Tailwind CSS.
 - **About** — bio and interest cards (chess stats, current read, etc.)
 - **Projects** — full project grid with individual detail pages
 - **Experience** — work history
-- **Resume** — embedded PDF viewer with download
+- **Resume** — download or open the PDF
 
 ## Live Integrations
 
