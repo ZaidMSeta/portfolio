@@ -57,23 +57,16 @@ export function Hero() {
     <section className="relative isolate grid gap-12 pt-4 sm:pt-10 lg:grid-cols-[1fr_340px] lg:items-end">
       <div aria-hidden className="hero-backdrop pointer-events-none absolute -inset-x-4 -top-10 -bottom-10 -z-10 sm:-inset-x-6 lg:-inset-x-8" />
       <div>
-        <p style={delay(0)} className="animate-rise-in inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/10 px-3 py-1 font-mono text-xs text-accent">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
-          </span>
-          {site.status}
-        </p>
 
-        <h1 style={delay(80)} className="animate-rise-in mt-6 text-5xl tracking-tight text-fg sm:text-6xl lg:text-7xl">
+        <h1 style={delay(0)} className="animate-rise-in text-5xl tracking-tight text-fg sm:text-6xl lg:text-7xl">
           Zaid Seta
         </h1>
 
-        <p style={delay(160)} className="animate-rise-in mt-4 max-w-2xl text-xl font-medium tracking-tight text-fg/85 sm:text-2xl">
+        <p style={delay(80)} className="animate-rise-in mt-4 max-w-2xl text-xl font-medium tracking-tight text-fg/85 sm:text-2xl">
           Software developer building tools people actually use.
         </p>
 
-        <p style={delay(240)} className="animate-rise-in mt-4 max-w-xl text-base leading-7 text-fg/60">
+        <p style={delay(160)} className="animate-rise-in mt-4 max-w-xl text-base leading-7 text-fg/60">
           Computer Science at McMaster. I work across backend services, automation,
           and full-stack apps: a course planner used by 200+ students, a Playwright
           driver that entered 400+ league events, and production work for real clients.
