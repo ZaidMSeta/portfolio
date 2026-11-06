@@ -91,21 +91,24 @@ export default function Experience() {
 
           <div className="divide-y divide-fg/10 border-t border-fg/10">
             {earlier.map((role) => (
-              <div key={role.id} className="px-6 py-5">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <p className="text-sm font-medium text-fg">
-                    {role.title} <span className="text-subtle">· {role.company}</span>
-                  </p>
-                  <p className="font-mono text-xs text-subtle">{dateRange(role)}</p>
+              <div key={role.id} className="flex gap-4 px-6 py-5">
+                <CompanyLogo src={role.logo} company={role.company} className="h-9 w-9" />
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <p className="text-sm font-medium text-fg">
+                      {role.title} <span className="text-subtle">· {role.company}</span>
+                    </p>
+                    <p className="font-mono text-xs text-subtle">{dateRange(role)}</p>
+                  </div>
+                  <ul className="mt-3 space-y-2">
+                    {role.description.map((item) => (
+                      <li key={item} className="flex gap-3 text-sm leading-6 text-fg/60">
+                        <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-fg/35" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="mt-3 space-y-2">
-                  {role.description.map((item) => (
-                    <li key={item} className="flex gap-3 text-sm leading-6 text-fg/60">
-                      <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-fg/35" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
             ))}
           </div>
