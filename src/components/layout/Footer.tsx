@@ -12,7 +12,7 @@ const updated = new Date(year, month - 1, day).toLocaleDateString("en-US", {
 export default function Footer() {
   return (
     <footer className="mt-24 border-t border-fg/8">
-      <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
         <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">

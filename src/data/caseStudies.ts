@@ -279,12 +279,12 @@ export const caseStudies: Record<string, CaseStudy> = {
         body: "Added per-caption regeneration by tone, onboarding, draft autosave, an activity log with CSV export, and a plain-language pass over every label and message in the UI.",
       },
       {
-        when: "May",
+        when: "Late Apr",
         title: "The client's rules and a security pass",
         body: "Encoded the social lead's account rules with province detection, added a scheduled-posts view and a sales outreach feature, then hardened the app: per-session tokens, correct client IPs for rate limiting, CSV formula-injection protection, and request size limits.",
       },
       {
-        when: "May",
+        when: "End of Apr",
         title: "Handoff",
         body: "Ran QA with the owner and handed the tool over.",
       },

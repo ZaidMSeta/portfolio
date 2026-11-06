@@ -32,18 +32,14 @@ function CopyEmailButton() {
 export function ContactCTA() {
   return (
     <Reveal as="section" className="cta-tint relative overflow-hidden rounded-2xl border border-fg/10 card p-6 sm:p-10">
-      {/* Soft accent glow in the corner, echoing the hero status pill */}
+      {/* Soft accent glow in the corner */}
       <div
         aria-hidden
         className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-accent/10 blur-3xl"
       />
 
       <div className="relative max-w-3xl">
-        <p className="inline-flex items-center gap-2 font-mono text-xs text-accent">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-          {site.status}
-        </p>
-        <h2 className="mt-4 text-3xl tracking-tight text-fg sm:text-4xl">Let's talk.</h2>
+        <h2 className="text-3xl tracking-tight text-fg sm:text-4xl">Let's talk.</h2>
         <p className="mt-3 text-base leading-7 text-fg/65">
           {site.availability} Email is the fastest way to reach me.
         </p>
