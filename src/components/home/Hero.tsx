@@ -63,13 +63,13 @@ export function Hero() {
         </h1>
 
         <p style={delay(80)} className="animate-rise-in mt-4 max-w-2xl text-xl font-medium tracking-tight text-fg/85 sm:text-2xl">
-          Software developer building tools people actually use.
+          Computer Science student at McMaster University.
         </p>
 
         <p style={delay(160)} className="animate-rise-in mt-4 max-w-xl text-base leading-7 text-fg/60">
-          Computer Science at McMaster. I work across backend services, automation,
-          and full-stack apps: a course planner used by 200+ students, a Playwright
-          driver that entered 400+ league events, and production work for real clients.
+          I've done a mix of backend, automation, and full-stack work: a course planner
+          that 200+ students use, a Playwright script that entered 400+ events for a soccer
+          league, and websites for real clients.
         </p>
 
         <div style={delay(320)} className="animate-rise-in mt-8 flex flex-wrap items-center gap-3">

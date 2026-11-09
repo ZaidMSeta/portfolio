@@ -3,7 +3,6 @@ import { Link } from "react-router";
 import {
   BookOpen,
   CalendarDays,
-  ChessKnight,
   Clapperboard,
   Clock,
   Coffee,
@@ -308,7 +307,7 @@ function OffTheClockTile() {
 
         {ratings.length > 1 && (
           <OffTheClockRow
-            thumb={<ChessKnight size={16} className="text-accent" />}
+            thumb={cover("/interests/chess-knight.jpg")}
             label="chess · rapid"
             title={String(ratings[ratings.length - 1])}
             detail={`peak ${Math.max(...ratings)}`}
@@ -450,20 +449,10 @@ function LocationTile() {
     <div className="relative h-full min-h-[220px] overflow-hidden rounded-xl border border-fg/10 card">
       <iframe
         title="Map of Hamilton, Ontario"
-        src="https://www.openstreetmap.org/export/embed.html?bbox=-79.9294%2C43.2207%2C-79.8128%2C43.2907&layer=mapnik"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-79.932%2C43.225%2C-79.815%2C43.295&layer=mapnik&marker=43.2557%2C-79.8711"
         className="map-embed absolute inset-0 h-full w-full border-0"
         loading="lazy"
       />
-
-      {/* Our own pin over the map's centre (the bbox is centred on the marker), so it can be styled */}
-      <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2">
-        <span className="absolute -left-2 -top-1 h-4 w-4 animate-ping rounded-full bg-red-500/50" />
-        <MapPin
-          size={34}
-          strokeWidth={1.75}
-          className="absolute -left-[17px] -top-[33px] fill-red-500 text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.35)]"
-        />
-      </div>
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-bg via-bg/80 to-transparent p-4 pt-10">
         {lateNight && (
