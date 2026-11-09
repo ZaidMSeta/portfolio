@@ -15,12 +15,6 @@ export default function Projects() {
           {projects.length} projects · {ongoing} ongoing
         </p>
         <h1 className="text-4xl tracking-tight text-fg sm:text-5xl">Projects</h1>
-
-        <p className="max-w-3xl text-sm leading-7 text-fg/65 sm:text-base">
-          From a course planner 200+ McMaster students use to scheduling tools for a youth
-          soccer club. Each one has a write-up covering the problem, how it works, and what I
-          learned building it.
-        </p>
       </section>
 
       <section>

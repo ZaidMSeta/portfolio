@@ -41,7 +41,8 @@ export function ContactCTA() {
       <div className="relative max-w-3xl">
         <h2 className="text-3xl tracking-tight text-fg sm:text-4xl">Let's talk.</h2>
         <p className="mt-3 text-base leading-7 text-fg/65">
-          {site.availability} Email is the fastest way to reach me.
+          Looking for a Winter or Summer 2027 co-op! Please reach out through email or
+          LinkedIn.
         </p>
       </div>
 
