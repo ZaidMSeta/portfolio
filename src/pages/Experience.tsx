@@ -59,10 +59,6 @@ export default function Experience() {
         <h1 className="text-4xl tracking-tight text-fg sm:text-5xl">
           Experience
         </h1>
-
-        <p className="max-w-3xl text-sm leading-7 text-fg/65 sm:text-base">
-          Software work for clients, a nonprofit, a startup, and a local soccer club.
-        </p>
       </section>
 
       <section className="relative">

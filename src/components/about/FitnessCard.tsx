@@ -23,7 +23,7 @@ const todayNote: Record<string, string> = {
 };
 
 const goals = [
-  "Five sessions a week, every week",
+  "Hitting ALL 5 sessions a week",
   "A new PR on every big lift this term",
   "Not skipping the gym during exam season",
 ];
