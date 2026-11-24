@@ -16,7 +16,7 @@ export default function About() {
       <section className="space-y-5">
         <h2 className="text-2xl text-fg">Hi, I'm Zaid.</h2>
 
-        <div className="max-w-[68ch] space-y-4 text-base leading-7 text-fg/70">
+        <div className="max-w-[62ch] space-y-4 text-base leading-7 text-fg/70">
           <p>
             I'm studying Computer Science at McMaster. Most of what I build is
             full-stack, and the projects I'm proudest of are the ones people are still

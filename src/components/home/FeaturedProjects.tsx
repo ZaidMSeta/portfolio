@@ -72,7 +72,7 @@ export function FeaturedProjects() {
                         <dd className="font-display text-3xl text-fg">
                           <CountUp value={metric.value} />
                         </dd>
-                        <dd className="font-mono text-[11px] text-subtle">{metric.label}</dd>
+                        <dd className="font-mono text-xs text-subtle">{metric.label}</dd>
                       </div>
                     ))}
                   </dl>
