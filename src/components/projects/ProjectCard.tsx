@@ -27,7 +27,7 @@ export function ProjectCard({ project, wide = false }: ProjectCardProps) {
 
       <div className={`flex flex-1 flex-col p-5 ${wide ? "md:p-7" : ""}`}>
         <div className="mb-2 flex items-start justify-between gap-3">
-          <h3 className={`font-display text-xl text-fg ${wide ? "xl:text-2xl" : ""}`}>{project.title}</h3>
+          <h2 className={`font-display text-xl text-fg ${wide ? "xl:text-2xl" : ""}`}>{project.title}</h2>
           <span className="shrink-0 font-mono text-xs text-subtle">{project.date}</span>
         </div>
 
