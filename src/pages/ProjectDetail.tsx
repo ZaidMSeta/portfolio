@@ -82,7 +82,7 @@ function Prose({ paragraphs }: { paragraphs: string[] }) {
   return (
     <div className="space-y-4">
       {paragraphs.map((text) => (
-        <p key={text} className="text-base leading-8 text-fg/70">
+        <p key={text} className="max-w-[68ch] text-base leading-8 text-fg/70">
           {text}
         </p>
       ))}
@@ -193,7 +193,7 @@ function CaseStudyBody({ study }: { study: CaseStudy }) {
             <li key={item.title} className="border-l-2 border-accent/40 pl-5">
               {item.when && <p className="font-mono text-xs text-accent">{item.when}</p>}
               <h3 className="font-display text-lg text-fg">{item.title}</h3>
-              <p className="mt-1.5 text-base leading-7 text-fg/65">{item.body}</p>
+              <p className="mt-1.5 max-w-[68ch] text-base leading-7 text-fg/65">{item.body}</p>
             </li>
           ))}
         </ul>

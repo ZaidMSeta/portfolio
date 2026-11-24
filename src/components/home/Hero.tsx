@@ -13,6 +13,23 @@ import type { CSSProperties } from "react";
 import { Link } from "react-router";
 import { site } from "../../data/site";
 import { experiences } from "../../data/experience";
+import contributions from "../../data/contributions.json";
+
+// The last 30 weeks of real GitHub activity, drawn large and faint behind the hero
+const BACKDROP_WEEKS = 30;
+const backdropDays = contributions.days.slice(-BACKDROP_WEEKS * 7);
+
+function HeroBackdrop() {
+  return (
+    <div aria-hidden className="hero-backdrop pointer-events-none absolute -inset-x-4 -top-10 -bottom-10 -z-10 overflow-hidden sm:-inset-x-6 lg:-inset-x-8">
+      <div className="hero-contrib">
+        {backdropDays.map((day) => (
+          <span key={day.date} className={`hero-cell hero-l${day.level}`} />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function NowPanel() {
   const currentRole = experiences.find((role) => role.end === "Present");
@@ -29,7 +46,9 @@ function NowPanel() {
   ].filter(Boolean) as { icon: LucideIcon; label: string; value: string }[];
 
   return (
-    <div style={delay(400)} className="animate-rise-in rounded-2xl border border-fg/10 card p-5">
+    // Opaque base so the backdrop squares don't show through the translucent card
+    <div style={delay(400)} className="animate-rise-in rounded-2xl bg-bg">
+    <div className="rounded-2xl border border-fg/10 card p-5">
       <p className="text-xs font-medium uppercase tracking-[0.14em] text-subtle">Currently</p>
 
       <ul className="mt-4 space-y-4">
@@ -46,6 +65,7 @@ function NowPanel() {
         ))}
       </ul>
     </div>
+    </div>
   );
 }
 
@@ -55,7 +75,7 @@ const delay = (ms: number) => ({ "--delay": `${ms}ms` }) as CSSProperties;
 export function Hero() {
   return (
     <section className="relative isolate grid gap-12 pt-4 sm:pt-10 lg:grid-cols-[1fr_340px] lg:items-end">
-      <div aria-hidden className="hero-backdrop pointer-events-none absolute -inset-x-4 -top-10 -bottom-10 -z-10 sm:-inset-x-6 lg:-inset-x-8" />
+      <HeroBackdrop />
       <div>
 
         <h1 style={delay(0)} className="animate-rise-in text-5xl tracking-tight text-fg sm:text-6xl lg:text-7xl">
