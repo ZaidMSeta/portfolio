@@ -39,7 +39,7 @@ export function ProjectCard({ project, wide = false }: ProjectCardProps) {
               <div key={metric.label}>
                 <dt className="sr-only">{metric.label}</dt>
                 <dd className="font-display text-2xl text-fg">{metric.value}</dd>
-                <dd className="font-mono text-[11px] text-subtle">{metric.label}</dd>
+                <dd className="font-mono text-xs text-subtle">{metric.label}</dd>
               </div>
             ))}
           </dl>

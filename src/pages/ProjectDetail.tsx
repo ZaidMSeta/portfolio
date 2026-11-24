@@ -82,7 +82,7 @@ function Prose({ paragraphs }: { paragraphs: string[] }) {
   return (
     <div className="space-y-4">
       {paragraphs.map((text) => (
-        <p key={text} className="max-w-[68ch] text-base leading-8 text-fg/70">
+        <p key={text} className="max-w-[62ch] text-base leading-8 text-fg/70">
           {text}
         </p>
       ))}
@@ -104,7 +104,7 @@ function FlowDiagram({ steps }: { steps: CaseStudy["flow"] }) {
             <span className="font-mono text-xs text-accent">{String(index + 1).padStart(2, "0")}</span>
             <h3 className="mt-2 font-display text-lg leading-tight text-fg">{step.title}</h3>
             <p className="mt-2 text-sm leading-6 text-fg/60">{step.detail}</p>
-            <p className="mt-auto pt-3 font-mono text-[11px] text-subtle">{step.tech}</p>
+            <p className="mt-auto pt-3 font-mono text-xs text-subtle">{step.tech}</p>
           </div>
           {index < steps.length - 1 && (
             <span
@@ -193,7 +193,7 @@ function CaseStudyBody({ study }: { study: CaseStudy }) {
             <li key={item.title} className="border-l-2 border-accent/40 pl-5">
               {item.when && <p className="font-mono text-xs text-accent">{item.when}</p>}
               <h3 className="font-display text-lg text-fg">{item.title}</h3>
-              <p className="mt-1.5 max-w-[68ch] text-base leading-7 text-fg/65">{item.body}</p>
+              <p className="mt-1.5 max-w-[62ch] text-base leading-7 text-fg/65">{item.body}</p>
             </li>
           ))}
         </ul>
@@ -286,7 +286,7 @@ export default function ProjectDetail() {
                 <dd className="font-display text-3xl text-fg sm:text-4xl">
                   <CountUp value={stat.value} />
                 </dd>
-                <dd className="mt-1 font-mono text-[11px] text-subtle">{stat.label}</dd>
+                <dd className="mt-1 font-mono text-xs text-subtle">{stat.label}</dd>
               </div>
             ))}
           </dl>

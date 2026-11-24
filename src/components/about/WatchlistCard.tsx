@@ -37,6 +37,7 @@ export function WatchlistCard() {
                   <img
                     src={item.posterUrl}
                     alt={item.title}
+                    loading="lazy"
                     className="h-full w-full object-cover"
                   />
                 ) : (
