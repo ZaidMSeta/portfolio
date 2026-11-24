@@ -227,9 +227,9 @@ function ContributionsTile() {
                 />
               ))}
               {/* Label the first week of each month; text overflows into the next columns */}
-              <span className="relative mt-1 h-3">
+              <span className="relative mt-1 h-3.5">
                 {month !== previousMonth && index > 0 && (
-                  <span className="absolute left-0 top-0 whitespace-nowrap font-mono text-[10px] leading-3 text-subtle">
+                  <span className="absolute left-0 top-0 whitespace-nowrap font-mono text-[11px] leading-3.5 text-subtle">
                     {MONTHS[month]}
                   </span>
                 )}
@@ -239,7 +239,7 @@ function ContributionsTile() {
         })}
       </div>
 
-      <div className="mt-3 flex items-center justify-end gap-1 font-mono text-[10px] text-subtle" aria-hidden>
+      <div className="mt-3 flex items-center justify-end gap-1 font-mono text-[11px] text-subtle" aria-hidden>
         less
         {LEVEL_CLASSES.map((className) => (
           <span key={className} className={`h-2.5 w-2.5 rounded-[2px] ${className}`} />
@@ -268,7 +268,7 @@ function OffTheClockRow({
         {thumb}
       </div>
       <div className="min-w-0 flex-1">
-        <p className="font-mono text-[10px] text-subtle">{label}</p>
+        <p className="font-mono text-[11px] text-subtle">{label}</p>
         <p className="truncate text-sm font-medium text-fg/85">{title}</p>
         <p className="truncate text-xs text-subtle">{detail}</p>
       </div>

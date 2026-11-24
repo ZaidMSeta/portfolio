@@ -20,7 +20,7 @@ function CopyEmailButton() {
   return (
     <button
       onClick={copy}
-      aria-label={copied ? "Email copied" : "Copy email address"}
+      aria-label={copied ? "Email copied" : `Copy email address ${site.email}`}
       className="col-span-2 inline-flex items-center justify-center gap-2 rounded-lg border border-fg/15 px-4 py-2 font-mono text-sm text-fg/80 transition hover:border-fg/30 hover:text-fg"
     >
       {copied ? <Check size={14} className="text-accent" /> : <Copy size={14} />}

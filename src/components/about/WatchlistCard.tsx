@@ -26,11 +26,11 @@ export function WatchlistCard() {
       {items.length === 0 ? (
         <p className="text-sm text-subtle">Nothing tracked yet.</p>
       ) : (
-        <div className="flex flex-1 flex-col gap-3">
+        <div className="flex flex-1 flex-col divide-y divide-fg/8">
           {items.map((item) => (
             <div
               key={`${item.type}-${item.title}-${item.watchedAt}`}
-              className="flex flex-1 items-center gap-3 rounded-lg border border-fg/10 bg-fg/[0.03] p-3"
+              className="flex flex-1 items-center gap-3 py-3 first:pt-0 last:pb-0"
             >
               <div className="h-20 w-14 shrink-0 overflow-hidden rounded-md border border-fg/5">
                 {item.posterUrl ? (

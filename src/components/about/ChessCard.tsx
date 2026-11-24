@@ -85,7 +85,8 @@ export function ChessCard() {
         <h3 className="text-sm font-medium text-fg">Chess</h3>
       </div>
 
-      <div className="mb-5 rounded-lg border border-fg/10 bg-fg/[0.03] p-4">
+      <div className="divide-y divide-fg/8">
+      <div className="pb-5">
         <div className="mb-3 flex items-center justify-between">
           <p className="text-sm text-fg/70">Rating over time</p>
           <div className="text-right">
@@ -98,7 +99,7 @@ export function ChessCard() {
           </div>
         </div>
 
-        <div className="h-36 min-w-0 overflow-hidden rounded-md bg-fg/[0.02] text-fg">
+        <div className="h-36 min-w-0 overflow-hidden text-fg">
           {loading ? (
             <div className="h-full w-full animate-pulse bg-fg/5" />
           ) : (
@@ -114,7 +115,7 @@ export function ChessCard() {
                 <XAxis
                   dataKey="date"
                   tickFormatter={formatAxisDate}
-                  tick={{ fontSize: 10, fill: "currentColor", opacity: 0.4 }}
+                  tick={{ fontSize: 11, fill: "var(--color-subtle)" }}
                   tickLine={false}
                   axisLine={false}
                   interval="preserveStartEnd"
@@ -140,21 +141,21 @@ export function ChessCard() {
         </div>
       </div>
 
-      <div className="mb-5 grid grid-cols-2 gap-3">
-        <div className="rounded-lg border border-fg/10 bg-fg/[0.03] p-3">
+      <div className="grid grid-cols-2 gap-3 py-5">
+        <div>
           <p className="mb-1 text-xs text-subtle">Openings as White</p>
           <p className="text-sm text-fg">Vienna Gambit</p>
           <p className="text-sm text-fg">Vienna Game</p>
         </div>
 
-        <div className="rounded-lg border border-fg/10 bg-fg/[0.03] p-3">
+        <div>
           <p className="mb-1 text-xs text-subtle">Openings as Black</p>
           <p className="text-sm text-fg">Caro-Kann</p>
           <p className="text-sm text-fg">King&apos;s Indian</p>
         </div>
       </div>
 
-      <div className="rounded-lg border border-fg/10 bg-fg/[0.03] p-3">
+      <div className="pt-5">
         <p className="mb-1 text-xs text-subtle">Last Game</p>
 
         {loading && <p className="text-sm text-fg/60">Loading...</p>}
@@ -180,6 +181,7 @@ export function ChessCard() {
         {!loading && !error && !data?.lastGame && (
           <p className="text-sm text-fg/60">No recent rapid game found.</p>
         )}
+      </div>
       </div>
     </article>
   );
