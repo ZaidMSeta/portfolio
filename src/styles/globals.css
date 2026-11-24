@@ -1,6 +1,4 @@
-@import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
-
+/* Fonts are linked from index.html so they start loading alongside this file */
 @import "tailwindcss";
 
 /* Register theme colors — dark is default, .light overrides below */
@@ -54,24 +52,55 @@
 .contrib-l3 { background-color: color-mix(in srgb, var(--color-accent) var(--contrib-3), transparent); }
 .contrib-l4 { background-color: var(--color-accent); }
 
-/* Hero backdrop: a teal glow and a faint grid that fades out, echoing the link-preview cards */
-.hero-backdrop {
-  background-image:
-    radial-gradient(ellipse 60% 70% at 15% 20%, color-mix(in srgb, var(--color-accent) 16%, transparent), transparent 70%),
-    linear-gradient(color-mix(in srgb, var(--color-fg) 5%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--color-fg) 5%, transparent) 1px, transparent 1px);
-  background-size: 100% 100%, 48px 48px, 48px 48px;
+/* Hero backdrop: a teal glow plus the last 30 weeks of real GitHub contributions,
+   drawn as large faint squares that fade out toward the text */
+.hero-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(ellipse 60% 70% at 15% 20%, color-mix(in srgb, var(--color-accent) 16%, transparent), transparent 70%);
   mask-image:
     linear-gradient(to right, transparent, #000 18%, #000 55%, transparent 95%),
     linear-gradient(to bottom, transparent, #000 20%, #000 60%, transparent);
   mask-composite: intersect;
 }
 
-.light .hero-backdrop {
-  background-image:
-    radial-gradient(ellipse 60% 70% at 15% 20%, color-mix(in srgb, var(--color-accent) 13%, transparent), transparent 70%),
-    linear-gradient(color-mix(in srgb, var(--color-fg) 6%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--color-fg) 6%, transparent) 1px, transparent 1px);
+.light .hero-backdrop::before {
+  background-image: radial-gradient(ellipse 60% 70% at 15% 20%, color-mix(in srgb, var(--color-accent) 13%, transparent), transparent 70%);
+}
+
+.hero-contrib {
+  --cell: 40px;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  translate: 0 -50%;
+  display: grid;
+  grid-template-rows: repeat(7, var(--cell));
+  grid-auto-flow: column;
+  grid-auto-columns: var(--cell);
+  gap: 6px;
+  mask-image:
+    linear-gradient(to right, transparent 5%, #000 55%, #000 88%, transparent),
+    linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent);
+  mask-composite: intersect;
+}
+
+.hero-cell {
+  border-radius: 6px;
+}
+
+/* Quiet steps of the accent; empty days stay empty so it reads as data, not a grid */
+.hero-l1 { background: color-mix(in srgb, var(--color-accent) 7%, transparent); }
+.hero-l2 { background: color-mix(in srgb, var(--color-accent) 11%, transparent); }
+.hero-l3 { background: color-mix(in srgb, var(--color-accent) 16%, transparent); }
+.hero-l4 { background: color-mix(in srgb, var(--color-accent) 22%, transparent); }
+
+/* Below desktop the squares would sit behind the name; the glow is enough there */
+@media (max-width: 1023px) {
+  .hero-contrib {
+    display: none;
+  }
 }
 
 /* The closing contact block gets a light teal wash in the light theme */
@@ -155,6 +184,11 @@
 
   section {
     scroll-margin-top: 100px;
+  }
+
+  /* Avoid a lone word on the last line of paragraphs */
+  p {
+    text-wrap: pretty;
   }
 
   /* Page and section headings use the display face */
@@ -246,21 +280,59 @@
   mix-blend-mode: normal;
 }
 
+/* Reduced motion: drop movement but keep short fades, so state changes still read */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    animation-delay: 0ms !important;
-    transition-duration: 0.01ms !important;
-    transition-delay: 0ms !important;
-    scroll-behavior: auto !important;
+  html {
+    scroll-behavior: auto;
   }
 
-  .reveal,
-  .reveal .contrib-cell {
-    opacity: 1;
+  .reveal {
     transform: none;
+    transition: opacity 0.2s ease, border-color 0.15s ease;
+    transition-delay: 0ms;
+  }
+
+  .reveal .contrib-cell,
+  .reveal.is-visible .contrib-cell {
+    opacity: 1;
+    animation: none;
+  }
+
+  .animate-page-in,
+  .animate-rise-in,
+  .animate-spin-in {
+    animation-name: fade-in;
+    animation-duration: 0.2s;
+    animation-delay: 0ms;
+  }
+
+  /* Decorative loops and bursts have no state to convey */
+  [class*="dot-spin"],
+  [class*="drift-up"],
+  .animate-pulse,
+  .animate-ping,
+  .animate-spin {
+    animation: none;
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Print (and save-as-PDF): show everything the scroll reveals would have hidden */
+@media print {
+  .reveal,
+  .reveal .contrib-cell,
+  .animate-page-in,
+  .animate-rise-in {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  header.sticky {
+    position: static;
   }
 }

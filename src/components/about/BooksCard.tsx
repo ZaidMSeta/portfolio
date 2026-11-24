@@ -12,7 +12,7 @@ function BookCover({ book }: { book: HardcoverBook | null }) {
 
   if (!book) {
     return (
-      <div className="flex h-20 w-14 shrink-0 items-center justify-center rounded-md border border-fg/10 bg-fg/[0.03] text-[10px] text-subtle">
+      <div className="flex h-20 w-14 shrink-0 items-center justify-center rounded-md border border-fg/10 bg-fg/[0.03] text-[11px] text-subtle">
         No book
       </div>
     );
@@ -20,7 +20,7 @@ function BookCover({ book }: { book: HardcoverBook | null }) {
 
   if (!imageUrl) {
     return (
-      <div className="flex h-20 w-14 shrink-0 items-center justify-center rounded-md border border-fg/10 bg-fg/[0.03] text-[10px] text-subtle">
+      <div className="flex h-20 w-14 shrink-0 items-center justify-center rounded-md border border-fg/10 bg-fg/[0.03] text-[11px] text-subtle">
         No cover
       </div>
     );
@@ -46,7 +46,8 @@ export function BooksCard() {
         <h3 className="text-sm font-medium text-fg">Recently Read</h3>
       </div>
 
-      <div className="mb-5 rounded-lg border border-fg/10 bg-fg/[0.03] p-4">
+      <div className="divide-y divide-fg/8">
+      <div className="pb-5">
         <p className="mb-3 text-xs text-subtle">Currently Reading</p>
 
         {data.currentRead ? (
@@ -69,7 +70,7 @@ export function BooksCard() {
         )}
       </div>
 
-      <div className="rounded-lg border border-fg/10 bg-fg/[0.03] p-4">
+      <div className="pt-5">
         <p className="mb-3 text-xs text-subtle">Last Finished</p>
 
         {data.lastFinished ? (
@@ -88,6 +89,7 @@ export function BooksCard() {
         ) : (
           <p className="text-sm text-fg/60">No finished books yet.</p>
         )}
+      </div>
       </div>
     </article>
   );

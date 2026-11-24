@@ -103,7 +103,7 @@ export default function Header() {
         if (toggleSpam()) toast("you good?");
       }}
       aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-      className="rounded-md p-1 text-subtle transition hover:text-fg"
+      className="-m-2.5 flex h-11 w-11 items-center justify-center rounded-md text-subtle transition hover:text-fg sm:m-0 sm:h-auto sm:w-auto sm:p-1"
     >
       <span key={theme} className="animate-spin-in block">
         {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
@@ -140,13 +140,13 @@ export default function Header() {
           {themeButton}
         </nav>
 
-        <div className="flex items-center gap-2 sm:hidden">
+        <div className="flex items-center gap-5 sm:hidden">
           {themeButton}
           <button
             onClick={() => setMenuOpen((open) => !open)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            className="rounded-md p-1 text-fg/70 transition hover:text-fg"
+            className="-m-2.5 flex h-11 w-11 items-center justify-center rounded-md text-fg/70 transition hover:text-fg"
           >
             {menuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
