@@ -34,7 +34,7 @@ export const projects: Project[] = [
     liveUrl: "https://mac-track.com",
     metrics: [
       { value: "200+", label: "students using it" },
-      { value: "4", label: "person team" },
+      { value: "3", label: "person team" },
     ],
     status: "Ongoing",
     date: "2026",
@@ -53,7 +53,7 @@ export const projects: Project[] = [
       "Professor information and review-related features",
     ],
     reflection:
-      "MacTrack has been one of my strongest experiences in building practical full-stack software. Built with a team of four, it pushed me to think more carefully about structure, usability, and how to design around real student workflows instead of just isolated features. I'm currently migrating the dashboard and degree planner into a single view using a strangler-fig pattern, and running Dependabot security sweeps across the Go, Python, and frontend dependencies.",
+      "MacTrack has been one of my strongest experiences in building practical full-stack software. Built with a team of three, it pushed me to think more carefully about structure, usability, and how to design around real student workflows instead of just isolated features. I'm currently migrating the dashboard and degree planner into a single view using a strangler-fig pattern, and running Dependabot security sweeps across the Go, Python, and frontend dependencies.",
   },
   {
     id: "roomradar",
@@ -146,13 +146,13 @@ export const projects: Project[] = [
     whyBuilt:
       "Their previous site was slow and visually dated, and the people it needed to reach were families making a hard decision under stress. The rebuild was about making the place feel trustworthy and making it easy to take the next step.",
     features: [
-      "Eleven pages covering the community, care approach, suites, dining, and admissions",
+      "Ten pages covering the community, care approach, suites, dining, and admissions",
       "Tour booking as the primary conversion path",
       "Verification scripts enforcing byte-identical navigation and footers across every page",
       "Verified each release across mobile, tablet, and desktop",
     ],
     reflection:
-      "This was my first sustained client relationship rather than a one-off build. Sixteen rounds of review taught me more about scoping and translating vague feedback into concrete work than any amount of solo building would have.",
+      "This was my first sustained client relationship rather than a one-off build. Fifteen rounds of review taught me more about scoping and translating vague feedback into concrete work than any amount of solo building would have.",
   },
   {
     id: "cmta-event-tool",

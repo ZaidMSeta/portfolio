@@ -16,7 +16,7 @@ export type CaseStudy = {
 
 export const caseStudies: Record<string, CaseStudy> = {
   mactrack: {
-    role: "Full-stack developer, team of 4",
+    role: "Full-stack developer, team of 3",
     timeline: "Feb 2026 – present",
     stats: [
       { value: "200+", label: "students using it" },
@@ -316,8 +316,8 @@ export const caseStudies: Record<string, CaseStudy> = {
     role: "Web developer, sole developer for the client",
     timeline: "Jun 2026 – present",
     stats: [
-      { value: "11", label: "pages" },
-      { value: "16", label: "review rounds" },
+      { value: "10", label: "pages" },
+      { value: "15", label: "review rounds" },
       { value: "3", label: "screen sizes checked every round" },
       { value: "2", label: "sites for one client" },
     ],
@@ -411,7 +411,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     },
     reflection: [
       "Ressam is my first long-running client project, and the code was rarely the hard part. Turning an hour of feedback into specific, checkable changes was.",
-      "Building the checks early paid off. Sixteen rounds in, the header and footer are still identical on every page, and a round can't go to the client with a broken layout on a phone.",
+      "Building the checks early paid off. Fifteen rounds in, the header and footer are still identical on every page, and a round can't go to the client with a broken layout on a phone.",
     ],
   },
   "mhusc-scheduling": {

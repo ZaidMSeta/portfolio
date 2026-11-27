@@ -22,7 +22,7 @@ export const experiences: Experience[] = [
     start: "2026-06",
     end: "Present",
     description: [
-      "Designing and building an 11-page site for a memory care community through 16 review rounds, ahead of launch.",
+      "Designing and building a 10-page site for a memory care community through 15 review rounds, ahead of launch.",
       "Run weekly client meetings, translating non-technical feedback into scoped build plans and verifying each release across mobile, tablet, and desktop.",
       "Wrote verification scripts that enforce byte-identical navigation and footers across every page, catching regressions before they reach the client.",
     ],
