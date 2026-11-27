@@ -82,7 +82,7 @@ export const projects: Project[] = [
     features: [
       "Automated Playwright script that scrapes university timetable data and transforms raw XML into room-centric availability JSON",
       "Normalized large timetable datasets into a queryable format supporting real-time filtering by building, day, and time",
-      "Resumable, read-only scrape that refreshes the whole term in one run",
+      "Scheduled as a GitHub Actions cron job, so room data refreshes without manual runs",
       "A simple interface focused on speed and usability",
     ],
     reflection:
@@ -128,7 +128,7 @@ export const projects: Project[] = [
     hook: "A calm, trustworthy site for a Hamilton memory care community, built around helping families book a tour. Launching soon.",
     description:
       "A rebuild of the web presence for a memory care and dementia community, built around helping families book a tour. Pre-launch.",
-    stack: ["HTML", "Tailwind", "JavaScript", "Playwright", "Python", "Astro"],
+    stack: ["React", "Tailwind", "JavaScript", "Playwright", "Python", "Astro"],
     image: "/projects/ressam-gardens.png",
     repoUrl: "",
     liveUrl: "",
@@ -142,7 +142,7 @@ export const projects: Project[] = [
     summary:
       "A calm, trustworthy site for a memory care community, designed around the adult children researching care for a parent. In progress ahead of launch.",
     whatItIs:
-      "Ressam Gardens is a memory care and dementia community in Hamilton. I rebuilt their site from the ground up: ten pages covering the community, care model, and admissions, with tour booking as the main conversion path.",
+      "Ressam Gardens is a memory care and dementia community in Hamilton. I rebuilt their site from the ground up as a ten-page React site covering the community, care model, and admissions, with tour booking as the main conversion path.",
     whyBuilt:
       "Their previous site was slow and visually dated, and the people it needed to reach were families making a hard decision under stress. The rebuild was about making the place feel trustworthy and making it easy to take the next step.",
     features: [

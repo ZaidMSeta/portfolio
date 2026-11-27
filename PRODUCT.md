@@ -27,7 +27,7 @@ Undecided. The user hasn't chosen what the site should claim that another CS stu
 
 ## Capabilities and Constraints
 
-- Stack: React 19, TypeScript, React Router 7, Tailwind CSS 4, Recharts, Vite. Deployed on Vercel (live at zaid-seta-portfolio.vercel.app). Canonical domain zaidseta.com is planned but not live yet.
+- Stack: React 19, TypeScript, React Router 7, Tailwind CSS 4, Recharts, Vite. Deployed on Vercel at zaidseta.com (www and the old zaid-seta-portfolio.vercel.app address 308-redirect to it).
 - Pages: Home, About, Projects, project case studies (MacTrack, RoomRadar, MHUSC Field Scheduler, Ressam Gardens, CMTA Event Automation Tool), Experience, Resume, 404.
 - Light and dark themes, plus following the system theme.
 - Build-time data lives in `src/data/`; the site must build without secrets.
@@ -45,7 +45,7 @@ Undecided. The user hasn't chosen what the site should claim that another CS stu
 
 - Projects with case studies: MacTrack (private repo, no code link), RoomRadar, MHUSC Field Scheduler, Ressam Gardens (in progress; no live link until the new site launches), CMTA Event Automation Tool. Data in `src/data/projects.ts` and `src/data/caseStudies.ts`.
 - Experience: Ressam Gardens, Mount Hamilton United SC, Canadian Motorcycle Tourism Association, Morphace Skincare, plus earlier roles. Data in `src/data/experience.ts`.
-- Resume: `public/resume.pdf`.
+- Resume: `public/Zaid_Seta_Resume.pdf` (built from the career-ops repo; `/resume.pdf` redirects to it).
 - Missing for now: logos for Ressam Gardens, MHUSC, and CMTA (initials fallback); screenshots for Ressam, CMTA, MHUSC, and a fresh RoomRadar screenshot.
 - Don't add: client testimonials, awards, volunteer or MSA roles, a photo of Zaid, or invented metrics.
 

@@ -27,5 +27,5 @@ export const site = {
   },
 
   repo: "https://github.com/ZaidMSeta/portfolio",
-  resume: "/resume.pdf",
+  resume: "/Zaid_Seta_Resume.pdf",
 };

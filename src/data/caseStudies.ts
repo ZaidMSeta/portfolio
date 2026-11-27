@@ -139,9 +139,9 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     flow: [
       {
-        title: "Log in and pick the term",
-        detail: "A one-time login saves a session, since the timetable hides room locations from guests. The term is chosen by today's date.",
-        tech: "Playwright",
+        title: "Run on a schedule",
+        detail: "A GitHub Actions cron job starts the scrape, so room data refreshes without manual runs. A saved login session gets past the guest view, which hides room locations, and the term is chosen by today's date.",
+        tech: "GitHub Actions · Playwright",
       },
       {
         title: "Fetch every course",

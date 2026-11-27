@@ -14,7 +14,7 @@ export default function Resume() {
         <div className="flex flex-wrap gap-3">
           <a
             href={resumeUrl}
-            download="Zaid-Seta-Resume.pdf"
+            download="Zaid_Seta_Resume.pdf"
             className="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-bg transition hover:bg-accent/85"
           >
             <Download size={16} />
@@ -37,7 +37,7 @@ export default function Resume() {
         <object data={resumeUrl} type="application/pdf" className="h-full w-full">
           <p className="p-4 text-sm text-fg/65">
             Your browser can't preview PDFs.
-            <a href={resumeUrl} download className="ml-1 text-fg underline">
+            <a href={resumeUrl} download="Zaid_Seta_Resume.pdf" className="ml-1 text-fg underline">
               Download the resume instead.
             </a>
           </p>

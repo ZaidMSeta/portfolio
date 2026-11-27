@@ -2,7 +2,7 @@
 
 <p align="center">
   My personal site: projects, work, and a few live tiles about what I've been up to.<br>
-  <a href="https://zaid-seta-portfolio.vercel.app"><strong>zaid-seta-portfolio.vercel.app</strong></a>
+  <a href="https://zaidseta.com"><strong>zaidseta.com</strong></a>
 </p>
 
 <p align="center">
