@@ -34,17 +34,23 @@ async function fetchTraktHistory() {
 
 async function fetchTmdbPoster(tmdbId, type) {
   const endpoint = type === "movie" ? "movie" : "tv";
-  const res = await fetch(
-    `https://api.themoviedb.org/3/${endpoint}/${tmdbId}?language=en-US`,
-    {
-      headers: {
-        Authorization: `Bearer ${TMDB_API_KEY}`,
-        accept: "application/json",
-      },
-    }
-  );
+  // Accepts either the v3 API key (32 hex chars, sent as a query param)
+  // or the v4 read access token (a JWT, sent as a Bearer header).
+  const isV3Key = /^[a-f0-9]{32}$/i.test(TMDB_API_KEY);
+  const url = new URL(`https://api.themoviedb.org/3/${endpoint}/${tmdbId}`);
+  url.searchParams.set("language", "en-US");
+  if (isV3Key) url.searchParams.set("api_key", TMDB_API_KEY);
+  const res = await fetch(url, {
+    headers: {
+      ...(isV3Key ? {} : { Authorization: `Bearer ${TMDB_API_KEY}` }),
+      accept: "application/json",
+    },
+  });
 
-  if (!res.ok) return null;
+  if (!res.ok) {
+    console.warn(`TMDB ${res.status} for ${endpoint}/${tmdbId}`);
+    return null;
+  }
   const data = await res.json();
   return data.poster_path ? `${TMDB_IMAGE_BASE}${data.poster_path}` : null;
 }
