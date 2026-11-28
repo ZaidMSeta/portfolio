@@ -1,7 +1,8 @@
 import { Link } from "react-router";
 import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
 import { projects } from "../../data/projects";
-import { ProjectImage, hasScreenshot } from "../ProjectImage";
+import { ProjectImage } from "../ProjectImage";
+import { hasScreenshot } from "../../lib/utils/projectShots";
 import { TechTags } from "../TechTag";
 import { Reveal } from "../motion/Reveal";
 import { CountUp } from "../motion/CountUp";

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { useTheme } from "../../hooks/useTheme";
@@ -91,9 +91,11 @@ export default function Header() {
   const toggleSpam = useRapidClicks(4, 3000);
 
   // Close the mobile menu on navigation
-  useEffect(() => {
+  const [menuPath, setMenuPath] = useState(location.pathname);
+  if (menuPath !== location.pathname) {
+    setMenuPath(location.pathname);
     setMenuOpen(false);
-  }, [location.pathname]);
+  }
 
   const themeButton = (
     <button
