@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useInView } from "./Reveal";
+import { useInView } from "../../hooks/useInView";
 
 const DURATION_MS = 1100;
 
@@ -16,15 +16,11 @@ export function CountUp({ value }: { value: string }) {
   const parsed = parse(value);
   const { ref, inView } = useInView<HTMLSpanElement>();
   const [current, setCurrent] = useState(0);
+  const reduced = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   useEffect(() => {
     const target = parse(value)?.target;
-    if (!inView || target === undefined) return;
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setCurrent(target);
-      return;
-    }
+    if (!inView || target === undefined || reduced) return;
 
     let frame = 0;
     const start = performance.now();
@@ -38,11 +34,12 @@ export function CountUp({ value }: { value: string }) {
 
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [inView, value]);
+  }, [inView, value, reduced]);
 
   if (!parsed) return <span ref={ref}>{value}</span>;
 
-  const number = parsed.grouped ? current.toLocaleString("en-US") : String(current);
+  const shown = reduced && inView ? parsed.target : current;
+  const number = parsed.grouped ? shown.toLocaleString("en-US") : String(shown);
 
   return (
     <span ref={ref} className="tabular-nums">

@@ -3,7 +3,7 @@ import { getTraktData, type TraktItem } from "../../lib/utils/trakt";
 
 const { items } = getTraktData();
 
-function PosterFallback({ title, type }: { title: string; type: TraktItem["type"] }) {
+function PosterFallback({ type }: { type: TraktItem["type"] }) {
   return (
     <div className="flex h-full w-full items-center justify-center bg-fg/[0.04]">
       {type === "movie" ? (
@@ -41,7 +41,7 @@ export function WatchlistCard() {
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  <PosterFallback title={item.title} type={item.type} />
+                  <PosterFallback type={item.type} />
                 )}
               </div>
 
